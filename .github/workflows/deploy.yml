@@ -6,7 +6,8 @@
 #   FTP_SERVER     z. B. heger.earth (oder der FTP-Server aus dem Control Panel)
 #   FTP_USERNAME   FTP-Benutzer aus dem Control Panel (Modul "FTP")
 #   FTP_PASSWORD   Passwort dieses FTP-Benutzers
-# Optionale Repository-Variable:
+# Optionale Repository-Variablen (Settings → Secrets and variables → Actions → Variables):
+#   FTP_PORT       FTP-Port, Standard 21
 #   FTP_WEBROOT    Pfad des Webordners aus Sicht des FTP-Benutzers, Standard "www/"
 
 name: Deploy
@@ -51,6 +52,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
+          port: ${{ vars.FTP_PORT || 21 }}
           local-dir: ./sites/${{ matrix.site }}/
           server-dir: ${{ vars.FTP_WEBROOT || 'www/' }}${{ matrix.site }}/
           # Merkt sich auf dem Server, was schon oben ist, und lädt nur Änderungen hoch.
