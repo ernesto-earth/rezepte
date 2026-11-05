@@ -67,8 +67,9 @@ jobs:
           fail=0
           for dir in sites/*/; do
             site=$(basename "$dir")
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://heger.earth/${site}/")
-            echo "https://heger.earth/${site}/ → HTTP $code"
+            # http statt https: heger.earth hat derzeit kein gültiges SSL-Zertifikat
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://heger.earth/${site}/" || true)
+            echo "http://heger.earth/${site}/ → HTTP $code"
             [ "$code" = "200" ] || fail=1
           done
           exit $fail
