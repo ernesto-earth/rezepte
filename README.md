@@ -27,8 +27,12 @@ Der Ordnername `claude-seite` ist historisch; er wird von Chief of Staff referen
 1. Original-PDF nach `pdf/`, Foto (verkleinert) nach `claude-seite/img/`.
 2. Eintrag in `claude-seite/rezepte.json` anlegen (gleiche Felder wie die vorhandenen).
 3. Optional lokal prüfen: im Ordner `claude-seite` `node build.mjs` ausführen, `dist/index.html` im Browser öffnen.
-4. Committen und pushen. Die Action baut und veröffentlicht; ein grüner Haken unter **Actions** heißt: online.
-5. `STATUS.md` aktualisieren.
+4. `STATUS.md` aktualisieren.
+5. In **GitHub Desktop** (Repository „rezepte“ auswählen): links erscheinen die geänderten Dateien.
+   Unten links eine kurze Beschreibung eintragen (z. B. „Rezept Gulasch ergänzt“) → **Commit to main** →
+   oben **Push origin**.
+6. Nach ca. 1 Minute ist die Seite aktualisiert. Kontrolle auf github.com/ernesto-earth/rezepte unter
+   **Actions**: grüner Haken = online, rotes X = Fehler (Log anklicken, siehe Fehlersuche).
 
 ## Neu aufsetzen (z. B. neuer Mac oder neues Repo)
 

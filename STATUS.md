@@ -6,15 +6,15 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; Website auf heger.earth/rezepte, Projektordner ist einzige Quelle (Grundsätze 2026-11-05), Design „Am Tisch“ |
-| Letzte Statusaktualisierung | 2026-11-05T19:30:00+01:00 |
-| Zuletzt erledigt | 2026-11-05: Projektordner als einzige Quelle eingerichtet: README.md (Neuaufsetzen, Deploy), .gitignore, Workflow .github/workflows/deploy.yml baut aus claude-seite/ und lädt nach heger.earth/rezepte; Verweise auf die Claude-Seite ersetzt. Davor 2026-11-04: Seite „Am Tisch“ neu gebaut. |
-| Nächster Schritt | Ordner mit Repo ernesto-earth/rezepte verbinden und pushen; ersten Lauf der neuen Action prüfen. Neue Rezepte: siehe README.md. |
+| Letzte Statusaktualisierung | 2026-11-05T19:40:00+01:00 |
+| Zuletzt erledigt | 2026-11-05: Projektordner ist einzige Quelle: README.md (Neuaufsetzen, Deploy), .gitignore, Workflow baut aus claude-seite/ und lädt nach heger.earth/rezepte; Ordner mit Repo ernesto-earth/rezepte verbunden; Deploy-Lauf 42085257922 erfolgreich. Davor 2026-11-04: Seite „Am Tisch“ neu gebaut. |
+| Nächster Schritt | Neue Rezepte selbst veröffentlichen: siehe README.md (GitHub Desktop: Commit, Push). |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Neun Rezepte; Quellen in claude-seite/ (rezepte.json einzige Datenquelle, 9 Fotos, build.mjs); Original-PDFs nur lokal in pdf/; frühere ChatGPT-Site als Archiv in rezept-sammlung/. |
-| Prüfstand | 2026-11-04: Build ohne Fehler (9 Rezepte, alle Bilder vorhanden), auf dem Mac aus dem Projektordner identisch gebaut; im Browser geprüft (Desktop und Handy: Liste, Filter, Rezept, Portionen-Umrechnung, Abhaken, Kochmodus, keine Skriptfehler); inhaltliche Durchsicht durch Ernesto offen. |
-| Site-Stand | veröffentlicht unter http://heger.earth/rezepte/ (Repo ernesto-earth/rezepte, Commit 1d66156 vom 2026-11-05, Inhalt identisch mit claude-seite/dist); Erreichbarkeit am 2026-11-05 von Claude nicht selbst geprüft. Frühere Claude-Seite und ChatGPT-Site werden nicht mehr gepflegt. |
+| Prüfstand | 2026-11-05: Build aus dem Projektordner byte-identisch mit der bisherigen Seite; GitHub Action: Build, Upload und Erreichbarkeitsprüfung (HTTP 200 auf http://heger.earth/rezepte/) erfolgreich. Inhaltliche Durchsicht durch Ernesto offen. |
+| Site-Stand | veröffentlicht unter http://heger.earth/rezepte/ (GitHub Action, Lauf vom 2026-11-05 18:32 UTC, Prüfschritt HTTP 200). Frühere Claude-Seite und ChatGPT-Site werden nicht mehr gepflegt. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte (früher Claude-Seite 04298b04-31eb-4806-9ab5-368ee10d4bc6, davor ChatGPT appgprj_6aca2bc3d290819192c96834537f4ee8) |
-| Site-Version | unbekannt (letzter bekannter Deploy-Commit 1d66156) |
+| Site-Version | Commit 9c6f7e6 und Nachfolger in ernesto-earth/rezepte (main) |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
 | Zuletzt aktualisiert durch | Claude, im Auftrag Ernestos am 2026-11-05 |
 
