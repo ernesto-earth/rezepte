@@ -1,29 +1,31 @@
-# Lädt jede Seite unter sites/<name>/ nach heger.earth/<name> hoch.
-# Läuft bei jedem Push auf main, der etwas unter sites/ ändert, oder manuell
-# über "Actions → Deploy → Run workflow".
+# Baut die Rezept-Seite aus claude-seite/ und lädt sie nach heger.earth/rezepte hoch.
+# Läuft bei jedem Push auf main, der die Seite oder diesen Workflow ändert,
+# oder manuell über "Actions → Deploy → Run workflow".
 #
 # Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
 #   FTP_SERVER     FTP-Server, z. B. host28.ssl-net.net
-#   FTP_USERNAME   FTP-Benutzer aus dem Control Panel (Modul "FTP")
+#   FTP_USERNAME   FTP-Benutzer aus dem Domaintechnik Control Panel (Modul "FTP")
 #   FTP_PASSWORD   Passwort dieses FTP-Benutzers
-# Optionale Repository-Variablen (Settings → Secrets and variables → Actions → Variables):
+# Optionale Repository-Variablen:
 #   FTP_PORT       FTP-Port, Standard 21
 #   FTP_WEBROOT    Pfad des Webordners aus Sicht des FTP-Benutzers, Standard "www/"
 #
-# Es werden nur Dateien in www/<name>/ hochgeladen bzw. überschrieben.
-# Gelöscht wird auf dem Server nie etwas.
+# Hochgeladen bzw. überschrieben wird nur www/rezepte/. Gelöscht wird am Server nie etwas.
 
 name: Deploy
 
 on:
   push:
     branches: [main]
-    paths: ["sites/**", ".github/workflows/deploy.yml"]
+    paths: ["claude-seite/**", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 concurrency:
   group: deploy
   cancel-in-progress: false
+
+env:
+  SITE: rezepte
 
 jobs:
   deploy:
@@ -31,10 +33,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Seite bauen (prüft auch, ob jedes Rezept vollständig ist)
+        working-directory: claude-seite
+        run: node build.mjs
+
       - name: lftp installieren
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Seiten hochladen (FTPS)
+      - name: Hochladen (FTPS)
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -44,32 +54,15 @@ jobs:
         run: |
           set -euo pipefail
           server=$(echo "$FTP_SERVER" | tr -d '[:space:]')
-          script=$(mktemp)
-          {
-            echo "set ftp:ssl-force true"
-            echo "set ftp:ssl-protect-data true"
-            echo "set ftp:passive-mode true"
-            echo "set net:max-retries 3"
-            echo "set net:timeout 30"
-            echo "open --env-password -u $FTP_USERNAME -p $FTP_PORT $server"
-            for dir in sites/*/; do
-              site=$(basename "$dir")
-              echo "mirror --reverse --verbose --no-perms --parallel=2 sites/$site/ ${FTP_WEBROOT}${site}/"
-            done
-            echo "bye"
-          } > "$script"
-          grep -v '^open' "$script"
-          lftp -f "$script"
+          lftp -c "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ftp:passive-mode true; \
+            set net:max-retries 3; set net:timeout 30; \
+            open --env-password -u $FTP_USERNAME -p $FTP_PORT $server; \
+            mirror --reverse --verbose --no-perms --parallel=2 claude-seite/dist/ ${FTP_WEBROOT}${SITE}/; bye"
 
-      - name: Prüfen, ob die Seiten erreichbar sind
+      - name: Prüfen, ob die Seite erreichbar ist
         run: |
           sleep 3
-          fail=0
-          for dir in sites/*/; do
-            site=$(basename "$dir")
-            # http statt https: heger.earth hat derzeit kein gültiges SSL-Zertifikat
-            code=$(curl -s -o /dev/null -w '%{http_code}' "http://heger.earth/${site}/" || true)
-            echo "http://heger.earth/${site}/ → HTTP $code"
-            [ "$code" = "200" ] || fail=1
-          done
-          exit $fail
+          # http statt https: heger.earth hat derzeit kein gültiges SSL-Zertifikat
+          code=$(curl -s -o /dev/null -w '%{http_code}' "http://heger.earth/${SITE}/" || true)
+          echo "http://heger.earth/${SITE}/ → HTTP $code"
+          [ "$code" = "200" ]

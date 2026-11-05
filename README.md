@@ -1,40 +1,50 @@
-# heger.earth – automatisches Deployment
+# Rezepte – „Am Tisch“
 
-Jeder Ordner unter `sites/` wird automatisch auf heger.earth veröffentlicht:
+Ernestos Rezeptsammlung als Website: **http://heger.earth/rezepte/**
 
-| Ordner im Repo     | Adresse                     |
-|--------------------|-----------------------------|
-| `sites/rezepte/`   | https://heger.earth/rezepte |
-| `sites/<name>/`    | https://heger.earth/<name>  |
+Dieser Ordner ist die einzige Quelle des Projekts. Alles, was man zum Neuaufsetzen braucht, liegt hier.
+Das GitHub-Repo `ernesto-earth/rezepte` ist ein Spiegel dieses Ordners (ohne die lokalen Teile, siehe unten)
+und veröffentlicht die Seite automatisch. Es gibt keine Abhängigkeit zu Claude oder ChatGPT.
 
-Bei jedem Push auf `main` lädt die GitHub Action `Deploy` die Seiten per FTPS (mit `lftp`) hoch und prüft danach, ob sie erreichbar sind. Auf dem Server wird nie etwas gelöscht, nur in `www/<name>/` hochgeladen bzw. überschrieben. Manuell starten: **Actions → Deploy → Run workflow**.
+## Inhalt
 
-Eine neue Seite veröffentlichen heißt also: Ordner unter `sites/` anlegen (mit `index.html`) und pushen.
+| Pfad | Zweck | im Repo |
+|---|---|---|
+| `claude-seite/rezepte.json` | alle Rezepte (einzige Datenquelle der Seite) | ja |
+| `claude-seite/img/` | Rezeptfotos | ja |
+| `claude-seite/styles.css`, `site.js`, `fonts/` | Aussehen und Verhalten | ja |
+| `claude-seite/build.mjs` | baut `claude-seite/dist/` und prüft jedes Rezept auf Vollständigkeit | ja |
+| `.github/workflows/deploy.yml` | baut und lädt bei jedem Push nach heger.earth/rezepte hoch | ja |
+| `README.md`, `STATUS.md` | diese Anleitung, aktueller Stand | ja |
+| `pdf/` | Original-Rezept-PDFs aus den Zeitschriften | nein (nur lokal) |
+| `rezept-sammlung/` | frühere ChatGPT-Site, nur noch Archiv | nein |
+| `tmp/`, `work/` | Arbeitsdateien, Designentwürfe | nein |
 
-## Einmalige Einrichtung
+Der Ordnername `claude-seite` ist historisch; er wird von Chief of Staff referenziert und bleibt vorerst so.
 
-### 1. FTP-Zugang im Domaintechnik Control Panel
-Control Panel → Modul **FTP**. Am besten einen eigenen FTP-Benutzer nur für das Deployment anlegen (eigenes Passwort, nicht das Control-Panel-Passwort).
+## Neues Rezept ergänzen
 
-- Ist sein Startordner das Hauptverzeichnis (dort liegen `www`, `logs`, `stats`), passt alles ohne weitere Einstellung.
-- Ist sein Startordner direkt `www`, lege unter Settings → Secrets and variables → Actions → **Variables** die Variable `FTP_WEBROOT` mit dem Wert `./` an.
+1. Original-PDF nach `pdf/`, Foto (verkleinert) nach `claude-seite/img/`.
+2. Eintrag in `claude-seite/rezepte.json` anlegen (gleiche Felder wie die vorhandenen).
+3. Optional lokal prüfen: im Ordner `claude-seite` `node build.mjs` ausführen, `dist/index.html` im Browser öffnen.
+4. Committen und pushen. Die Action baut und veröffentlicht; ein grüner Haken unter **Actions** heißt: online.
+5. `STATUS.md` aktualisieren.
 
-### 2. Secrets in GitHub hinterlegen
-Repo → Settings → Secrets and variables → Actions → **New repository secret**:
+## Neu aufsetzen (z. B. neuer Mac oder neues Repo)
 
-- `FTP_SERVER` – FTP-Server laut Control Panel (`host28.ssl-net.net`)
-
-Falls der Port nicht 21 ist: unter **Variables** die Variable `FTP_PORT` anlegen.
-- `FTP_USERNAME` – der FTP-Benutzer aus Schritt 1
-- `FTP_PASSWORD` – sein Passwort
-
-Die Secrets sind verschlüsselt und auch für Claude nicht lesbar.
-
-### 3. Ersten Lauf starten
-Actions → Deploy → **Run workflow**. Ein grüner Haken bedeutet: die Seite ist online.
+1. Voraussetzungen: Git, Node.js ≥ 18 (nur für lokale Tests), GitHub-Konto `ernesto-earth`.
+2. Repo anlegen bzw. klonen, Inhalt dieses Ordners hineinlegen, pushen.
+3. **FTP-Zugang** im Domaintechnik Control Panel → Modul **FTP**: eigenen FTP-Benutzer nur fürs Deployment anlegen.
+   Startordner = Hauptverzeichnis (dort liegen `www`, `logs`, `stats`) → keine weitere Einstellung.
+   Startordner = `www` → Repo-Variable `FTP_WEBROOT` mit Wert `./` anlegen.
+4. **Secrets** im Repo unter Settings → Secrets and variables → Actions: `FTP_SERVER` (`host28.ssl-net.net`),
+   `FTP_USERNAME`, `FTP_PASSWORD`. Anderer Port als 21 → Variable `FTP_PORT`.
+5. Actions → Deploy → **Run workflow**.
 
 ## Fehlersuche
-- **Verbindung/TLS-Fehler:** Log des Schritts „Seiten hochladen“ ansehen; Servername und Port prüfen.
-- **Dateien landen im falschen Ordner:** `FTP_WEBROOT` anpassen (siehe Schritt 1).
-- **Prüfschritt rot, Upload grün:** Pfad prüfen, oder ob `.htaccess` die Adresse umleitet.
-- Bereits per Hand hochgeladene Dateien werden einfach überschrieben. Dateien, die aus `sites/` entfernt wurden, bleiben am Server liegen und müssen bei Bedarf im Dateimanager gelöscht werden.
+
+- **Build rot:** Die Meldung nennt das Rezept und das fehlende Feld bzw. Bild.
+- **Upload rot:** Servername, Port, Benutzer, Passwort prüfen (Secrets).
+- **Prüfschritt rot, Upload grün:** Ordner landet woanders → `FTP_WEBROOT` anpassen; oder `.htaccess` leitet um.
+- Am Server wird nie gelöscht. Entfernte Bilder bleiben liegen und müssen bei Bedarf im Dateimanager gelöscht werden.
+- heger.earth hat derzeit kein gültiges SSL-Zertifikat, deshalb http.

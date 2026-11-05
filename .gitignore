@@ -1,1 +1,14 @@
+# Nur Quellen, Workflow und Doku kommen ins Repo (das Repo ist öffentlich).
 .DS_Store
+*.webloc
+
+# Gebaute Seite: entsteht beim Deploy neu
+claude-seite/dist/
+
+# Bleibt nur lokal im Projektordner
+pdf/
+tmp/
+work/
+rezept-sammlung/
+.hermes.md
+kontext-readly-artikel.md

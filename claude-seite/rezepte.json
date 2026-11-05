@@ -1,0 +1,726 @@
+[
+ {
+  "id": "grenadiermarsch",
+  "title": "Grenadiermarsch",
+  "subtitle": "mit Kürbis und Dürre",
+  "image": "img/grenadiermarsch.jpg",
+  "alt": "Grenadiermarsch mit Kürbis, Fleckerl und Dürre in einer ovalen Schale",
+  "tags": [
+   "Kürbis",
+   "Fleisch",
+   "Schnell"
+  ],
+  "categories": [
+   "kürbis",
+   "fleisch"
+  ],
+  "portions": "4 Portionen",
+  "time": "30 Minuten",
+  "timeShort": "30 Min.",
+  "author": "Kerstin Grossbauer",
+  "source": "GUSTO, 24. September 2026, Seite 20",
+  "ingredients": [
+   {
+    "t": "400 g Kürbis, gewürfelt (z. B. Hokkaido, geschält)"
+   },
+   {
+    "t": "300 g Teigwaren (z. B. Fleckerl)"
+   },
+   {
+    "t": "1 große Zwiebel"
+   },
+   {
+    "t": "250 g Dürre"
+   },
+   {
+    "t": "1 EL Paprikapulver, edelsüß"
+   },
+   {
+    "t": "10 g Schnittlauch"
+   },
+   {
+    "t": "Öl, Salz und Pfeffer"
+   }
+  ],
+  "tip": "Pikanter wird’s mit Sucuk statt Dürre – sie bringt eine feine Schärfe mit.",
+  "steps": [
+   "Zwei Töpfe mit Salzwasser aufkochen. Im einen den Kürbis, im anderen die Teigwaren jeweils bissfest garen, dann beides abseihen.",
+   "Zwiebel schälen und fein schneiden. Die Dürre enthäuten und in mundgerechte Stücke schneiden.",
+   "Öl in einem großen Topf erhitzen, die Zwiebel anbraten, Dürre dazugeben und mitbraten, bis Röststellen entstehen. Topf vom Herd ziehen und das Paprikapulver einrühren. Kürbis und Teigwaren untermischen, mit Salz und Pfeffer abschmecken.",
+   "Schnittlauch fein schneiden und den Grenadiermarsch vor dem Servieren damit bestreuen."
+  ],
+  "pdf": "Rezepte/pdf/Grenadiermarsch_GUSTO_2026-09-24.pdf"
+ },
+ {
+  "id": "kalbsleber",
+  "title": "Kalbsleber",
+  "subtitle": "mit Kapern & knusprigen Rösti",
+  "image": "img/kalbsleber.jpg",
+  "alt": "Gebratene Kalbsleber mit Kapernsauce und knusprigen Rösti",
+  "tags": [
+   "Fleisch",
+   "Sonntagsküche"
+  ],
+  "categories": [
+   "fleisch"
+  ],
+  "portions": "4 Portionen",
+  "time": "1 Stunde + 20 Min. tiefkühlen",
+  "timeShort": "1 Std.",
+  "author": "",
+  "source": "GUSTO, 24. September 2026, Seite 42",
+  "ingredients": [
+   {
+    "t": "4 Kalbsleber-Schnitzel (ca. 800 g)"
+   },
+   {
+    "t": "4 Schalotten"
+   },
+   {
+    "t": "3 EL Öl und 1 EL Butter"
+   },
+   {
+    "t": "250 ml Wildfond"
+   },
+   {
+    "t": "2 EL kleine Kapern"
+   },
+   {
+    "t": "2 EL Crème fraîche"
+   },
+   {
+    "t": "10 g Petersilie"
+   },
+   {
+    "t": "1 EL Zitronenschale und 1 EL Zitronensaft"
+   },
+   {
+    "t": "600 g mehlige Erdäpfel"
+   },
+   {
+    "t": "2 EL Maisstärke"
+   },
+   {
+    "t": "1 TL Knoblauchpulver"
+   },
+   {
+    "t": "50 g Parmesan, gerieben"
+   },
+   {
+    "t": "Salz, Pfeffer, Mehl und Öl"
+   }
+  ],
+  "tip": "Die Rösti können schon am Vortag zubereitet werden.",
+  "steps": [
+   "Leber etwa 30 Minuten vor Kochbeginn aus dem Kühlschrank nehmen.",
+   "Für die Rösti Erdäpfel schälen und halbieren oder vierteln. In reichlich Salzwasser garkochen, abseihen und überkühlen lassen.",
+   "Erdäpfel reiben, mit Stärke, Knoblauchpulver, Parmesan, Salz und Pfeffer vermengen. Zu 12 Rösti formen, auf Backpapier legen und etwa 20 Minuten tiefkühlen.",
+   "Leber beidseitig mit Salz und Pfeffer würzen. Eine Seite in Mehl drücken und gut abklopfen. Schalotten schälen und fein würfeln.",
+   "Öl erhitzen. Leber mit der Mehlseite nach unten scharf anbraten, wenden, etwa 10 Sekunden braten und herausnehmen. Butter aufschäumen, Schalotten 2 Minuten anschwitzen. Mit Fond aufgießen, Kapern zugeben und 5 Minuten köcheln. Crème fraîche, Petersilie und Zitronenschale einrühren. Leber einlegen und etwa 2 Minuten unter wiederholtem Übergießen köcheln. Mit Zitronensaft, Salz und Pfeffer abschmecken.",
+   "In einer Pfanne einen Finger hoch Öl erhitzen. Rösti beidseitig goldbraun braten und auf Küchenpapier abtropfen lassen. Leber und Rösti anrichten und großzügig mit dem Saft übergießen."
+  ],
+  "pdf": "Rezepte/pdf/Kalbsleber_mit_Kapern_Roesti_GUSTO_2026-09-24.pdf"
+ },
+ {
+  "id": "tartiflette",
+  "title": "Kürbis-Tartiflette",
+  "subtitle": "goldbraun aus dem Ofen",
+  "image": "img/tartiflette.jpg",
+  "alt": "Goldbraun überbackene Kürbis-Tartiflette in einer Keramikform",
+  "tags": [
+   "Kürbis",
+   "Vegetarisch",
+   "Ofengericht"
+  ],
+  "categories": [
+   "kürbis",
+   "vegetarisch"
+  ],
+  "portions": "6 Portionen",
+  "time": "1½ Stunden",
+  "timeShort": "1½ Std.",
+  "author": "Melisa Hadzic",
+  "source": "GUSTO, 24. September 2026, Seite 24",
+  "ingredients": [
+   {
+    "t": "1 kg festkochende Erdäpfel"
+   },
+   {
+    "t": "1 Hokkaido (ca. 600 g)"
+   },
+   {
+    "t": "1 große Zwiebel"
+   },
+   {
+    "t": "2 Knoblauchzehen"
+   },
+   {
+    "t": "1 Lauchstange"
+   },
+   {
+    "t": "200 ml Weißwein"
+   },
+   {
+    "t": "200 ml Obers"
+   },
+   {
+    "t": "1 Lorbeerblatt"
+   },
+   {
+    "t": "2 TL Thymian, abgezupft"
+   },
+   {
+    "t": "250 g Reblochon"
+   },
+   {
+    "t": "Öl, Salz, Pfeffer und Muskat"
+   }
+  ],
+  "tip": "Typisch ist Reblochon. Alternativ passen Camembert, Brie oder Raclette-Käse.",
+  "steps": [
+   "Erdäpfel in kochendem Wasser je nach Größe 15–20 Minuten kochen. Sie müssen noch nicht durchgegart sein. Überkühlen lassen, schälen und in Scheiben schneiden.",
+   "Kürbis halbieren, entkernen und in schmale Spalten schneiden. Zwiebel und Knoblauch schälen und fein schneiden. Lauch putzen, halbieren, gründlich waschen und in Halbringe schneiden.",
+   "Etwas Öl erhitzen. Zwiebel und Lauch etwa 5 Minuten braten. Knoblauch kurz mitbraten. Mit Weißwein ablöschen und etwas einkochen lassen. Obers, Lorbeerblatt und Thymian zugeben und weitere 5 Minuten köcheln. Würzen, vom Herd nehmen und überkühlen lassen. Käse in dünne Scheiben schneiden.",
+   "Rohr auf 220 °C Ober-/Unterhitze aufheizen. Auflaufform mit Öl bestreichen. Je die Hälfte von Erdäpfeln und Kürbis einschichten, würzen, dann die Hälfte des Käses und des Zwiebel-Lauch-Gusses darauf verteilen. Mit den übrigen Zutaten wiederholen.",
+   "Auflauf auf mittlerer Schiene 30–40 Minuten backen, bis eine goldbraune Kruste entsteht. Dazu passt Salat."
+  ],
+  "pdf": "Rezepte/pdf/Kuerbis-Tartiflette_GUSTO_2026-09-24.pdf"
+ },
+ {
+  "id": "kuerbiseintopf",
+  "title": "Kürbiseintopf",
+  "subtitle": "mit Bohnen und Bratwürsten",
+  "image": "img/kuerbiseintopf.jpg",
+  "alt": "Herzhafter Kürbiseintopf mit weißen Bohnen, Grünkohl und zwei Bratwürsten",
+  "tags": [
+   "Kürbis",
+   "Fleisch",
+   "Eintopf"
+  ],
+  "categories": [
+   "kürbis",
+   "fleisch"
+  ],
+  "portions": "4 Portionen",
+  "time": "1 Stunde",
+  "timeShort": "1 Std.",
+  "author": "Susanne Jelinek",
+  "source": "GUSTO, 24. September 2026, Seite 22",
+  "ingredients": [
+   {
+    "t": "750 g Kürbis (z. B. Hokkaido oder Butternuss)"
+   },
+   {
+    "t": "1 große Zwiebel"
+   },
+   {
+    "t": "3 Knoblauchzehen"
+   },
+   {
+    "t": "1 Bund Rosmarin (ca. 15 g)"
+   },
+   {
+    "t": "3 EL Öl und 1 EL Butter"
+   },
+   {
+    "t": "400 ml klare Suppe, am besten vom Huhn"
+   },
+   {
+    "t": "800 g weiße Bohnen aus der Dose (480 g Abtropfgewicht)"
+   },
+   {
+    "t": "100 g Grünkohl"
+   },
+   {
+    "t": "8 Bratwürstel"
+   },
+   {
+    "t": "Saft von ½ Zitrone"
+   },
+   {
+    "t": "40 g Parmesan, gerieben"
+   },
+   {
+    "t": "Salz und frisch gemahlener schwarzer Pfeffer"
+   }
+  ],
+  "tip": "Statt Würsteln passen auch ein faschierter Braten oder einfach Reis dazu.",
+  "steps": [
+   "Kürbis putzen, entkernen und je nach Sorte schälen. Es sollten etwa 550 g Kürbisfleisch übrig bleiben. In 1–2 cm große Würfel schneiden.",
+   "Zwiebel und Knoblauch schälen. Zwiebel halbieren und in feine Streifen schneiden, Knoblauch fein würfeln. Rosmarinnadeln von den Stängeln lösen und sehr fein hacken.",
+   "In einem schweren Topf 1 EL Öl und die Butter bei mittlerer Hitze erwärmen. Zwiebel etwa 10 Minuten glasig dünsten. Knoblauch und Rosmarin zugeben und 5 Minuten weiterdünsten. Kürbis zugeben, mit Suppe aufgießen, abdecken und etwa 10 Minuten köcheln, bis der Kürbis weich ist.",
+   "Bohnen in einem Sieb abtropfen lassen und gut abspülen, bis es nicht mehr schäumt. Grünkohl in mundgerechte Stücke zerreißen und harte Stiele entfernen.",
+   "Backrohr auf 50 °C Ober-/Unterhitze aufheizen. Restliches Öl in einer Pfanne erhitzen, Würstel rundum anbraten und auf einem Teller im Backrohr warmstellen.",
+   "Im Bratrückstand Grünkohl kurz anbraten, dann Bohnen zugeben und 5–7 Minuten köcheln. Beim Umrühren den Bratrückstand mit dem Kochlöffel vom Boden lösen.",
+   "Bohnen und Kohl zum Kürbis geben. Einen Teil von Kürbis und Bohnen mit einem Kartoffelstampfer zerdrücken und alles gut verrühren. Zitronensaft und Parmesan unterrühren, mit Salz und Pfeffer abschmecken.",
+   "Anrichten und mit den Würsteln servieren."
+  ],
+  "pdf": "Rezepte/pdf/Kuerbiseintopf_mit_Bohnen_und_Bratwuersten_GUSTO_2026-09-24.pdf"
+ },
+ {
+  "id": "brathaehnchen",
+  "title": "Brathähnchen",
+  "subtitle": "mit Rosmarinkartoffeln",
+  "image": "img/brathaehnchen.jpg",
+  "alt": "Brathähnchen mit Kartoffeln in einer Ofenform",
+  "tags": [
+   "Fleisch",
+   "Ofengericht"
+  ],
+  "categories": [
+   "fleisch"
+  ],
+  "portions": "4–6 Personen",
+  "time": "Mind. 2 Std. marinieren · ca. 1 Std. Backofen",
+  "timeShort": "1 Std. + Marinieren",
+  "author": "",
+  "source": "MEN’S HEALTH, 9. September 2026, Seite 26",
+  "ingredients": [
+   {
+    "h": "FÜR DAS BRATHÄHNCHEN"
+   },
+   {
+    "t": "4 Hähnchenunterschenkel"
+   },
+   {
+    "t": "4 Hähnchenoberschenkel"
+   },
+   {
+    "t": "2 Rosmarinzweige, Nadeln fein gehackt"
+   },
+   {
+    "t": "2 frische Lorbeerblätter, Stiele abgezupft und fein gehackt"
+   },
+   {
+    "t": "2 große Zwiebeln, in grobe Spalten geschnitten"
+   },
+   {
+    "t": "100 ml Vermentino oder trockener Weißwein wie Sauvignon Blanc"
+   },
+   {
+    "t": "natives Olivenöl extra"
+   },
+   {
+    "t": "feines Meersalz, frisch gemahlener schwarzer Pfeffer"
+   },
+   {
+    "h": "FÜR DIE ROSMARINKARTOFFELN"
+   },
+   {
+    "t": "1,2 kg Kartoffeln, geschält, in 3 cm große Würfel geschnitten"
+   },
+   {
+    "t": "6 Knoblauchzehen, grob zerdrückt"
+   },
+   {
+    "t": "1 großer Rosmarinzweig, Nadeln fein gehackt"
+   },
+   {
+    "t": "1 TL Oregano"
+   },
+   {
+    "t": "natives Olivenöl extra"
+   }
+  ],
+  "tip": "Perfekt für Meal-Prep-Fans: Wer zu viel gekocht hat, freut sich am nächsten Tag auf einen Nachschlag, der sich leicht warm machen lässt. Nährwerte pro Person: 631 kcal, 38 g Eiweiß, 34 g Kohlenhydrate, 37 g Fett.",
+  "steps": [
+   "Zuerst das Hähnchen marinieren. Dazu alle oben genannten Zutaten mit einer großzügigen Prise Salz und Pfeffer in eine große Schüssel geben, mit den Händen gründlich vermengen, zudecken und mindestens 2 Stunden, besser noch über Nacht im Kühlschrank marinieren.",
+   "Ofen auf 200 Grad Umluft vorheizen.",
+   "Alle Zutaten für die Kartoffeln in einer großen Schüssel mit Olivenöl beträufeln, anschließend mit Salz und Pfeffer würzen und alles gründlich durchheben.",
+   "Eine Fettpfanne oder große Auflaufschale mit Backpapier auslegen, danach die Kartoffeln in einer Lage darin verteilen und etwa 15 Minuten im Backofen rösten.",
+   "Während die Kartoffeln im Ofen garen, die Hähnchenmarinade abschütten, das Fleisch mit einem guten Schuss Olivenöl beträufeln, salzen und durchheben.",
+   "Die Hähnchenteile und Zwiebeln zwischen die Kartoffeln in die Fettpfanne geben. Dabei die Zwiebeln unter die Hähnchenteile schieben. Wichtig: Fleisch und Kartoffeln sollten nicht übereinanderliegen, damit sie gleichmäßig rösten können.",
+   "Erneut in den Ofen geben und weitere 40 bis 45 Minuten rösten, bis Hähnchen und Kartoffeln goldgelb und durchgegart sind. Anschließend sofort heiß servieren."
+  ],
+  "pdf": "Rezepte/pdf/Brathaehnchen_mit_Rosmarinkartoffeln_MEN_S_HEALTH_2026-09-09.pdf"
+ },
+ {
+  "id": "roesti-lachs",
+  "title": "Rösti",
+  "subtitle": "mit Salat und Lachs",
+  "image": "img/roesti-lachs.jpg",
+  "alt": "Rösti mit Salat, Lachs, Roter Bete und Gurkenjoghurt",
+  "tags": [
+   "Fisch",
+   "Kartoffeln"
+  ],
+  "categories": [
+   "fisch"
+  ],
+  "portions": "1 Portion",
+  "time": "Gesamtzeit nicht angegeben",
+  "timeShort": "",
+  "author": "",
+  "source": "Men’s Health, 14. Oktober 2026",
+  "ingredients": [
+   {
+    "h": "RÖSTI"
+   },
+   {
+    "t": "350 g überwiegend festkochende Kartoffeln (geschält gewogen)"
+   },
+   {
+    "t": "1 ½ TL Weizenmehl (Type 405)"
+   },
+   {
+    "t": "3 TL Olivenöl"
+   },
+   {
+    "h": "GURKENJOGHURT"
+   },
+   {
+    "t": "70 g Biosalatgurke"
+   },
+   {
+    "t": "75 g griechischer Joghurt (10 % Fett)"
+   },
+   {
+    "t": "2 Stängel Dill"
+   },
+   {
+    "h": "SALAT, BETE UND LACHS"
+   },
+   {
+    "t": "25 g Salatmix (z. B. Babyleaves)"
+   },
+   {
+    "t": "1 ½ TL weißer Balsamico"
+   },
+   {
+    "t": "1 TL Dijonsenf"
+   },
+   {
+    "t": "1 TL Akazienhonig"
+   },
+   {
+    "t": "2 TL Olivenöl"
+   },
+   {
+    "t": "50 g gegarte Rote Bete"
+   },
+   {
+    "t": "125 g Lachsfilet"
+   },
+   {
+    "t": "etwas Salz und schwarzer Pfeffer nach Geschmack"
+   }
+  ],
+  "tip": "",
+  "steps": [
+   "Für die Rösti die Kartoffeln schälen und anschließend raspeln. Danach in ein Sieb geben und abtropfen lassen. Nach 10 Minuten fest ausdrücken.",
+   "Für den Joghurt die Gurke längs halbieren, entkernen, fein reiben und ausdrücken. In eine Schüssel geben und Joghurt einrühren. Danach den Dill abbrausen und die Spitzen abzupfen. Hälfte hacken und unter den Joghurt mischen, den Rest ganz lassen.",
+   "Kartoffelraspel in eine Schüssel geben, mit Mehl verkneten, dann zu 2 bis 3 ovalen Rösti formen. 2 Teelöffel Öl in einer Pfanne erhitzen, Rösti hineingeben, flach drücken und 5 Minuten bei mittlerer Hitze braten. Temperatur reduzieren, weitere 3–4 Minuten braten. Rösti wenden, mit dem restlichen Öl noch mal 10–12 Minuten braten.",
+   "Den Salat waschen. 1 Teelöffel Essig mit Senf, Honig, Salz und Pfeffer in einer Schüssel vermischen, dann 1 ½ Teelöffel Öl unterrühren. Die Rote Bete in Scheiben schneiden, salzen und mit dem restlichen Essig beträufeln.",
+   "Den Lachs würfeln. Anschließend eine kleine Bratpfanne mit dem restlichen Öl (½ Teelöffel) ausstreichen und etwa 3 Minuten goldbraun braten. Mit Salz und Pfeffer danach würzen.",
+   "Rösti auf dem Teller anrichten. Den Salat im Dressing wenden und dazugeben. Gurkenjoghurt und Rote Bete auf dem Teller verteilen. Lachs daraufgeben und mit Dillspitzen bestreuen."
+  ],
+  "pdf": "Rezepte/pdf/Roesti_mit_Salat_und_Lachs_MEN_S_HEALTH_2026-10-14.pdf"
+ },
+ {
+  "id": "mohnbuchteln",
+  "title": "Mohnbuchteln",
+  "subtitle": "mit Powidlfülle und Vanillesauce",
+  "image": "img/mohnbuchteln.jpg",
+  "alt": "Mohnbuchteln mit Vanillesauce",
+  "tags": [
+   "Süßspeisen",
+   "Mohn",
+   "Powidl"
+  ],
+  "categories": [
+   "süßspeisen"
+  ],
+  "portions": "12 Stück",
+  "time": "Ca. 1½ Std. · ca. 1½ Std. Gehzeit",
+  "timeShort": "1½ Std. + Gehzeit",
+  "author": "Kerstin Grossbauer",
+  "source": "GUSTO, 22. Oktober 2026, Seite 16",
+  "ingredients": [
+   {
+    "h": "Teig"
+   },
+   {
+    "t": "700 g glattes Mehl"
+   },
+   {
+    "t": "2 mittlere Eier"
+   },
+   {
+    "t": "80 g weiche Butter"
+   },
+   {
+    "t": "60 g Kristallzucker"
+   },
+   {
+    "t": "125 g Sauerrahm"
+   },
+   {
+    "t": "10 g Salz"
+   },
+   {
+    "t": "250 ml lauwarme Milch"
+   },
+   {
+    "t": "20 g frische Germ"
+   },
+   {
+    "t": "40 g gemahlener Mohn"
+   },
+   {
+    "h": "Fülle"
+   },
+   {
+    "t": "400 g Powidl"
+   },
+   {
+    "t": "60 g gemahlener Mohn"
+   },
+   {
+    "h": "Vanillesauce"
+   },
+   {
+    "t": "250 ml Milch"
+   },
+   {
+    "t": "15 g Vanillepuddingpulver"
+   },
+   {
+    "t": "20 g Staubzucker"
+   },
+   {
+    "h": "Außerdem"
+   },
+   {
+    "t": "Butter für die Form"
+   },
+   {
+    "t": "1 verquirltes Ei zum Bestreichen"
+   },
+   {
+    "t": "Staubzucker zum Bestreuen"
+   }
+  ],
+  "tip": "Am nächsten Tag etwa 5 Minuten bei 140 °C aufbacken.",
+  "steps": [
+   "Alle Teigzutaten glatt verkneten; zugedeckt an einem warmen Ort etwa 50 Minuten gehen lassen.",
+   "Für die Sauce 50 ml Milch mit Puddingpulver verrühren. Die übrige Milch mit Zucker aufkochen, die Mischung einrühren, nochmals aufkochen und vom Herd nehmen. Mit Folie abdecken.",
+   "Vom Teig zwölf Stücke zu je etwa 100 g abstechen und zu Kugeln formen. Zugedeckt etwa 20 Minuten rasten lassen.",
+   "Eine Form (30 × 25 cm) mit Butter ausstreichen. Powidl und gemahlenen Mohn für die Fülle vermengen.",
+   "Teigkugeln flach drücken und je 1 EL Fülle mittig daraufgeben. Teigränder darüber zusammendrücken, sanft rund formen und in die Form setzen. Zugedeckt nochmals etwa 20 Minuten rasten lassen.",
+   "Backrohr auf 160 °C Ober-/Unterhitze vorheizen. Buchteln mit verquirltem Ei bestreichen und auf dem Gitterrost auf der zweiten Schiene von unten rund 45 Minuten goldbraun backen.",
+   "Kurz abkühlen lassen, mit Staubzucker bestreuen und mit der Vanillesauce servieren."
+  ],
+  "pdf": "Rezepte/pdf/Mohnbuchteln-mit-Powidl-und-Vanillesauce.pdf"
+ },
+ {
+  "id": "powidl-tarte",
+  "title": "Tarte",
+  "subtitle": "mit Powidl und Mohnstreusel",
+  "image": "img/powidl-tarte.jpg",
+  "alt": "Tarte mit Powidl und Mohnstreuseln",
+  "tags": [
+   "Süßspeisen",
+   "Mohn",
+   "Powidl"
+  ],
+  "categories": [
+   "süßspeisen"
+  ],
+  "portions": "8 Stück",
+  "time": "Ca. 1 Std. · ca. 30 Min. kühlen",
+  "timeShort": "1 Std. + Kühlen",
+  "author": "Kerstin Grossbauer",
+  "source": "GUSTO, 22. Oktober 2026, Seiten 18–19",
+  "ingredients": [
+   {
+    "h": "Mürbteig"
+   },
+   {
+    "t": "225 g glattes Mehl"
+   },
+   {
+    "t": "25 g gemahlener Mohn"
+   },
+   {
+    "t": "½ Pkg. Backpulver"
+   },
+   {
+    "t": "½ Pkg. Vanillezucker"
+   },
+   {
+    "t": "50 g Staubzucker"
+   },
+   {
+    "t": "75 g kalte Butterstücke"
+   },
+   {
+    "t": "1 mittleres Ei"
+   },
+   {
+    "t": "2 EL Milch"
+   },
+   {
+    "h": "Mohnstreusel"
+   },
+   {
+    "t": "60 g gehackte Walnüsse"
+   },
+   {
+    "t": "110 g glattes Mehl"
+   },
+   {
+    "t": "½ TL Backpulver"
+   },
+   {
+    "t": "1 EL gemahlener Mohn"
+   },
+   {
+    "t": "3 EL Kristallzucker"
+   },
+   {
+    "t": "90 g kalte Butterstücke"
+   },
+   {
+    "t": "70 g gehackte Vollmilchschokolade"
+   },
+   {
+    "h": "Fülle"
+   },
+   {
+    "t": "400 g Powidl"
+   },
+   {
+    "t": "10 g gemahlener Mohn"
+   },
+   {
+    "t": "20 g Staubzucker"
+   },
+   {
+    "t": "1 TL Zitronenschale"
+   },
+   {
+    "h": "Außerdem"
+   },
+   {
+    "t": "Zerlassene Butter für die Form"
+   },
+   {
+    "t": "Staubzucker zum Bestreuen"
+   }
+  ],
+  "tip": "Heiße Tarte nach Belieben mit einer Kugel Vanilleeis servieren.",
+  "steps": [
+   "Alle Zutaten für den Mürbteig glatt verkneten. In Frischhaltefolie wickeln und etwa 30 Minuten kühlen.",
+   "Die Streuselzutaten zu einer bröseligen Masse verkneten, am besten mit dem Mixer. Kalt stellen.",
+   "Die Zutaten für die Fülle vermischen. Backrohr auf 180 °C Ober-/Unterhitze vorheizen. Eine Tarteform (Ø 27 cm) mit Butter ausstreichen.",
+   "Teig zwischen zwei Bögen Backpapier rund (Ø ca. 33 cm) ausrollen und die Form damit auskleiden. Boden mehrfach mit einer Gabel einstechen. Fülle darauf verteilen und mit Streuseln bedecken.",
+   "Tarte auf der mittleren Schiene am Gitterrost etwa 40 Minuten backen. Herausnehmen und mit Staubzucker bestreut servieren."
+  ],
+  "pdf": "Rezepte/pdf/Tarte-mit-Powidl-und-Mohnstreusel.pdf"
+ },
+ {
+  "id": "mohn-palatschinken",
+  "title": "Mohn-Palatschinken-Auflauf",
+  "subtitle": "mit Vanilleguss",
+  "image": "img/mohn-palatschinken.jpg",
+  "alt": "Palatschinken-Auflauf mit Vanilleguss",
+  "tags": [
+   "Süßspeisen",
+   "Mohn",
+   "Powidl"
+  ],
+  "categories": [
+   "süßspeisen"
+  ],
+  "portions": "4–6 Portionen",
+  "time": "Ca. 1½ Stunden",
+  "timeShort": "1½ Std.",
+  "author": "Kerstin Grossbauer",
+  "source": "GUSTO, 22. Oktober 2026, Seiten 20–21",
+  "ingredients": [
+   {
+    "h": "Teig"
+   },
+   {
+    "t": "4 mittlere Eier"
+   },
+   {
+    "t": "500 ml Milch"
+   },
+   {
+    "t": "175 g glattes Mehl"
+   },
+   {
+    "t": "25 g gemahlener Mohn"
+   },
+   {
+    "t": "1 EL Kristallzucker"
+   },
+   {
+    "t": "1 Prise Salz"
+   },
+   {
+    "h": "Fülle"
+   },
+   {
+    "t": "250 g Powidl"
+   },
+   {
+    "t": "30 g gemahlener Mohn"
+   },
+   {
+    "t": "1 Prise Zimt"
+   },
+   {
+    "t": "1 Pkg. Vanillezucker"
+   },
+   {
+    "h": "Guss"
+   },
+   {
+    "t": "2 mittlere Eier"
+   },
+   {
+    "t": "150 ml Milch"
+   },
+   {
+    "t": "150 ml Obers"
+   },
+   {
+    "t": "50 g Kristallzucker"
+   },
+   {
+    "t": "1 Pkg. Vanillezucker"
+   },
+   {
+    "t": "Mark von 1 Vanilleschote"
+   },
+   {
+    "t": "2 TL Vanillepaste"
+   },
+   {
+    "h": "Außerdem"
+   },
+   {
+    "t": "Öl für die Pfanne"
+   },
+   {
+    "t": "Zerlassene Butter für die Form"
+   },
+   {
+    "t": "Staubzucker zum Bestreuen"
+   }
+  ],
+  "tip": "Damit die Palatschinkenränder beim Anbacken nicht austrocknen, in den ersten 10 Minuten eventuell mit Alufolie abdecken.",
+  "steps": [
+   "Alle Teigzutaten glatt verrühren und etwa 10 Minuten rasten lassen.",
+   "Eine Pfanne (Ø ca. 22 cm) dünn mit Öl ausstreichen und erhitzen. Mit einem Schöpflöffel Teig eingießen und nacheinander etwa 14 Palatschinken backen. Auskühlen lassen.",
+   "Alle Zutaten für die Fülle vermischen.",
+   "Eine Auflaufform (ca. 25 × 20 cm) mit Butter ausstreichen und das Rohr auf 180 °C Ober-/Unterhitze vorheizen.",
+   "Palatschinken mit jeweils 1–2 EL Fülle bestreichen und einrollen. Die Rollen halbieren, dachziegelartig in die Form schichten und auf der mittleren Schiene am Gitterrost etwa 10 Minuten anbacken.",
+   "Alle Zutaten für den Guss glatt verrühren, über die Palatschinken gießen und weitere 30 Minuten backen, bis der Guss stockt.",
+   "Auflauf herausnehmen, etwa 5 Minuten rasten lassen und mit Staubzucker bestreut servieren."
+  ],
+  "pdf": "Rezepte/pdf/Mohn-Palatschinken-Auflauf-mit-Vanilleguss.pdf"
+ }
+]
