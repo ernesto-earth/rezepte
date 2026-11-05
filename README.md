@@ -7,7 +7,7 @@ Jeder Ordner unter `sites/` wird automatisch auf heger.earth veröffentlicht:
 | `sites/rezepte/`   | https://heger.earth/rezepte |
 | `sites/<name>/`    | https://heger.earth/<name>  |
 
-Bei jedem Push auf `main` lädt die GitHub Action `Deploy` die geänderten Dateien per FTPS hoch und prüft danach, ob die Seite erreichbar ist. Manuell starten: **Actions → Deploy → Run workflow**.
+Bei jedem Push auf `main` lädt die GitHub Action `Deploy` die Seiten per FTPS (mit `lftp`) hoch und prüft danach, ob sie erreichbar sind. Auf dem Server wird nie etwas gelöscht, nur in `www/<name>/` hochgeladen bzw. überschrieben. Manuell starten: **Actions → Deploy → Run workflow**.
 
 Eine neue Seite veröffentlichen heißt also: Ordner unter `sites/` anlegen (mit `index.html`) und pushen.
 
@@ -22,7 +22,9 @@ Control Panel → Modul **FTP**. Am besten einen eigenen FTP-Benutzer nur für d
 ### 2. Secrets in GitHub hinterlegen
 Repo → Settings → Secrets and variables → Actions → **New repository secret**:
 
-- `FTP_SERVER` – FTP-Server laut Control Panel (oft einfach `heger.earth`)
+- `FTP_SERVER` – FTP-Server laut Control Panel (`host28.ssl-net.net`)
+
+Falls der Port nicht 21 ist: unter **Variables** die Variable `FTP_PORT` anlegen.
 - `FTP_USERNAME` – der FTP-Benutzer aus Schritt 1
 - `FTP_PASSWORD` – sein Passwort
 
@@ -32,7 +34,7 @@ Die Secrets sind verschlüsselt und auch für Claude nicht lesbar.
 Actions → Deploy → **Run workflow**. Ein grüner Haken bedeutet: die Seite ist online.
 
 ## Fehlersuche
-- **Verbindung/TLS-Fehler:** In `.github/workflows/deploy.yml` `protocol: ftps` auf `protocol: ftp` ändern (unverschlüsselt – nur falls der Server kein FTPS kann).
+- **Verbindung/TLS-Fehler:** Log des Schritts „Seiten hochladen“ ansehen; Servername und Port prüfen.
 - **Dateien landen im falschen Ordner:** `FTP_WEBROOT` anpassen (siehe Schritt 1).
 - **Prüfschritt rot, Upload grün:** Pfad prüfen, oder ob `.htaccess` die Adresse umleitet.
-- Bereits per Hand hochgeladene Dateien werden beim ersten Lauf einfach überschrieben.
+- Bereits per Hand hochgeladene Dateien werden einfach überschrieben. Dateien, die aus `sites/` entfernt wurden, bleiben am Server liegen und müssen bei Bedarf im Dateimanager gelöscht werden.

@@ -3,12 +3,15 @@
 # über "Actions → Deploy → Run workflow".
 #
 # Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
-#   FTP_SERVER     z. B. heger.earth (oder der FTP-Server aus dem Control Panel)
+#   FTP_SERVER     FTP-Server, z. B. host28.ssl-net.net
 #   FTP_USERNAME   FTP-Benutzer aus dem Control Panel (Modul "FTP")
 #   FTP_PASSWORD   Passwort dieses FTP-Benutzers
 # Optionale Repository-Variablen (Settings → Secrets and variables → Actions → Variables):
 #   FTP_PORT       FTP-Port, Standard 21
 #   FTP_WEBROOT    Pfad des Webordners aus Sicht des FTP-Benutzers, Standard "www/"
+#
+# Es werden nur Dateien in www/<name>/ hochgeladen bzw. überschrieben.
+# Gelöscht wird auf dem Server nie etwas.
 
 name: Deploy
 
@@ -23,44 +26,40 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  list-sites:
-    runs-on: ubuntu-latest
-    outputs:
-      sites: ${{ steps.ls.outputs.sites }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: ls
-        run: |
-          sites=$(find sites -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | jq -R . | jq -sc .)
-          echo "sites=$sites" >> "$GITHUB_OUTPUT"
-          echo "Seiten: $sites"
-
   deploy:
-    needs: list-sites
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        site: ${{ fromJson(needs.list-sites.outputs.sites) }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Upload sites/${{ matrix.site }} → /${{ matrix.site }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: ${{ vars.FTP_PORT || 21 }}
-          local-dir: ./sites/${{ matrix.site }}/
-          server-dir: ${{ vars.FTP_WEBROOT || 'www/' }}${{ matrix.site }}/
-          # Merkt sich auf dem Server, was schon oben ist, und lädt nur Änderungen hoch.
-          # Löscht nur Dateien, die es selbst hochgeladen hat – nie etwas anderes im Webordner.
+      - name: lftp installieren
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Prüfen, ob die Seite erreichbar ist
+      - name: Seiten hochladen (FTPS)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_WEBROOT: ${{ vars.FTP_WEBROOT || 'www/' }}
         run: |
-          sleep 5
-          code=$(curl -s -o /dev/null -w '%{http_code}' "https://heger.earth/${{ matrix.site }}/")
-          echo "https://heger.earth/${{ matrix.site }}/ → HTTP $code"
-          test "$code" = "200"
+          set -euo pipefail
+          cmds="set ftp:ssl-force true; set ftp:ssl-protect-data true; set ftp:ssl-allow true;
+                set ftp:passive-mode true; set net:max-retries 3; set net:timeout 30;"
+          for dir in sites/*/; do
+            site=$(basename "$dir")
+            echo "→ sites/$site  ⇒  ${FTP_WEBROOT}${site}/"
+            cmds="$cmds mirror --reverse --verbose --no-perms --parallel=2 \"sites/$site/\" \"${FTP_WEBROOT}${site}/\";"
+          done
+          lftp --env-password -u "$FTP_USERNAME" -p "$FTP_PORT" -e "$cmds bye" "$FTP_SERVER"
+
+      - name: Prüfen, ob die Seiten erreichbar sind
+        run: |
+          sleep 3
+          fail=0
+          for dir in sites/*/; do
+            site=$(basename "$dir")
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://heger.earth/${site}/")
+            echo "https://heger.earth/${site}/ → HTTP $code"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
