@@ -6,19 +6,21 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; Website auf heger.earth/rezepte, Projektordner ist einzige Quelle (Grundsätze 2026-11-05), Design „Am Tisch“ |
-| Letzte Statusaktualisierung | 2026-11-06T08:59:50+01:00 |
-| Zuletzt erledigt | 2026-11-06 (Hermes): Nach Ernestos Token-Rechteergänzung Veröffentlichungsskript ausgeführt: Commit a25b908 erfolgreich gepusht, einschließlich wartendem E-027-Commit 3c31d6f; Action 42184331878 success, Hauptseite HTTP 200. Mit curl bestätigt: ausgeliefertes HTML enthält Bearbeiten-Links in den eingebetteten JavaScript-Vorlagen; Bearbeiten-Seite ohne Passwort HTTP 401. Keine Zugangsdaten verwendet und keine Rezepte geändert. |
-| Nächster Schritt | Inhaltliche Durchsicht und angemeldeter Funktionstest der Bearbeiten-Seite durch Ernesto offen; nicht Teil der curl-Prüfung. Statusnachzug mit ./veroeffentlichen.sh "STATUS nach Veröffentlichung" ist beauftragt; dessen Ergebnis wird im Abschlussbericht ausgewiesen. |
+| Letzte Statusaktualisierung | 2026-11-06T09:34:09+01:00 |
+| Zuletzt erledigt | 2026-11-06 (Hermes): Erweiterung „Neue Kategorien anlegen“ (bearbeiten/index.php, README.md) mit dem Veröffentlichungsskript veröffentlicht: Commit eb36556, Action 42188467544 success. Skript übernahm zuvor 3 neuere Änderungen aus dem Repo. Zugriffsschutz anschließend mit curl ohne Passwort bestätigt: HTTP 401. |
+| Nächster Schritt | Angemeldeter Funktionstest zum Anlegen neuer Kategorien durch Ernesto offen; nicht Teil der beauftragten Veröffentlichung und curl-Prüfung. Statusnachzug mit ./veroeffentlichen.sh "STATUS nachgezogen" beauftragt; Ergebnis im Abschlussbericht. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Zehn Rezepte (Anzahl am 2026-11-06 aus rezepte.json geprüft), einschließlich Rindsuppe hausgemacht für 4 Personen mit 10 Zutaten und 6 Schritten. Fehlende Mengen gemäß Quelle unverändert übernommen (Entscheidung Ernesto). Quellen in claude-seite/ (rezepte.json einzige Datenquelle); Original-PDFs nur lokal in pdf/; frühere ChatGPT-Site als Archiv in rezept-sammlung/. |
-| Prüfstand | 2026-11-06: Build erfolgreich (10 Rezepte, 76422 Bytes), Action 42184331878 success. curl ohne Zugangsdaten: Hauptseite HTTP 200, enthält href="bearbeiten/" und href="bearbeiten/?id=…" in eingebetteten JavaScript-Vorlagen; /rezepte/bearbeiten/ HTTP 401. Ein reiner HTMLParser findet diese dynamischen Links nicht als statische Anker; Rohtext und Kontext per curl geprüft. Kein angemeldeter Bearbeitungs-/Speichertest, keine visuelle Browserprüfung. |
-| Site-Stand | E-027 veröffentlicht und Zugriffsschutz ohne Passwort bestätigt: Hauptseite HTTP 200 mit Bearbeiten-Linkvorlagen, Bearbeiten-Seite HTTP 401. Action 42184331878 erfolgreich. |
+| Prüfstand | 2026-11-06, 09:34 CET: Build erfolgreich (10 Rezepte, 77043 Bytes), Action 42188467544 success, Hauptseite laut Skript HTTP 200. curl ohne Passwort auf /rezepte/bearbeiten/: HTTP 401. Rezeptanzahl aus rezepte.json: 10. Keine angemeldete Kategorienanlage oder Speicherung getestet. |
+| Site-Stand | Erweiterung „Neue Kategorien anlegen“ veröffentlicht: Action 42188467544 erfolgreich, Hauptseite HTTP 200; Bearbeiten-Seite ohne Passwort weiterhin HTTP 401. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte (früher Claude-Seite 04298b04-31eb-4806-9ab5-368ee10d4bc6, davor ChatGPT appgprj_6aca2bc3d290819192c96834537f4ee8) |
-| Site-Version | Commit a25b908, erfolgreicher Deploy in Action 42184331878 (laut Veröffentlichungsskript); enthält E-027 aus Commit 3c31d6f. |
+| Site-Version | Inhaltsdeploy: Commit eb36556, Action 42188467544 success (laut Veröffentlichungsskript). Späterer Status-only-Nachzug separat im Abschlussbericht. |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, im Auftrag Ernestos am 2026-11-06 (E-027 erfolgreich veröffentlicht, curl-Prüfungen dokumentiert) |
+| Zuletzt aktualisiert durch | Hermes, im Auftrag Ernestos am 2026-11-06 (Kategorien-Erweiterung veröffentlicht, HTTP 401 geprüft) |
 
 ## Lokale Belege
+
+2026-11-06, Kategorien-Erweiterung: `./veroeffentlichen.sh "Bearbeiten-Seite: neue Kategorien anlegen"` erfolgreich. `ERGEBNIS: veröffentlicht – Commit eb36556, Action-Lauf 42188467544: success, http://heger.earth/rezepte/ HTTP 200`. Anschließend `curl` ohne Zugangsdaten auf http://heger.earth/rezepte/bearbeiten/: HTTP 401. Keine weiteren git-Befehle, nichts erzwungen. Inhalt bleibt bei 10 Rezepten; angemeldete Kategorienanlage nicht geprüft.
 
 Erfolgreiche Veröffentlichung E-027, 2026-11-06: `./veroeffentlichen.sh "STATUS nachgezogen, Bearbeiten-Seite (E-027) veröffentlichen"` lieferte `ERGEBNIS: veröffentlicht – Commit a25b908, Action-Lauf 42184331878: success, http://heger.earth/rezepte/ HTTP 200`. Anschließend curl ohne Passwort: Rohtext der Hauptseite enthält `<a href="bearbeiten/">Rezepte bearbeiten oder neu anlegen</a>` und rezeptbezogene Bearbeiten-Links innerhalb des eingebetteten JavaScripts; Bearbeiten-Seite HTTP 401. Keine weiteren git-Befehle, nichts erzwungen. Dieser erfolgreiche Versuch ersetzt den früheren Push-Blocker; historische Fehlversuche bleiben unten erhalten.
 
