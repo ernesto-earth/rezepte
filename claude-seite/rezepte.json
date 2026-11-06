@@ -4,7 +4,7 @@
   "title": "Grenadiermarsch",
   "subtitle": "mit Kürbis und Dürre",
   "image": "img/grenadiermarsch.jpg",
-  "alt": "Grenadiermarsch mit Kürbis, Fleckerl und Dürre in einer ovalen Schale",
+  "alt": "Grenadiermarsch mit Kürbis und Dürre",
   "tags": [
    "Gemüse",
    "Fleisch",
@@ -17,11 +17,11 @@
   "portions": "4 Portionen",
   "time": "30 Minuten",
   "timeShort": "30 Min.",
-  "author": "Kerstin Grossbauer",
-  "source": "GUSTO, 24. September 2026, Seite 20",
+  "author": "",
+  "source": "Ernesto",
   "ingredients": [
    {
-    "t": "400 g Kürbis, gewürfelt (z. B. Hokkaido, geschält)"
+    "t": "400 g Hokkaido-Kürbis, gewürfelt"
    },
    {
     "t": "300 g Teigwaren (z. B. Fleckerl)"
@@ -30,10 +30,10 @@
     "t": "1 große Zwiebel"
    },
    {
-    "t": "250 g Dürre"
+    "t": "250 g gemischte Fleischreste (Geselchtes, Schinken, ...)"
    },
    {
-    "t": "1 EL Paprikapulver, edelsüß"
+    "t": "1 EL Paprikapulver edelsüß"
    },
    {
     "t": "10 g Schnittlauch"
@@ -42,10 +42,10 @@
     "t": "Öl, Salz und Pfeffer"
    }
   ],
-  "tip": "Pikanter wird’s mit Sucuk statt Dürre – sie bringt eine feine Schärfe mit.",
+  "tip": "Pikanter wird’s zusätzlich mit Sucuk – sie bringt eine feine Schärfe mit.",
   "steps": [
    "Zwei Töpfe mit Salzwasser aufkochen. Im einen den Kürbis, im anderen die Teigwaren jeweils bissfest garen, dann beides abseihen.",
-   "Zwiebel schälen und fein schneiden. Die Dürre enthäuten und in mundgerechte Stücke schneiden.",
+   "Zwiebel schälen und fein schneiden. Die Fleischreste in mundgerechte Stücke schneiden.",
    "Öl in einem großen Topf erhitzen, die Zwiebel anbraten, Dürre dazugeben und mitbraten, bis Röststellen entstehen. Topf vom Herd ziehen und das Paprikapulver einrühren. Kürbis und Teigwaren untermischen, mit Salz und Pfeffer abschmecken.",
    "Schnittlauch fein schneiden und den Grenadiermarsch vor dem Servieren damit bestreuen."
   ],
