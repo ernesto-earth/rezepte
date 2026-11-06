@@ -6,19 +6,21 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; Website auf heger.earth/rezepte, Projektordner ist einzige Quelle (Grundsätze 2026-11-05), Design „Am Tisch“ |
-| Letzte Statusaktualisierung | 2026-11-06T09:44:53+01:00 |
-| Zuletzt erledigt | 2026-11-06 (Hermes): In CAT ausschließlich Suppen-Farbe von #7C3AED auf #CA8A04 geändert. Vorbereitete lum/ink-Funktionen sowie styles.css und bearbeiten/index.php unverändert belassen; Vergleich mit Ausgangsstand erfolgreich. Build erfolgreich, Veröffentlichung noch ausstehend. |
-| Nächster Schritt | Mit ./veroeffentlichen.sh "Helle Kategoriefarben möglich, Suppen in dunklerem Gelb" veröffentlichen, einschließlich vorbereiteter Begleitänderungen. |
+| Letzte Statusaktualisierung | 2026-11-06T10:02:19+01:00 |
+| Zuletzt erledigt | 2026-11-06: Über die Bearbeiten-Seite: „Alt Wiener Suppentopf“ (rindsuppe-hausgemacht): Titel, Zubereitung geändert (vorher „Rindsuppe hausgemacht“) / „Alt Wiener Suppentopf“ (rindsuppe-hausgemacht): Untertitel, Foto, Zutaten/Mengen geändert / „Alt Wiener Suppentopf“ (rindsuppe-hausgemacht): Untertitel, Zubereitung, Tipp, Quelle geänd… (siehe AENDERUNGEN.md). Davor 2026-11-06 (Hermes): In CAT ausschließlich Suppen-Farbe von #7C3AED auf #CA8A04 geändert; sonstige vorbereitete Inhalte unverändert erhalten. Build erfolgreich. Zusammen mit vorbereiteten Änderungen in site.js (lum/ink), styles.css, bearbeiten/index.php und veroeffentlichen.sh veröffentlicht: Commit 471c348, Action 42189953723 success. Suppen-Farbwert im Live-Rohtext per curl bestätigt. |
+| Nächster Schritt | Visuelle Abnahme der hellen Kategoriefarben durch Ernesto offen. Abschließende Ergebnisnachpflege dieser STATUS.md nur lokal; kein weiterer Veröffentlichungsaufruf beauftragt. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Zehn Rezepte (Anzahl am 2026-11-06 aus rezepte.json geprüft). Kategorie Gemüse statt Kürbis bei grenadiermarsch, tartiflette und kuerbiseintopf; Rezeptinhalte bei diesem Auftrag unverändert. Datensatz rindsuppe-hausgemacht heißt im aktuellen Quellenstand „Alt Wiener Suppentopf“ (bereits vor diesem Auftrag geändert). Quellen in claude-seite/ (rezepte.json einzige Datenquelle); Original-PDFs nur lokal in pdf/; frühere ChatGPT-Site als Archiv in rezept-sammlung/. |
 | Prüfstand | 2026-11-06, 09:44 CET: node build.mjs erfolgreich (10 Rezepte, 77753 Bytes). Automatischer Vergleich bestätigt: site.js nur am Suppen-Farbwert geändert; styles.css, bearbeiten/index.php und rezepte.json gegenüber Auftragsbeginn unverändert. Keine visuelle Browser- oder angemeldete Funktionsprüfung ausgeführt. |
-| Site-Stand | Kategorie Gemüse veröffentlicht: Action 42189124241 success, Hauptseite HTTP 200. Ausgelieferter Rohtext per curl auf neuen CAT-Eintrag und Abwesenheit des alten Kategorie-Schlüssels geprüft. |
+| Site-Stand | Helle Kategoriefarben und Suppen in #CA8A04 veröffentlicht: Action 42189953723 success, Hauptseite HTTP 200. Suppen-Farbe im ausgelieferten Rohtext bestätigt, nicht visuell im Browser geprüft. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte (früher Claude-Seite 04298b04-31eb-4806-9ab5-368ee10d4bc6, davor ChatGPT appgprj_6aca2bc3d290819192c96834537f4ee8) |
-| Site-Version | Commit de1d897, Action 42189124241 success (laut Veröffentlichungsskript); abschließende Statuspflege nach diesem Commit nur lokal. |
+| Site-Version | Commit c1ee0f6 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, im Auftrag Ernestos am 2026-11-06 (Suppen-Farbe geändert und Build geprüft) |
+| Zuletzt aktualisiert durch | Hermes, stündlicher Abgleich (aenderungen-abholen.mjs) |
 
 ## Lokale Belege
+
+Abschluss Suppen-Farbe: `ERGEBNIS: veröffentlicht – Commit 471c348, Action-Lauf 42189953723: success, http://heger.earth/rezepte/ HTTP 200`. Skript übernahm STATUS.md, bearbeiten/index.php, site.js, styles.css und die bereits offene veroeffentlichen.sh. curl bestätigte danach den ausgelieferten CAT-Eintrag Suppen mit #CA8A04. Keine weiteren git-Befehle, nichts erzwungen. Abschließende Ergebnisnachpflege nur lokal.
 
 2026-11-06, Suppen-Farbe: ausschließlich CAT-Farbwert #7C3AED → #CA8A04 in site.js geändert. Baseline-Vergleich bestätigt Erhalt aller sonstigen site.js-Inhalte einschließlich vorbereiteter lum/ink-Funktionen sowie unveränderte styles.css, bearbeiten/index.php und Rezeptdaten. Build erfolgreich (10 Rezepte, 77753 Bytes). Vorbereitete Begleitänderungen gemäß Auftrag mit veröffentlichen; Erfolg erst nach Skriptergebnis dokumentieren.
 
