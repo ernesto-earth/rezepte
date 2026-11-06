@@ -730,10 +730,12 @@
   "image": "img/rindsuppe-hausgemacht-20261106092414-4ab9.jpg",
   "alt": "Alt Wiener Suppentopf So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden.",
   "tags": [
-   "Fleisch"
+   "Fleisch",
+   "Suppen"
   ],
   "categories": [
-   "fleisch"
+   "fleisch",
+   "suppen"
   ],
   "portions": "4 Personen",
   "time": "2 Stunden",

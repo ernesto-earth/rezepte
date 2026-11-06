@@ -3,6 +3,7 @@
   const CAT = {
     'gemüse': ['Gemüse', '#C2410C'], 'fleisch': ['Fleisch', '#9F1239'], 'vegetarisch': ['Vegetarisch', '#3F6212'],
     'fisch': ['Fisch', '#1D4E89'], 'süßspeisen': ['Süßspeisen', '#6D28D9'],
+    'suppen': ['Suppen', '#7C3AED'],
   };
   const app = document.getElementById('app');
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
