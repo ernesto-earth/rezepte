@@ -722,5 +722,67 @@
    "Auflauf herausnehmen, etwa 5 Minuten rasten lassen und mit Staubzucker bestreut servieren."
   ],
   "pdf": "Rezepte/pdf/Mohn-Palatschinken-Auflauf-mit-Vanilleguss.pdf"
+ },
+ {
+  "id": "rindsuppe-hausgemacht",
+  "title": "Rindsuppe hausgemacht",
+  "subtitle": "Rezept für eine kräftige selbstgemachte Rindsuppe.",
+  "image": "img/rindsuppe-hausgemacht.jpg",
+  "alt": "Rindsuppe hausgemacht Rezept für eine kräftige selbstgemachte Rindsuppe.",
+  "tags": [
+   "Fleisch"
+  ],
+  "categories": [
+   "fleisch"
+  ],
+  "portions": "4 Personen",
+  "time": "2 Stunden",
+  "timeShort": "2 Std.",
+  "author": "",
+  "source": "steirische-spezialitaeten.at",
+  "url": "https://www.steirische-spezialitaeten.at/rezepte/rindsuppe.html",
+  "ingredients": [
+   {
+    "t": "1 kg Suppenfleisch im Ganzen vom Rind"
+   },
+   {
+    "t": "ein paar Rinds- oder Markknochen"
+   },
+   {
+    "t": "1 Bund Suppengemüse (Karotten, gelbe Rüben, Lauch, Sellerie, Petersilwurzel)"
+   },
+   {
+    "t": "Petersilstängel (wer hat auch Liebstöckelzweige)"
+   },
+   {
+    "t": "1 Zwiebel"
+   },
+   {
+    "t": "2 Knoblauchzehen"
+   },
+   {
+    "t": "Lorbeerblätter"
+   },
+   {
+    "t": "Wacholderbeeren"
+   },
+   {
+    "t": "Pfefferkörner"
+   },
+   {
+    "t": "Salz"
+   }
+  ],
+  "tip": "",
+  "steps": [
+   "Für das Rindsuppe Rezept das Rindfleisch kurz abschwemmen. Die Knochen gut waschen oder blanchieren und abschwemmen. Das Suppengemüse in grobe Stücke schneiden.",
+   "Das Suppenfleisch mit den Knochen, dem Gemüse und den Gewürzen in kaltem Wasser aufstellen und aufkochen. Das Fleisch sollte mit Wasser bedeckt sein.",
+   "Die Rindssuppe einmal aufkochen und rund 2 Stunden auf niedriger Flamme köcheln lassen, bis das Fleisch weich ist. Steigt kein Schaum mehr auf, wird gesalzen. Zu starkes Kochen der Suppe macht die Rindssuppe trüb!",
+   "Das gekochte Rindfleisch für einen Rindfleischsalat oder einen Grenadiermarsch in der Suppe abkühlen lassen. Dadurch trocknet das Fleisch außen nicht aus.",
+   "Die Rindsuppe abseihen und abschmecken, wenn nötig noch Salz hinzufügen. Nach Belieben kann die Brühe noch etwas eingekocht werden, dadurch wird sie kräftiger im Geschmack!",
+   "Die klare Rindsuppe kann mit verschiedensten Suppeneinlagen serviert werden."
+  ],
+  "pdf": "",
+  "added": "2026-11-06"
  }
 ]

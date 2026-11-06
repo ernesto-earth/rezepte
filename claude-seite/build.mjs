@@ -22,9 +22,26 @@ for (const r of rezepte) {
   if (!r.steps?.length) fehler.push(`${r.id}: keine Schritte`);
   if (!fs.existsSync(path.join(root, r.image))) fehler.push(`${r.id}: Bild ${r.image} fehlt`);
 }
+// Kategorien müssen in site.js (CAT) definiert sein, sonst bricht die Seite; Personenangabe muss lesbar sein
+const katBlock = js.match(/const CAT = \{([\s\S]*?)\};/);
+const kats = new Set(katBlock ? [...katBlock[1].matchAll(/'([^']+)':\s*\[/g)].map(m => m[1]) : []);
+for (const r of rezepte) {
+  if (!r.categories?.length) fehler.push(`${r.id}: keine Kategorie`);
+  for (const c of r.categories || []) if (!kats.has(c)) fehler.push(`${r.id}: Kategorie „${c}“ fehlt in site.js (CAT)`);
+  if (r.portions && !/\d/.test(r.portions)) fehler.push(`${r.id}: Personen/Portionen ohne Zahl („${r.portions}“)`);
+}
 if (new Set(rezepte.map(r => r.id)).size !== rezepte.length) fehler.push('doppelte Rezept-ID');
 if (fehler.length) { console.error('Build abgebrochen:\n- ' + fehler.join('\n- ')); process.exit(1); }
 
+// Kopfzeile: Quellen aus den Daten (Groß-/Kleinschreibung zusammengefasst, gemischte Schreibweise bevorzugt)
+const quellen = new Map();
+for (const r of rezepte) {
+  const q = r.source.split(',')[0].trim(), k = q.toLocaleLowerCase('de');
+  const alt = quellen.get(k);
+  if (!alt || (alt === alt.toUpperCase() && q !== q.toUpperCase())) quellen.set(k, q);
+}
+const qListe = [...quellen.values()].sort((a, b) => a.localeCompare(b, 'de'));
+const quellenText = qListe.length <= 3 ? qListe.join(qListe.length === 3 ? ', ' : ' und ').replace(/, ([^,]*)$/, ' und $1') : `${qListe.length} Quellen`;
 const data = JSON.stringify(rezepte).replace(/</g, '\\u003c');
 const html = `<!doctype html>
 <html lang="de">
@@ -40,7 +57,7 @@ const html = `<!doctype html>
 <header class="topbar"><div class="topbar-inner">
   <a class="brand" href="#rezepte">AM TISCH <span>REZEPTE</span></a>
   <nav class="topnav" aria-label="Hauptnavigation"><a href="#rezepte" data-nav="rezepte">Alle Rezepte</a><a href="#sammlung" data-nav="sammlung" class="wide">Über die Sammlung</a></nav>
-  <span class="meta">${rezepte.length} Rezepte · aus GUSTO und Men’s Health</span>
+  <span class="meta">${rezepte.length} Rezepte · aus ${quellenText}</span>
 </div></header>
 <div id="app"></div>
 <footer class="foot"><span>Am Tisch · Ernestos Rezeptsammlung</span><span>Rezepte aus den genannten Zeitschriften, nur für den privaten Gebrauch</span></footer>

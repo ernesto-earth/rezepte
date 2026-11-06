@@ -4,7 +4,7 @@ Ernestos Rezeptsammlung als Website: **http://heger.earth/rezepte/**
 
 Dieser Ordner ist die einzige Quelle des Projekts. Alles, was man zum Neuaufsetzen braucht, liegt hier.
 Das GitHub-Repo `ernesto-earth/rezepte` ist ein Spiegel dieses Ordners (ohne die lokalen Teile, siehe unten)
-und veröffentlicht die Seite automatisch. Es gibt keine Abhängigkeit zu Claude oder ChatGPT.
+und veröffentlicht die Seite automatisch. Es gibt keine Abhängigkeit zu Claude oder ChatGPT; bearbeitet und veröffentlicht wird über Hermes (E-024).
 
 ## Inhalt
 
@@ -24,13 +24,34 @@ Der Ordnername `claude-seite` ist historisch; er wird von Chief of Staff referen
 
 ## Neues Rezept ergänzen
 
+Neue Rezepte trägt Hermes ein und veröffentlicht sie (E-024/E-025). Es gibt zwei Wege, beide immer mit
+Anzahl der Personen; Mengen werden übernommen, wie die Quelle sie angibt (fehlende bleiben leer):
+
+- **Weg 1 – Link zu einer Rezeptseite:** Auftrag im Cockpit (heger.earth/cos, Projekt Rezepte, „ändern erlaubt“),
+  z. B. „Neues Rezept: https://… – eintragen und veröffentlichen“. Hermes führt
+  `node rezept-neu.mjs link "<URL>"` aus; das Skript liest Titel, Bild, Zutaten, Schritte, Personen und Zeit aus den
+  Rezeptdaten der Seite (schema.org). Fehlt die Personenzahl auf der Seite, im Auftrag dazuschreiben („für 4 Personen“). Seiten ohne
+  Rezeptdaten werden aus dem Text gelesen (Abschnitte „Zutaten“ und „Zubereitung“). Fehlt die Personenzahl,
+  legt das Skript einen ausgefüllten Entwurf in `eingang/<name>/` an: dort die Personen eintragen, dann Weg 2.
+- **Weg 2 – eigenes Bild mit Zutaten und Schritten:** Ordner `eingang/_vorlage` kopieren und umbenennen
+  (z. B. `eingang/gulasch`), Foto hineinlegen, `rezept.txt` ausfüllen – geht auch am iPhone in der Dateien-App
+  (iCloud Drive › Dokumente › a.5. Projekte › Rezepte › eingang). Dann Auftrag im Cockpit:
+  „Neues Rezept aus eingang/gulasch – eintragen und veröffentlichen“. Hermes führt
+  `node rezept-neu.mjs ordner eingang/gulasch` aus; der Ordner wandert danach nach `eingang/erledigt/`.
+
+Fehlt etwas (Titel, Personen, Zutaten, Schritte, Bild), trägt das Skript nichts ein und nennt, was fehlt.
+Vorschau ohne Änderung: `--probe`. Kategorie erzwingen: `--kategorie fleisch`.
+
+Von Hand (ohne Skript), z. B. für Zeitschriftenrezepte mit PDF:
+
 1. Original-PDF nach `pdf/`, Foto (verkleinert) nach `claude-seite/img/`.
 2. Eintrag in `claude-seite/rezepte.json` anlegen (gleiche Felder wie die vorhandenen).
 3. Optional lokal prüfen: im Ordner `claude-seite` `node build.mjs` ausführen, `dist/index.html` im Browser öffnen.
 4. `STATUS.md` aktualisieren.
-5. In **GitHub Desktop** (Repository „rezepte“ auswählen): links erscheinen die geänderten Dateien.
-   Unten links eine kurze Beschreibung eintragen (z. B. „Rezept Gulasch ergänzt“) → **Commit to main** →
-   oben **Push origin**.
+5. **Veröffentlichen:** im Projektordner `./veroeffentlichen.sh "Kurze Beschreibung"` ausführen
+   (macht Hermes nach jedem Änderungsauftrag selbst, E-024). Das Skript baut, committet, pusht, wartet auf die
+   GitHub Action und prüft die Seite; die letzte Zeile `ERGEBNIS:` sagt, ob alles geklappt hat.
+   Ausweichweg von Hand: GitHub Desktop (Repository „rezepte“) → **Commit to main** → **Push origin**.
 6. Nach ca. 1 Minute ist die Seite aktualisiert. Kontrolle auf github.com/ernesto-earth/rezepte unter
    **Actions**: grüner Haken = online, rotes X = Fehler (Log anklicken, siehe Fehlersuche).
 

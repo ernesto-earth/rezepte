@@ -12,3 +12,6 @@ work/
 rezept-sammlung/
 .hermes.md
 kontext-readly-artikel.md
+
+# Eingang für neue Rezepte (Fotos, Notizen) bleibt lokal; übernommen wird nach claude-seite/
+eingang/
