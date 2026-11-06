@@ -191,7 +191,7 @@
   "title": "Kürbiseintopf",
   "subtitle": "mit Bohnen und Bratwürsten",
   "image": "img/kuerbiseintopf.jpg",
-  "alt": "Herzhafter Kürbiseintopf mit weißen Bohnen, Grünkohl und zwei Bratwürsten",
+  "alt": "Kürbiseintopf mit Bohnen und Bratwürsten",
   "tags": [
    "Gemüse",
    "Fleisch",
@@ -204,11 +204,11 @@
   "portions": "4 Portionen",
   "time": "1 Stunde",
   "timeShort": "1 Std.",
-  "author": "Susanne Jelinek",
-  "source": "GUSTO, 24. September 2026, Seite 22",
+  "author": "",
+  "source": "Ernesto",
   "ingredients": [
    {
-    "t": "750 g Kürbis (z. B. Hokkaido oder Butternuss)"
+    "t": "750 g Hokkaido-Kürbis"
    },
    {
     "t": "1 große Zwiebel"
@@ -223,7 +223,7 @@
     "t": "3 EL Öl und 1 EL Butter"
    },
    {
-    "t": "400 ml klare Suppe, am besten vom Huhn"
+    "t": "400 ml klare Suppe"
    },
    {
     "t": "800 g weiße Bohnen aus der Dose (480 g Abtropfgewicht)"
@@ -235,16 +235,13 @@
     "t": "8 Bratwürstel"
    },
    {
-    "t": "Saft von ½ Zitrone"
-   },
-   {
     "t": "40 g Parmesan, gerieben"
    },
    {
     "t": "Salz und frisch gemahlener schwarzer Pfeffer"
    }
   ],
-  "tip": "Statt Würsteln passen auch ein faschierter Braten oder einfach Reis dazu.",
+  "tip": "Statt Würsteln passen auch ein faschierter Braten dazu.",
   "steps": [
    "Kürbis putzen, entkernen und je nach Sorte schälen. Es sollten etwa 550 g Kürbisfleisch übrig bleiben. In 1–2 cm große Würfel schneiden.",
    "Zwiebel und Knoblauch schälen. Zwiebel halbieren und in feine Streifen schneiden, Knoblauch fein würfeln. Rosmarinnadeln von den Stängeln lösen und sehr fein hacken.",
