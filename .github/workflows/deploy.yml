@@ -17,7 +17,7 @@ name: Deploy
 on:
   push:
     branches: [main]
-    paths: ["claude-seite/**", "bearbeiten/**", ".github/workflows/deploy.yml"]
+    paths: ["claude-seite/**", "bearbeiten/**", ".github/workflows/deploy.yml", "deploy-pruefen.mjs", "test-deploy-pruefen.mjs"]
   workflow_dispatch:
 
 concurrency:
@@ -36,6 +36,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Deployment-Prüfung offline testen
+        run: node --test test-deploy-pruefen.mjs
 
       - name: Seite bauen (prüft auch, ob jedes Rezept vollständig ist)
         working-directory: claude-seite
@@ -91,20 +94,11 @@ jobs:
           printf 'mkdir -p -f %srezepte/bearbeiten\nput bearbeiten/index.php -o %srezepte/bearbeiten/index.php\nput %s -o %srezepte/bearbeiten/.htaccess\n' \
             "$FTP_WEBROOT" "$FTP_WEBROOT" "$RUNNER_TEMP/b.htaccess" "$FTP_WEBROOT" | ftp
           sleep 3
-          u="http://heger.earth/rezepte/bearbeiten/"
-          ohne=$(curl -s -o /dev/null -w '%{http_code}' "$u" || true)
-          mit=$(curl -s -o "$RUNNER_TEMP/b.html" -w '%{http_code}' -u "ernesto:$EDIT_PASSWORD" "$u" || true)
-          ht=$(curl -s -o /dev/null -w '%{http_code}' "${u}.htaccess" || true)
-          echo "$u → ohne Passwort HTTP $ohne, mit Passwort HTTP $mit, .htaccess HTTP $ht"
-          [ "$ohne" = "401" ] || { echo "::error::Bearbeiten ist ohne Passwort erreichbar (HTTP $ohne)"; exit 1; }
-          [[ "$ht" == 401 || "$ht" == 403 ]] || { echo "::error::.htaccess ist lesbar"; exit 1; }
-          if [ "$mit" != "200" ] || ! grep -q "Rezepte bearbeiten" "$RUNNER_TEMP/b.html"; then
-            echo "::error::Bearbeiten antwortet nicht wie erwartet (HTTP $mit):"; sed 's/<[^>]*>/ /g' "$RUNNER_TEMP/b.html" | tr -s ' ' | head -c 400; exit 1; fi
+          # Vorhandene Weiterleitungen ohne Zugangsdaten auflösen; Login erst am
+          # geprüften Ziel, niemals Zugangsdaten blind einer Weiterleitung folgen lassen.
+          node deploy-pruefen.mjs bearbeiten
 
       - name: Prüfen, ob die Seite erreichbar ist
         run: |
           sleep 3
-          # http statt https: heger.earth hat derzeit kein gültiges SSL-Zertifikat
-          code=$(curl -s -o /dev/null -w '%{http_code}' "http://heger.earth/${SITE}/" || true)
-          echo "http://heger.earth/${SITE}/ → HTTP $code"
-          [ "$code" = "200" ]
+          node deploy-pruefen.mjs seite

@@ -5,20 +5,44 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-012: Startseitenhinweis lokal ergänzt und geprüft, Veröffentlichung ausdrücklich beauftragt und noch ausstehend. E-028-Web-Cockpit-Abnahme weiterhin offen. |
-| Letzte Statusaktualisierung | 2026-11-06T19:09:06+01:00 |
-| Zuletzt erledigt | COS-012: „Die Rezeptesammlung wird laufend ergänzt.“ als Absatz vor den Kategoriefiltern in claude-seite/site.js ergänzt. Keine Rezeptdaten geändert. Bestehende optionale BUILD_DIR-Bedingung in veroeffentlichen.sh gemäß ausdrücklicher Freigabe unverändert zur Mitveröffentlichung vorgesehen. |
-| Nächster Schritt | COS-012 über ./veroeffentlichen.sh veröffentlichen und Live-Inhalt prüfen. Unabhängig davon bleiben E-028-Web-Cockpit-Abnahme, visuelle Kategoriefarben-Abnahme und E-024-Ende-zu-Ende-Test offen. |
+| Arbeitsstatus | aktiv; COS-012-Hinweis live. Deployment-Prüfung korrigiert und lokal getestet; neuer ausdrücklich freigegebener Veröffentlichungslauf ausstehend. |
+| Letzte Statusaktualisierung | 2026-11-06T20:11:05+01:00 |
+| Zuletzt erledigt | Nach ausdrücklichem Auftrag „dann löse das“ die Prüfblöcke von Workflow und Veröffentlichungsskript korrigiert: bestehende Weiterleitungen erst ohne Zugangsdaten prüfen, Login nur als neue Anfrage an ein geprüftes Ziel. 17 Offline-Tests, Workflow-/Shell-Syntax und Build mit zehn Rezepten bestanden. Rezeptdaten und Startseitenhinweis unverändert. |
+| Nächster Schritt | Genau einen neu freigegebenen Veröffentlichungslauf über das bestehende Skript durchführen; danach exakten Deploy, Zugangskontrolle und sichtbaren Hinweis prüfen. Übrige fachliche Abnahmen bleiben getrennt. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Am 2026-11-06 lokal zehn Rezepte mit eindeutigen IDs aus rezepte.json bestätigt; Original-Rezept-PDFs nur lokal in pdf/. Grenadiermarsch trägt „mit Kürbis, Geselchten und Bratenresten“, Quelle Ernesto; rindsuppe-hausgemacht heißt „Alt Wiener Suppentopf“. Die über die Seite erzeugten Commits f552221 und dac451a änderten Grenadiermarsch, darunter Zutaten, Zubereitung, Tipp, Quelle, Autor und Untertitel; das automatische Protokoll nennt die redaktionellen Felder, die Git-Differenzen zusätzlich das alt-Feld. Import und Protokollierung in 1898378 vorhanden. Kategorie Gemüse statt Kürbis und Suppen bleiben im bestehenden Datenstand. Bei dieser Statuspflege keine Rezeptinhalte geändert; frühere ChatGPT-Site in rezept-sammlung/ bleibt Archiv. |
-| Prüfstand | COS-012 am 2026-11-06: node build.mjs erfolgreich (10 Rezepte, 77596 Bytes); node --check site.js und bash -n veroeffentlichen.sh erfolgreich. Node-VM führt die eingebetteten Skripte aus: Hinweis als Absatz vor Filtern und zehn Rezeptkarten gerendert. Rezeptdaten per SHA256 unverändert; eingebettete Daten identisch. Grafische Browserprüfung nicht möglich: Chrome startet wegen Profil-/Socketfehler nicht. Live-Prüfung steht aus. |
-| Site-Stand | Letzter hier dokumentierter erfolgreicher Seiten-Deploy: Suppen #CA8A04, Commit 471c348, Action 42189953723 success, damalige Hauptseite HTTP 200 und Rohtextprüfung; visuelle Abnahme offen. Neuere Seitenbearbeitungen liegen lokal bis dac451a vor, ihr exakter Deploy und aktueller Live-Inhalt wurden bei dieser Statuspflege nicht geprüft. Keine neue Veröffentlichung erfolgt. |
+| Prüfstand | 17 Weiterleitungs-/Zugangstests bestanden: erlaubtes Ziel, fremde Hosts/Pfade/Ports, Login-Weiterleitung, Rückleitung, Schleife, fehlender Zugriffsschutz, lesbare .htaccess, falsches Passwort und unerwarteter Seiteninhalt. Workflow-YAML mit Ruby geprüft, alle Shell-Blöcke und Veröffentlichungsskript mit bash -n geprüft. Build: zehn Rezepte, 77596 Bytes. Öffentlicher Live-Check: HTTP 200 nach bestehender Weiterleitung. Parent-Browser bestätigte zuvor den sichtbaren Hinweis. Authentifizierter neuer Workflow-Check noch ausstehend. |
+| Site-Stand | Hinweis aus Commit 9aa603b live sichtbar. Erster Gesamtdeploy 42268166465 am Zugangscheck mit HTTP 301 statt erwartetem 401 gescheitert. Prüfkorrektur lokal bestanden, noch nicht veröffentlicht. Keine Server-, Zertifikats-, Weiterleitungs- oder Rezeptdatenänderung. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | unbekannt (aktueller Live-Deploy nicht geprüft) |
+| Site-Version | 9aa603b; Gesamtdeploy 42268166465 fehlgeschlagen |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, COS-012 im ausdrücklichen Auftrag Ernestos, einschließlich Freigabe der vorhandenen BUILD_DIR-Bedingung zur Mitveröffentlichung |
+| Zuletzt aktualisiert durch | Hermes, im ausdrücklichen Auftrag zur Prüfkorrektur und einem erneuten Veröffentlichungslauf |
 
 ## Lokale Belege
+
+### COS-012 – Prüfkorrektur nach erneutem ausdrücklichem Auftrag
+
+Der ursprüngliche Erstlauf veröffentlichte den Hinweis in Commit `9aa603b`.
+`ERGEBNIS: FEHLER – Deploy Action-Lauf 42268166465: failure – https://github.com/ernesto-earth/rezepte/actions/runs/42268166465`.
+Build und Upload waren erfolgreich; der Zugangscheck bewertete die bestehende
+Weiterleitung (301) statt die Passwortsperre am Ziel (401). Der Parent-Browser
+bestätigte danach den sichtbaren Hinweis. Der ursprüngliche Ausführungsagent
+konnte seinen eigenen Chrome-Zugang nicht benutzen; das ist durch diese spätere
+separate Browserprüfung ergänzt, nicht rückwirkend als Agentenprüfung behauptet.
+
+Nach „dann löse das“ nur Prüfcode und erforderliche Statuspflege geändert.
+Die ursprünglichen URL-Werte bleiben erhalten. Server-, Zertifikats-, FTP-,
+Weiterleitungs- und Zugangsdateieinstellungen werden nicht umgestellt.
+`deploy-pruefen.mjs` löst erlaubte Weiterleitungen ohne Zugangsdaten auf,
+prüft den anonymen Schutz und die .htaccess und sendet erst danach eine neue
+authentifizierte Anfrage an das geprüfte Ziel, ohne authentifiziert weiterzuleiten.
+17 Offline-Tests bestanden; öffentlicher Live-Check, Build und Syntaxprüfungen
+bestanden. Neuer Veröffentlichungserfolg wird erst nach dem tatsächlichen Lauf
+eingetragen. Sicherung:
+`/Users/ernesto/.hermes/cache/scratch/recipe-deploy-check-20261106T200307`.
+
+Früheres Feld „Site-Version“ vollständig erhalten:
+Gesamtdeploy unbekannt; COS-012-Commit 9aa603b gepusht, Action 42268166465 failure; Startseitenhinweis live nachgewiesen.
 
 ### Vollständige Erläuterungen zu den gekürzten Statusfeldern
 

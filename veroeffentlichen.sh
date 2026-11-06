@@ -125,8 +125,9 @@ else
 fi
 say "== Deploy: $deploy"
 
-code=$(curl -s -m 20 -o /dev/null -w '%{http_code}' "$SITE_URL" || true)
-say "== $SITE_URL → HTTP $code (erwartet $ERWARTET_HTTP)"
-[ "$code" = "$ERWARTET_HTTP" ] || stop "Seite antwortet mit HTTP $code statt $ERWARTET_HTTP. Commit ${sha:0:7} ist gepusht."
+if ! check=$("$NODE" ./deploy-pruefen.mjs seite "$SITE_URL" 2>&1); then
+  stop "Seitenprüfung fehlgeschlagen ($check). Commit ${sha:0:7} ist gepusht."
+fi
+say "== $SITE_URL → $check"
 
-say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $code"
+say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $ERWARTET_HTTP am geprüften Ziel"
