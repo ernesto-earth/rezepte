@@ -197,7 +197,7 @@ function form(array $r, array $cats, bool $neu): string {
     . '<label>Zeit<input type="text" name="time" value="' . h(($r['time'] ?? '') === 'Gesamtzeit nicht angegeben' ? '' : ($r['time'] ?? '')) . '"></label></div>'
     . '<div><b style="font-size:14px">Kategorie</b><div class="cats">' . $c . '</div>'
     . '<div class="newcat"><label>Neue Kategorie <small>optional, z. B. „Suppen“ – wird angelegt und diesem Rezept zugeordnet</small><input type="text" name="newcat" maxlength="30" value="' . h($_POST['newcat'] ?? '') . '"></label>'
-    . '<label>Farbe<input type="color" name="newcolor" value="' . h($_POST['newcolor'] ?? free_color($cats)) . '"></label></div></div>'
+    . '<label>Farbe <small>auch hell möglich</small><input type="color" name="newcolor" value="' . h($_POST['newcolor'] ?? free_color($cats)) . '"></label></div></div>'
     . '<label>Zutaten <small>eine pro Zeile, Menge zuerst · Zwischenüberschrift mit Doppelpunkt, z. B. „Für die Sauce:“</small><textarea name="ingredients" required>' . h(ingredients_to_text($r['ingredients'] ?? [])) . '</textarea></label>'
     . '<label>Zubereitung <small>ein Schritt pro Zeile</small><textarea name="steps" required>' . h(implode("\n", $r['steps'] ?? [])) . '</textarea></label>'
     . '<label>Tipp<input type="text" name="tip" value="' . h($r['tip'] ?? '') . '"></label>'
@@ -257,7 +257,6 @@ try {
       if (!preg_match('/^\p{L}[\p{L} -]{1,29}$/u', $newcat)) $katfehler[] = 'Name der neuen Kategorie: nur Buchstaben, Leerzeichen und Bindestrich, 2–30 Zeichen';
       elseif (isset($cats[$newkey]) || in_array(mb_strtolower($newcat), array_map('mb_strtolower', $cats), true)) $katfehler[] = "Kategorie „{$newcat}“ gibt es schon – bitte oben anhaken";
       if (!preg_match('/^#[0-9A-F]{6}$/', $newcolor)) $katfehler[] = 'Farbe ungültig';
-      elseif (luminance($newcolor) > 0.35) $katfehler[] = 'Farbe zu hell – auf weißem Grund nicht lesbar, bitte dunkler wählen';
       if (!$katfehler) $sel[] = $newkey;
     }
 

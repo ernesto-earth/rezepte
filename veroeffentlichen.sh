@@ -2,6 +2,7 @@
 # veroeffentlichen.sh – baut, prüft und veröffentlicht die Seite dieses Projekts auf heger.earth.
 #   ./veroeffentlichen.sh "Kurze Beschreibung der Änderung"   bauen, committen, pushen, Deploy und Seite prüfen
 #   ./veroeffentlichen.sh --pruefen                           nur Deploy-Lauf des letzten Commits und Seite prüfen
+#   ./veroeffentlichen.sh --abgleichen                        nur neuere Commits vom Repo übernehmen (Vorspulen)
 #
 # Ablauf: neuere Commits vom Repo übernehmen (z. B. Änderungen über die Seite) → Build mit Prüfung →
 # git add (nur was .gitignore erlaubt) → Commit → Push auf main → GitHub Action abwarten → Seite prüfen.
@@ -27,6 +28,7 @@ stop() { say "ERGEBNIS: FEHLER – $*"; exit 1; }
 msg="${1:-}"
 [ -n "$msg" ] || stop "Bitte eine Beschreibung angeben: ./veroeffentlichen.sh \"Rezept Gulasch ergänzt\"  (oder --pruefen)"
 nur_pruefen=0; [ "$msg" = "--pruefen" ] && nur_pruefen=1
+nur_abgleich=0; [ "$msg" = "--abgleichen" ] && nur_abgleich=1
 
 NODE="${NODE:-$(command -v node || true)}"
 COS_NODE="/Users/ernesto/Documents/a.5. Projekte/Chief of Staff/.cos-runtime/bin/node"
@@ -63,6 +65,10 @@ if [ "$nur_pruefen" = 0 ]; then
     fi
   else
     say "Hinweis: Repo nicht erreichbar, Abgleich übersprungen."
+    [ "$nur_abgleich" = 1 ] && stop "Repo nicht erreichbar."
+  fi
+  if [ "$nur_abgleich" = 1 ]; then
+    say "ERGEBNIS: abgeglichen – Stand $(git rev-parse --short HEAD) ($(git log -1 --format=%s))"; exit 0
   fi
 
   say "== $PROJEKT: Build ($BUILD_DIR)"

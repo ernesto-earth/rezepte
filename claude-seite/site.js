@@ -3,7 +3,7 @@
   const CAT = {
     'gemüse': ['Gemüse', '#C2410C'], 'fleisch': ['Fleisch', '#9F1239'], 'vegetarisch': ['Vegetarisch', '#3F6212'],
     'fisch': ['Fisch', '#1D4E89'], 'süßspeisen': ['Süßspeisen', '#6D28D9'],
-    'suppen': ['Suppen', '#7C3AED'],
+    'suppen': ['Suppen', '#CA8A04'],
   };
   const app = document.getElementById('app');
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -51,7 +51,16 @@
 
   // ---------- Ansichten ----------
   const catLabel = r => r.categories.map(c => CAT[c][0]).join(' · ');
-  const catColor = r => CAT[r.categories[0]][1];
+  // Kategoriefarben dürfen hell sein: Punkte zeigen die echte Farbe, Schrift wird bei Bedarf abgedunkelt (Kontrast ≥ 4,5:1)
+  const lum = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255)
+    .map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4).reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const ink = h => {
+    if (!/^#[0-9a-f]{6}$/i.test(h)) return h;
+    let x = h;
+    for (let k = 0; k < 30 && lum(x) > 0.18; k++) x = '#' + [1, 3, 5].map(i => Math.round(parseInt(x.slice(i, i + 2), 16) * 0.9).toString(16).padStart(2, '0')).join('');
+    return x;
+  };
+  const catColor = r => ink(CAT[r.categories[0]][1]);
 
   function viewList() {
     const term = state.term.toLocaleLowerCase('de');
