@@ -726,9 +726,9 @@
  {
   "id": "rindsuppe-hausgemacht",
   "title": "Alt Wiener Suppentopf",
-  "subtitle": "So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden, viel Fingerspitzengefühl und Kocherfahrung.",
+  "subtitle": "So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden.",
   "image": "img/rindsuppe-hausgemacht-20261106092414-4ab9.jpg",
-  "alt": "Alt Wiener Suppentopf So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden, viel Fingerspitzengefühl und Kocherfahrung.",
+  "alt": "Alt Wiener Suppentopf So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden.",
   "tags": [
    "Fleisch"
   ],
@@ -739,7 +739,7 @@
   "time": "2 Stunden",
   "timeShort": "2 Std.",
   "author": "",
-  "source": "steirische-spezialitaeten.at",
+  "source": "Ernesto",
   "url": "https://www.steirische-spezialitaeten.at/rezepte/rindsuppe.html",
   "ingredients": [
    {
@@ -776,14 +776,15 @@
     "t": "frischen Schnittlauch und Petersilie zum Garnieren"
    }
   ],
-  "tip": "",
+  "tip": "Gleich mehr kochen und die Suppe in Eiswürfelformen einfrieren. So kann jederzeit, ganz schnell selbstgekochte Suppe mit Nudeln auf den Tisch gezaubert oder die liebste Nudelsauce mit Extrawürze verfeinert werden.",
   "steps": [
-   "Das Rindfleisch kurz abschwemmen. Die Knochen gut abschwemmen. Das Suppengemüse in Stücke schneiden.",
-   "Das Suppenfleisch mit den Knochen, dem Gemüse und den Gewürzen in kaltem Wasser aufstellen und aufkochen. Das Fleisch sollte mit Wasser bedeckt sein.",
-   "Die Rindssuppe einmal aufkochen und rund 2 Stunden auf niedriger Flamme köcheln lassen, bis das Fleisch weich ist. Steigt kein Schaum mehr auf, wird gesalzen. Zu starkes Kochen der Suppe macht die Rindssuppe trüb!",
-   "Das gekochte Rindfleisch für einen Rindfleischsalat oder einen Grenadiermarsch in der Suppe abkühlen lassen. Dadurch trocknet das Fleisch außen nicht aus.",
-   "Die Rindsuppe abseihen und abschmecken, wenn nötig noch Salz hinzufügen. Nach Belieben kann die Brühe noch etwas eingekocht werden, dadurch wird sie kräftiger im Geschmack!",
-   "Die klare Rindsuppe kann mit verschiedensten Suppeneinlagen serviert werden."
+   "Das Rindfleisch in einem Topf mit kaltem Wasser bedeckt 1x aufkochen lassen. Den entstandenen Schaum abschöpfen. Alle Gewürze (Pfeffer, Lorbeerblatt, Wacholderbeeren, Piment und Salz) dazugeben und bei leicht angehobenem Deckel 2 Stunden bei geringer Hitze köcheln lassen.",
+   "Nach etwa der Hälfte der Kochzeit Zwiebel in der Mitte auseinander schneiden, in einer Pfanne an beiden Schnittstellen (ohne Öl) dunkelbraun anrösten. Das Suppengemüse waschen, bei Bedarf schälen und in grobe Stücke schneiden. Gemüse und Kräuter inkl. Stängel (Petersilie und Liebstöckel) zum Fleisch geben.",
+   "Ungefähr 20 Minuten vor Ende der Kochzeit das Gemüse herausheben und in mundgerechte Stücke schneiden. Das Fleisch ebenfalls aus der Suppe nehmen und klein würfeln.",
+   "Die Suppe durch ein feines Sieb passieren, abschmecken und bei Bedarf nachwürzen.",
+   "Währenddessen Recheis Goldmarke Fadennudeln in gesalzenem Wasser mit etwas verkürzter Kochzeit kochen und abseihen.",
+   "Nudeln, Fleisch und Gemüse in die Suppe geben. Den Lauch in feine Ringe schneiden und in den Topf geben. Nochmals ein paar Minuten köcheln lassen.",
+   "In tiefen Tellern mit viel fein gehackten Kräutern servieren und genießen."
   ],
   "pdf": "",
   "added": "2026-11-06"
