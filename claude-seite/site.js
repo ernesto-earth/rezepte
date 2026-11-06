@@ -74,7 +74,7 @@
       ${visible.length ? '' : '<p class="empty">Kein Rezept gefunden. Vielleicht wartet es noch darauf, gesammelt zu werden.</p>'}
       <section class="about" id="sammlung"><h2>Über die Sammlung</h2><div>
         <p>${R.length} Rezepte, die Ernesto aus Zeitschriften, von Rezeptseiten und aus der eigenen Küche gesammelt hat. Zutaten und Zubereitung stammen aus der jeweiligen Quelle; Kategorien und Kurztexte sind ergänzt. Die Original-PDFs der Zeitschriftenrezepte liegen im Projektordner Rezepte/pdf.</p>
-        <ul>${sources.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div></section>
+        <ul>${sources.map(s => `<li>${esc(s)}</li>`).join('')}</ul><p><a href="bearbeiten/">Rezepte bearbeiten oder neu anlegen</a> (mit Passwort)</p></div></section>
     </main>`;
   }
 
@@ -107,7 +107,7 @@
           </div>
           <div class="box"><h2 style="margin:6px 0 4px">Zubereitung</h2><ol class="steps">${steps}</ol></div>
           ${r.tip ? `<div class="tip"><b>Tipp</b> · ${esc(r.tip)}</div>` : ''}
-          <p class="src">Quelle: ${r.url ? `<a href="${esc(r.url)}" rel="noopener">${esc(r.source)}</a>` : esc(r.source)}${r.pdf ? ` · Original-PDF: ${esc(r.pdf)}` : ''}</p>
+          <p class="src">Quelle: ${r.url ? `<a href="${esc(r.url)}" rel="noopener">${esc(r.source)}</a>` : esc(r.source)}${r.pdf ? ` · Original-PDF: ${esc(r.pdf)}` : ''} · <a href="bearbeiten/?id=${encodeURIComponent(r.id)}">Bearbeiten</a></p>
         </section>
       </div>
     </main>`;

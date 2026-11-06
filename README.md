@@ -55,6 +55,19 @@ Von Hand (ohne Skript), z. B. für Zeitschriftenrezepte mit PDF:
 6. Nach ca. 1 Minute ist die Seite aktualisiert. Kontrolle auf github.com/ernesto-earth/rezepte unter
    **Actions**: grüner Haken = online, rotes X = Fehler (Log anklicken, siehe Fehlersuche).
 
+## Rezepte auf der Seite bearbeiten (E-027)
+
+Auf **http://heger.earth/rezepte/bearbeiten/** (Benutzer `ernesto`, Passwort aus dem Secret `REZEPTE_EDIT_PASSWORD`)
+lassen sich alle Rezepte bearbeiten – Foto austauschen, Titel, Personen, Zeit, Kategorie, Zutaten mit Mengen,
+Arbeitsschritte, Tipp – und neue Rezepte anlegen. Jedes Rezept hat unten den Link „Bearbeiten“.
+Das Foto wird im Browser auf 800 px verkleinert (geht auch am iPhone).
+
+Speichern schreibt direkt ins Repo (`claude-seite/rezepte.json`, `claude-seite/img/`) – ein Commit, der die
+GitHub Action startet; nach etwa 1–2 Minuten ist die Seite aktualisiert. Der Projektordner holt die Änderung
+automatisch beim nächsten `veroeffentlichen.sh` oder `rezept-neu.mjs` (nur Vorspulen, nie erzwingen).
+Code: `bearbeiten/index.php` (PHP, läuft am Webspace), Zugangsdatei am Server außerhalb des Webordners
+unter `rezepte-data/config.php` (schreibt das Deployment aus den Secrets).
+
 ## Neu aufsetzen (z. B. neuer Mac oder neues Repo)
 
 1. Voraussetzungen: Git, Node.js ≥ 18 (nur für lokale Tests), GitHub-Konto `ernesto-earth`.
@@ -64,6 +77,8 @@ Von Hand (ohne Skript), z. B. für Zeitschriftenrezepte mit PDF:
    Startordner = `www` → Repo-Variable `FTP_WEBROOT` mit Wert `./` anlegen.
 4. **Secrets** im Repo unter Settings → Secrets and variables → Actions: `FTP_SERVER` (`host28.ssl-net.net`),
    `FTP_USERNAME`, `FTP_PASSWORD`. Anderer Port als 21 → Variable `FTP_PORT`.
+   Für das Bearbeiten auf der Seite zusätzlich `REZEPTE_EDIT_PASSWORD` (frei wählbar) und `REZEPTE_GITHUB_TOKEN`
+   (fine-grained Token nur für das Repo `rezepte`, Contents: Read and write). Fehlen sie, wird nur die Seite veröffentlicht.
 5. Actions → Deploy → **Run workflow**.
 
 ## Fehlersuche

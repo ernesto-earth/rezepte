@@ -17,7 +17,7 @@ name: Deploy
 on:
   push:
     branches: [main]
-    paths: ["claude-seite/**", ".github/workflows/deploy.yml"]
+    paths: ["claude-seite/**", "bearbeiten/**", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 concurrency:
@@ -58,6 +58,48 @@ jobs:
             set net:max-retries 3; set net:timeout 30; \
             open --env-password -u $FTP_USERNAME -p $FTP_PORT $server; \
             mirror --reverse --verbose --no-perms --parallel=2 claude-seite/dist/ ${FTP_WEBROOT}${SITE}/; bye"
+
+      - name: Bearbeiten-Seite einrichten (E-027)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_WEBROOT: ${{ vars.FTP_WEBROOT || 'www/' }}
+          EDIT_PASSWORD: ${{ secrets.REZEPTE_EDIT_PASSWORD }}
+          EDIT_TOKEN: ${{ secrets.REZEPTE_GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$EDIT_PASSWORD" ] || [ -z "$EDIT_TOKEN" ]; then
+            echo "::warning::Secrets REZEPTE_EDIT_PASSWORD und REZEPTE_GITHUB_TOKEN fehlen – Bearbeiten wird nicht eingerichtet."; exit 0; fi
+          if [ "$FTP_WEBROOT" != "www/" ]; then
+            echo "::error::Bearbeiten braucht FTP_WEBROOT=www/ (Zugangsdatei muss außerhalb des Webordners liegen)."; exit 1; fi
+          server=$(echo "$FTP_SERVER" | tr -d '[:space:]')
+          ftp() { { echo "set ftp:ssl-force true"; echo "set ftp:ssl-protect-data true"; echo "set ftp:passive-mode true"
+                    echo "set net:max-retries 3"; echo "set net:timeout 30"
+                    echo "open --env-password -u $FTP_USERNAME -p $FTP_PORT $server"; cat; echo "bye"; } > "$RUNNER_TEMP/c.lftp"
+                  lftp -f "$RUNNER_TEMP/c.lftp"; }
+          # Zugangsdatei außerhalb des Webordners: <FTP-Wurzel>/rezepte-data/config.php
+          php -r 'echo "<?php\nreturn " . var_export(["password_hash" => password_hash(getenv("EDIT_PASSWORD"), PASSWORD_DEFAULT), "github_token" => getenv("EDIT_TOKEN"), "repo" => getenv("GITHUB_REPOSITORY"), "branch" => "main"], true) . ";\n";' > "$RUNNER_TEMP/config.php"
+          printf 'mkdir -p -f rezepte-data\nput %s -o rezepte-data/config.php\nchmod 600 rezepte-data/config.php\nchmod 700 rezepte-data\n' "$RUNNER_TEMP/config.php" | ftp
+          rm "$RUNNER_TEMP/config.php"
+          # PHP-Version wie bei /cos/ (Control Panel), sonst PHP 8.3
+          echo "get -e ${FTP_WEBROOT}cos/.htaccess -o $RUNNER_TEMP/cos.htaccess" | ftp || true
+          handler=$(grep -iE '^[[:space:]]*(addhandler|suphp_configpath)[[:space:]]' "$RUNNER_TEMP/cos.htaccess" 2>/dev/null || true)
+          echo "$handler" | grep -qi 'x-httpd-php8[1-9]' || handler="AddHandler x-httpd-php83 .php"
+          { echo "$handler"; echo; cat bearbeiten/.htaccess; } > "$RUNNER_TEMP/b.htaccess"
+          printf 'mkdir -p -f %srezepte/bearbeiten\nput bearbeiten/index.php -o %srezepte/bearbeiten/index.php\nput %s -o %srezepte/bearbeiten/.htaccess\n' \
+            "$FTP_WEBROOT" "$FTP_WEBROOT" "$RUNNER_TEMP/b.htaccess" "$FTP_WEBROOT" | ftp
+          sleep 3
+          u="http://heger.earth/rezepte/bearbeiten/"
+          ohne=$(curl -s -o /dev/null -w '%{http_code}' "$u" || true)
+          mit=$(curl -s -o "$RUNNER_TEMP/b.html" -w '%{http_code}' -u "ernesto:$EDIT_PASSWORD" "$u" || true)
+          ht=$(curl -s -o /dev/null -w '%{http_code}' "${u}.htaccess" || true)
+          echo "$u → ohne Passwort HTTP $ohne, mit Passwort HTTP $mit, .htaccess HTTP $ht"
+          [ "$ohne" = "401" ] || { echo "::error::Bearbeiten ist ohne Passwort erreichbar (HTTP $ohne)"; exit 1; }
+          [[ "$ht" == 401 || "$ht" == 403 ]] || { echo "::error::.htaccess ist lesbar"; exit 1; }
+          if [ "$mit" != "200" ] || ! grep -q "Rezepte bearbeiten" "$RUNNER_TEMP/b.html"; then
+            echo "::error::Bearbeiten antwortet nicht wie erwartet (HTTP $mit):"; sed 's/<[^>]*>/ /g' "$RUNNER_TEMP/b.html" | tr -s ' ' | head -c 400; exit 1; fi
 
       - name: Prüfen, ob die Seite erreichbar ist
         run: |

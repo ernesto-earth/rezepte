@@ -30,6 +30,12 @@ const IMG_DIR = path.join(SITE, 'img');
 
 const stop = (msg, code = 1) => { console.log(`ERGEBNIS: FEHLER – ${msg}`); process.exit(code); };
 
+// Vorher neuere Änderungen aus dem Repo übernehmen (z. B. über heger.earth/rezepte/bearbeiten, E-027) – nur Vorspulen
+try {
+  execFileSync('git', ['-C', ROOT, 'fetch', '-q', 'origin', 'main'], { stdio: 'ignore', timeout: 30000 });
+  execFileSync('git', ['-C', ROOT, 'merge', '-q', '--ff-only', 'origin/main'], { stdio: 'ignore' });
+} catch { console.log('Hinweis: Abgleich mit dem Repo nicht möglich – es wird mit dem lokalen Stand gearbeitet.'); }
+
 // ---- Argumente ---------------------------------------------------------------------------
 const args = process.argv.slice(2);
 const opt = name => { const i = args.indexOf(name); if (i < 0) return null; const v = args[i + 1]; args.splice(i, 2); return v; };

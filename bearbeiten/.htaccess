@@ -1,0 +1,17 @@
+# Die Zeile für die PHP-Version (AddHandler …) setzt das Deployment davor (wie bei /cos/).
+# Rezepte bearbeiten (E-027) – Zugang prüft index.php (Benutzer „ernesto“ + Passwort).
+Options -Indexes
+DirectoryIndex index.php
+
+# Authorization-Header an PHP weiterreichen
+<IfModule mod_setenvif.c>
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+<Files ".ht*">
+  Require all denied
+</Files>
