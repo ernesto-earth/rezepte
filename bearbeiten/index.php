@@ -139,6 +139,18 @@ function slug(string $s): string {
   $s = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s) ?: $s;
   return substr(trim(preg_replace('/[^a-z0-9]+/', '-', $s), '-'), 0, 60);
 }
+const PALETTE = ['#0F766E', '#B45309', '#BE185D', '#1E40AF', '#4D7C0F', '#7C3AED', '#A16207', '#0E7490', '#9D174D', '#374151'];
+function free_color(array $cats): string { return PALETTE[count($cats) % count(PALETTE)]; }
+function luminance(string $hex): float {
+  $c = array_map(fn($x) => hexdec($x) / 255, str_split(substr($hex, 1), 2));
+  $c = array_map(fn($v) => $v <= 0.03928 ? $v / 12.92 : (($v + 0.055) / 1.055) ** 2.4, $c);
+  return 0.2126 * $c[0] + 0.7152 * $c[1] + 0.0722 * $c[2];
+}
+function add_category(string $js, string $key, string $label, string $color): string {
+  $neu = preg_replace('/(const CAT = \{[\s\S]*?)(\n\s*\};)/', '$1' . "\n    '" . $key . "': ['" . $label . "', '" . $color . "'],$2", $js, 1, $n);
+  if ($n !== 1) throw new RuntimeException('Kategorienliste in site.js nicht gefunden.');
+  return $neu;
+}
 function short_time(string $t): string { return trim(str_replace(['Stunden', 'Stunde', 'Minuten'], ['Std.', 'Std.', 'Min.'], $t)); }
 
 function fail(int $code, string $msg): void { http_response_code($code); page('Fehler', '<p class="err">' . h($msg) . '</p><p><a href="./">Zurück</a></p>'); exit; }
@@ -163,6 +175,7 @@ label{display:grid;gap:4px;font-weight:600;font-size:14px}label small{font-weigh
 input[type=text],textarea{font:inherit;padding:10px 12px;border:1px solid var(--edge);border-radius:10px;width:100%;background:#fff}
 textarea{min-height:180px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .cats{display:flex;flex-wrap:wrap;gap:10px;font-weight:400}.cats label{display:flex;gap:6px;align-items:center;font-weight:400}
+.newcat{display:grid;grid-template-columns:1fr 90px;gap:14px;margin-top:10px}.newcat input[type=color]{height:44px;width:100%;padding:2px;border:1px solid var(--edge);border-radius:10px}
 .photo{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.photo img{width:180px;height:130px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .btn{background:var(--accent);color:#fff;border:0;border-radius:999px;padding:12px 22px;font:600 16px inherit;cursor:pointer;justify-self:start}
 .btn.sec{background:transparent;color:var(--ink);border:1px solid var(--edge)}.ok{background:#ECFDF3;border:1px solid #A7E3BD;padding:14px;border-radius:12px}
@@ -182,7 +195,9 @@ function form(array $r, array $cats, bool $neu): string {
     . '<label>Untertitel<input type="text" name="subtitle" value="' . h($r['subtitle'] ?? '') . '"></label>'
     . '<div class="row"><label>Personen <small>z. B. „4 Personen“ oder „12 Stück“</small><input type="text" name="portions" required value="' . h($r['portions'] ?? '') . '"></label>'
     . '<label>Zeit<input type="text" name="time" value="' . h(($r['time'] ?? '') === 'Gesamtzeit nicht angegeben' ? '' : ($r['time'] ?? '')) . '"></label></div>'
-    . '<div><b style="font-size:14px">Kategorie</b><div class="cats">' . $c . '</div></div>'
+    . '<div><b style="font-size:14px">Kategorie</b><div class="cats">' . $c . '</div>'
+    . '<div class="newcat"><label>Neue Kategorie <small>optional, z. B. „Suppen“ – wird angelegt und diesem Rezept zugeordnet</small><input type="text" name="newcat" maxlength="30" value="' . h($_POST['newcat'] ?? '') . '"></label>'
+    . '<label>Farbe<input type="color" name="newcolor" value="' . h($_POST['newcolor'] ?? free_color($cats)) . '"></label></div></div>'
     . '<label>Zutaten <small>eine pro Zeile, Menge zuerst · Zwischenüberschrift mit Doppelpunkt, z. B. „Für die Sauce:“</small><textarea name="ingredients" required>' . h(ingredients_to_text($r['ingredients'] ?? [])) . '</textarea></label>'
     . '<label>Zubereitung <small>ein Schritt pro Zeile</small><textarea name="steps" required>' . h(implode("\n", $r['steps'] ?? [])) . '</textarea></label>'
     . '<label>Tipp<input type="text" name="tip" value="' . h($r['tip'] ?? '') . '"></label>'
@@ -233,8 +248,20 @@ try {
     $r['source'] = trim((string)($_POST['source'] ?? '')) ?: 'Eigenes Rezept';
     $r['author'] = trim((string)($_POST['author'] ?? ''));
     $sel = array_values(array_filter((array)($_POST['cat'] ?? []), fn($k) => isset($cats[$k])));
+    $newcat = trim(preg_replace('/\s+/u', ' ', (string)($_POST['newcat'] ?? '')));
+    $newcolor = strtoupper((string)($_POST['newcolor'] ?? ''));
+    $newkey = null;
+    $katfehler = [];
+    if ($newcat !== '') {
+      $newkey = str_replace(' ', '-', mb_strtolower($newcat));
+      if (!preg_match('/^\p{L}[\p{L} -]{1,29}$/u', $newcat)) $katfehler[] = 'Name der neuen Kategorie: nur Buchstaben, Leerzeichen und Bindestrich, 2–30 Zeichen';
+      elseif (isset($cats[$newkey]) || in_array(mb_strtolower($newcat), array_map('mb_strtolower', $cats), true)) $katfehler[] = "Kategorie „{$newcat}“ gibt es schon – bitte oben anhaken";
+      if (!preg_match('/^#[0-9A-F]{6}$/', $newcolor)) $katfehler[] = 'Farbe ungültig';
+      elseif (luminance($newcolor) > 0.35) $katfehler[] = 'Farbe zu hell – auf weißem Grund nicht lesbar, bitte dunkler wählen';
+      if (!$katfehler) $sel[] = $newkey;
+    }
 
-    $fehler = [];
+    $fehler = $katfehler;
     if ($r['title'] === '') $fehler[] = 'Titel fehlt';
     if (!preg_match('/\d/u', $r['portions'])) $fehler[] = 'Anzahl der Personen fehlt (z. B. „4 Personen“)';
     if (!array_filter($r['ingredients'], fn($i) => isset($i['t']))) $fehler[] = 'keine Zutaten';
@@ -260,6 +287,7 @@ try {
       while (array_filter($all, fn($x) => $x['id'] === $nid)) $nid = $base_id . '-' . $n++;
       $r['id'] = $nid;
     }
+    if ($newkey) $cats[$newkey] = $newcat;
     $r['categories'] = $sel;
     // Stichwörter: Kategorien plus eigene (z. B. „Schnell“) behalten
     $eigene = array_values(array_filter($r['tags'] ?? [], fn($t) => !in_array($t, $cats, true)));
@@ -276,8 +304,12 @@ try {
     }
     if ($neu) $all[] = $r; else $all[$idx] = $r;
     $tree[] = ['path' => DATA_PATH, 'mode' => '100644', 'type' => 'blob', 'content' => json_like_repo($all)];
+    if ($newkey) {
+      $js = (string)gh('GET', '/contents/' . SITE_JS . '?ref=' . rawurlencode($head), null, true);
+      $tree[] = ['path' => SITE_JS, 'mode' => '100644', 'type' => 'blob', 'content' => add_category($js, $newkey, $newcat, $newcolor)];
+    }
     $t = gh('POST', '/git/trees', ['base_tree' => $base, 'tree' => $tree])['sha'];
-    $msg = ($neu ? 'Neues Rezept' : 'Rezept bearbeitet') . ': ' . $r['title'] . ' (über heger.earth/rezepte/bearbeiten)';
+    $msg = ($neu ? 'Neues Rezept' : 'Rezept bearbeitet') . ': ' . $r['title'] . ($newkey ? ", neue Kategorie {$newcat}" : '') . ' (über heger.earth/rezepte/bearbeiten)';
     $commit = gh('POST', '/git/commits', ['message' => $msg, 'tree' => $t, 'parents' => [$head]])['sha'];
     gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
     page('Gespeichert', '<p class="ok"><b>Gespeichert.</b> „' . h($r['title']) . '“ ist in etwa 1–2 Minuten auf der Rezeptseite aktualisiert (Commit ' . h(substr($commit, 0, 7)) . ').</p>'

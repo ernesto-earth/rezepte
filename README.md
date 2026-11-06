@@ -60,6 +60,8 @@ Von Hand (ohne Skript), z. B. für Zeitschriftenrezepte mit PDF:
 Auf **http://heger.earth/rezepte/bearbeiten/** (Benutzer `ernesto`, Passwort aus dem Secret `REZEPTE_EDIT_PASSWORD`)
 lassen sich alle Rezepte bearbeiten – Foto austauschen, Titel, Personen, Zeit, Kategorie, Zutaten mit Mengen,
 Arbeitsschritte, Tipp – und neue Rezepte anlegen. Jedes Rezept hat unten den Link „Bearbeiten“.
+Neue Kategorien: im Formular unter „Neue Kategorie“ Name und Farbe angeben – sie wird in `claude-seite/site.js`
+(Liste `CAT`) eingetragen, dem Rezept zugeordnet und erscheint danach überall (Filter, Formular, `rezept-neu.mjs`).
 Das Foto wird im Browser auf 800 px verkleinert (geht auch am iPhone).
 
 Speichern schreibt direkt ins Repo (`claude-seite/rezepte.json`, `claude-seite/img/`) – ein Commit, der die
