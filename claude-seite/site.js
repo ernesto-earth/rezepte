@@ -79,6 +79,7 @@
       <div class="list-head"><h1 tabindex="-1">Was kochen wir heute?</h1>
         <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B625A" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg><span class="vh">Rezepte durchsuchen</span>
         <input id="search" type="search" placeholder="Rezept oder Zutat, z. B. Kürbis, Mohn …" value="${esc(state.term)}" autocomplete="off"></label></div>
+      <p>Die Rezeptesammlung wird laufend ergänzt.</p>
       <div class="chips" role="group" aria-label="Kategorien">${chips}</div>
       <div class="grid" aria-live="polite">${cards}</div>
       ${visible.length ? '' : '<p class="empty">Kein Rezept gefunden. Vielleicht wartet es noch darauf, gesammelt zu werden.</p>'}

@@ -71,8 +71,10 @@ if [ "$nur_pruefen" = 0 ]; then
     say "ERGEBNIS: abgeglichen – Stand $(git rev-parse --short HEAD) ($(git log -1 --format=%s))"; exit 0
   fi
 
-  say "== $PROJEKT: Build ($BUILD_DIR)"
-  ( cd "$BUILD_DIR" && "$NODE" build.mjs $BUILD_ARGS ) || stop "Build fehlgeschlagen – nichts veröffentlicht."
+  if [ -n "$BUILD_DIR" ]; then
+    say "== $PROJEKT: Build ($BUILD_DIR)"
+    ( cd "$BUILD_DIR" && "$NODE" build.mjs $BUILD_ARGS ) || stop "Build fehlgeschlagen – nichts veröffentlicht."
+  fi
 
   git add -A
   if git diff --cached --quiet; then
