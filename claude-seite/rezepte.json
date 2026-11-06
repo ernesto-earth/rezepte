@@ -726,9 +726,9 @@
  {
   "id": "rindsuppe-hausgemacht",
   "title": "Alt Wiener Suppentopf",
-  "subtitle": "Rezept für eine kräftige selbstgemachte Rindsuppe.",
-  "image": "img/rindsuppe-hausgemacht.jpg",
-  "alt": "Alt Wiener Suppentopf Rezept für eine kräftige selbstgemachte Rindsuppe.",
+  "subtitle": "So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden, viel Fingerspitzengefühl und Kocherfahrung.",
+  "image": "img/rindsuppe-hausgemacht-20261106092414-4ab9.jpg",
+  "alt": "Alt Wiener Suppentopf So schmeckt´s in Wien Altwiener Suppentopf ist traditionell für die Wiener Küche und erfordert bis zu 4 Stunden, viel Fingerspitzengefühl und Kocherfahrung.",
   "tags": [
    "Fleisch"
   ],
@@ -749,10 +749,10 @@
     "t": "ein paar Rinds- oder Markknochen"
    },
    {
-    "t": "1 Bund Suppengemüse (Karotten, gelbe Rüben, Lauch, Sellerie, Petersilwurzel)"
+    "t": "800g  Suppengemüse (Karotten, gelbe Rüben, Lauch, Sellerie, Petersilwurzel)"
    },
    {
-    "t": "Petersilstängel (wer hat auch Liebstöckelzweige)"
+    "t": "15g Petersilstängel (wer hat auch Liebstöckelzweige)"
    },
    {
     "t": "1 Zwiebel"
@@ -761,16 +761,19 @@
     "t": "2 Knoblauchzehen"
    },
    {
-    "t": "Lorbeerblätter"
+    "t": "2 Lorbeerblätter"
    },
    {
-    "t": "Wacholderbeeren"
+    "t": "8 Pfefferkörner"
    },
    {
-    "t": "Pfefferkörner"
+    "t": "6 Wacholderbeeren"
    },
    {
     "t": "Salz"
+   },
+   {
+    "t": "frischen Schnittlauch und Petersilie zum Garnieren"
    }
   ],
   "tip": "",
