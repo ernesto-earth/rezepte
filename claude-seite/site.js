@@ -1,7 +1,7 @@
 (() => {
   const R = window.REZEPTE;
   const CAT = {
-    'kürbis': ['Kürbis', '#C2410C'], 'fleisch': ['Fleisch', '#9F1239'], 'vegetarisch': ['Vegetarisch', '#3F6212'],
+    'gemüse': ['Gemüse', '#C2410C'], 'fleisch': ['Fleisch', '#9F1239'], 'vegetarisch': ['Vegetarisch', '#3F6212'],
     'fisch': ['Fisch', '#1D4E89'], 'süßspeisen': ['Süßspeisen', '#6D28D9'],
   };
   const app = document.getElementById('app');

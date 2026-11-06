@@ -6,19 +6,21 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; Website auf heger.earth/rezepte, Projektordner ist einzige Quelle (Grundsätze 2026-11-05), Design „Am Tisch“ |
-| Letzte Statusaktualisierung | 2026-11-06T09:34:09+01:00 |
-| Zuletzt erledigt | 2026-11-06 (Hermes): Erweiterung „Neue Kategorien anlegen“ (bearbeiten/index.php, README.md) mit dem Veröffentlichungsskript veröffentlicht: Commit eb36556, Action 42188467544 success. Skript übernahm zuvor 3 neuere Änderungen aus dem Repo. Zugriffsschutz anschließend mit curl ohne Passwort bestätigt: HTTP 401. |
-| Nächster Schritt | Angemeldeter Funktionstest zum Anlegen neuer Kategorien durch Ernesto offen; nicht Teil der beauftragten Veröffentlichung und curl-Prüfung. Statusnachzug mit ./veroeffentlichen.sh "STATUS nachgezogen" beauftragt; Ergebnis im Abschlussbericht. |
+| Letzte Statusaktualisierung | 2026-11-06T09:37:43+01:00 |
+| Zuletzt erledigt | 2026-11-06 (Hermes): Kategorie in CAT von Kürbis/kürbis auf Gemüse/gemüse umbenannt, Farbe #C2410C unverändert. Bei grenadiermarsch, tartiflette und kuerbiseintopf ausschließlich categories und tags entsprechend geändert. Per Vorher-Nachher-Vergleich alle übrigen Rezeptfelder unverändert bestätigt. Build erfolgreich. Veröffentlichung noch ausstehend. |
+| Nächster Schritt | ./veroeffentlichen.sh "Kategorie Kürbis in Gemüse umbenannt" ausführen; nimmt die bereits angepasste rezept-neu.mjs mit. Angemeldeter Funktionstest der Kategorienanlage durch Ernesto bleibt offen. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
-| Inhaltsstand | Zehn Rezepte (Anzahl am 2026-11-06 aus rezepte.json geprüft), einschließlich Rindsuppe hausgemacht für 4 Personen mit 10 Zutaten und 6 Schritten. Fehlende Mengen gemäß Quelle unverändert übernommen (Entscheidung Ernesto). Quellen in claude-seite/ (rezepte.json einzige Datenquelle); Original-PDFs nur lokal in pdf/; frühere ChatGPT-Site als Archiv in rezept-sammlung/. |
-| Prüfstand | 2026-11-06, 09:34 CET: Build erfolgreich (10 Rezepte, 77043 Bytes), Action 42188467544 success, Hauptseite laut Skript HTTP 200. curl ohne Passwort auf /rezepte/bearbeiten/: HTTP 401. Rezeptanzahl aus rezepte.json: 10. Keine angemeldete Kategorienanlage oder Speicherung getestet. |
+| Inhaltsstand | Zehn Rezepte (Anzahl am 2026-11-06 aus rezepte.json geprüft). Kategorie Gemüse statt Kürbis bei grenadiermarsch, tartiflette und kuerbiseintopf; Rezeptinhalte bei diesem Auftrag unverändert. Datensatz rindsuppe-hausgemacht heißt im aktuellen Quellenstand „Alt Wiener Suppentopf“ (bereits vor diesem Auftrag geändert). Quellen in claude-seite/ (rezepte.json einzige Datenquelle); Original-PDFs nur lokal in pdf/; frühere ChatGPT-Site als Archiv in rezept-sammlung/. |
+| Prüfstand | 2026-11-06, 09:37 CET: Build erfolgreich (10 Rezepte, 77043 Bytes). Alle Rezeptfelder außer den beauftragten categories/tags unverändert; exakt 3 betroffene Rezepte. CAT ausschließlich am gewünschten Eintrag geändert, Farbe unverändert. Suche nach exakt zitiertem Kategorie-Schlüssel kürbis in JS/MJS/PHP/JSON ohne Treffer; keine alte Kategorie oder Kürbis-Tags in rezepte.json. Kürbis als Zutat/Titel/sonstiger Text bleibt erhalten. Vorheriger Zugriffsschutztest: HTTP 401. |
 | Site-Stand | Erweiterung „Neue Kategorien anlegen“ veröffentlicht: Action 42188467544 erfolgreich, Hauptseite HTTP 200; Bearbeiten-Seite ohne Passwort weiterhin HTTP 401. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte (früher Claude-Seite 04298b04-31eb-4806-9ab5-368ee10d4bc6, davor ChatGPT appgprj_6aca2bc3d290819192c96834537f4ee8) |
 | Site-Version | Inhaltsdeploy: Commit eb36556, Action 42188467544 success (laut Veröffentlichungsskript). Späterer Status-only-Nachzug separat im Abschlussbericht. |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, im Auftrag Ernestos am 2026-11-06 (Kategorien-Erweiterung veröffentlicht, HTTP 401 geprüft) |
+| Zuletzt aktualisiert durch | Hermes, im Auftrag Ernestos am 2026-11-06 (Kategorie Gemüse vorbereitet und geprüft) |
 
 ## Lokale Belege
+
+2026-11-06, Kategorie umbenannt: site.js CAT und die categories/tags von grenadiermarsch, tartiflette, kuerbiseintopf angepasst. Automatischer Vergleich mit gesichertem Ausgangsstand bestätigt: keine weiteren Änderungen an Rezeptdaten oder site.js; Farbe #C2410C bleibt. Keine verbleibende Kategorie kürbis in den aktiven Code-/Datendateien gefunden. `node build.mjs` erfolgreich, 10 Rezepte. Veröffentlichung separat über das beauftragte Skript; vor diesem Schritt ist der neue Inhalt nur lokal geprüft, nicht veröffentlicht.
 
 2026-11-06, Kategorien-Erweiterung: `./veroeffentlichen.sh "Bearbeiten-Seite: neue Kategorien anlegen"` erfolgreich. `ERGEBNIS: veröffentlicht – Commit eb36556, Action-Lauf 42188467544: success, http://heger.earth/rezepte/ HTTP 200`. Anschließend `curl` ohne Zugangsdaten auf http://heger.earth/rezepte/bearbeiten/: HTTP 401. Keine weiteren git-Befehle, nichts erzwungen. Inhalt bleibt bei 10 Rezepten; angemeldete Kategorienanlage nicht geprüft.
 

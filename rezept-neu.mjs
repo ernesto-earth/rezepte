@@ -95,7 +95,8 @@ const hatMenge = t => /\d|[½¼¾⅓⅔⅛]/.test(t) || /^(ein|eine|einen|einer|
 function kategorien(text) {
   if (katOpt) return katOpt.split(',').map(s => s.trim().toLowerCase());
   const t = text.toLowerCase(), k = [];
-  if (/kürbis/.test(t)) k.push('kürbis');
+  // Gemüse (früher Kategorie „Kürbis“, umbenannt 2026-11-06); nur zuordnen, wenn die Kategorie in site.js existiert
+  if (KATEGORIEN.some(c => c.key === 'gemüse') && /kürbis|gemüse/.test(t)) k.push('gemüse');
   if (/lachs|fisch|thunfisch|garnele|forelle|zander|kabeljau|saibling|scampi|muschel/.test(t)) k.push('fisch');
   else if (/\b(rind|schwein|huhn|hühner|hähnchen|hendl|speck|wurst|würst|faschiert|hack|kalb|lamm|dürre|schinken|ente|pute|leber|steak|chorizo|sucuk)/.test(t)) k.push('fleisch');
   if (!k.some(x => x === 'fisch' || x === 'fleisch') && /kuchen|torte|dessert|mehlspeise|palatschinke|schokolade|muffin|creme|strudel|buchtel|knödel.*(marille|zwetschk)|zimt/.test(t)) k.push('süßspeisen');
