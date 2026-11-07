@@ -5,20 +5,35 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-013 lokal umgesetzt und geprüft; ausdrücklich beauftragte einmalige Veröffentlichung und Live-Versionsabgleich stehen noch aus. |
-| Letzte Statusaktualisierung | 2026-11-07T08:59:51+01:00 |
-| Zuletzt erledigt | COS-013: Workflow schreibt commit (voller SHA) und deployed_at (ISO UTC) in dist/version.json; Workflow und Veröffentlichungsskript vergleichen die Live-Version mit dem erwarteten Commit. Fehlende, ungültige und abweichende Versionen sind Fehler. Rezeptdaten und Seitengestaltung unverändert. |
-| Nächster Schritt | Genau einmal ./veroeffentlichen.sh für COS-013 ausführen; bei Erfolg Live-Version und Zeitpunkt in dieser Tabelle nachpflegen, bei Fehler ohne Wiederholung melden. |
+| Arbeitsstatus | aktiv; COS-013 vollständig abgeschlossen, genau einmal veröffentlicht und Live-Version unabhängig bestätigt. Rezeptdaten und Seitengestaltung unverändert. |
+| Letzte Statusaktualisierung | 2026-11-07T09:01:52+01:00 |
+| Zuletzt erledigt | COS-013: Workflow schreibt commit (voller SHA) und deployed_at (ISO UTC) in dist/version.json; Workflow und Veröffentlichungsskript vergleichen die Live-Version mit dem erwarteten Commit. Fehlende, ungültige und abweichende Versionen sind Fehler. Commit abf7522 veröffentlicht; Action 42353600632 success; Live-SHA entspricht exakt dem gepushten Commit. |
+| Nächster Schritt | COS-013 erledigt; keine weitere Veröffentlichung nötig. Abschließende Statusnachpflege bleibt lokal. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Am 2026-11-06 lokal zehn Rezepte mit eindeutigen IDs aus rezepte.json bestätigt; Original-Rezept-PDFs nur lokal in pdf/. Grenadiermarsch trägt „mit Kürbis, Geselchten und Bratenresten“, Quelle Ernesto; rindsuppe-hausgemacht heißt „Alt Wiener Suppentopf“. Die über die Seite erzeugten Commits f552221 und dac451a änderten Grenadiermarsch, darunter Zutaten, Zubereitung, Tipp, Quelle, Autor und Untertitel; das automatische Protokoll nennt die redaktionellen Felder, die Git-Differenzen zusätzlich das alt-Feld. Import und Protokollierung in 1898378 vorhanden. Kategorie Gemüse statt Kürbis und Suppen bleiben im bestehenden Datenstand. Bei dieser Statuspflege keine Rezeptinhalte geändert; frühere ChatGPT-Site in rezept-sammlung/ bleibt Archiv. |
-| Prüfstand | COS-013: 32 Offline-Tests bestanden (einschließlich falschem/fehlendem Commit, ungültigem JSON, Zeitfehlern und HTTP-Fehlern); Shell- und Node-Syntax sowie Workflow-YAML geprüft. Build erfolgreich: zehn Rezepte, 77596 Bytes. Vor Veröffentlichung Live-index.html und lokaler Build bytegleich, SHA256 f66cf14daacb961df65f97f1a3390605259488558d9d1e00eca7015ccf30c897. Neuer Live-Versionsabgleich noch ausstehend. |
-| Site-Stand | Veröffentlicht: b3467bd, Action 42277592705 success. Gesamter Deploymentcheck bestanden, Startseitenhinweis im Browser bestätigt. Bestehende URL-Werte, Server-, Zertifikats- und Weiterleitungseinstellungen unverändert. Abschließende Statusnachpflege nur lokal, kein zweiter Veröffentlichungslauf. |
+| Prüfstand | COS-013: 32 Offline-Tests bestanden (einschließlich falschem/fehlendem Commit, ungültigem JSON, Zeitfehlern und HTTP-Fehlern); Shell- und Node-Syntax sowie Workflow-YAML geprüft. Build erfolgreich: zehn Rezepte, 77596 Bytes. Live-index.html vor und nach Veröffentlichung bytegleich mit dem lokalen Build, SHA256 f66cf14daacb961df65f97f1a3390605259488558d9d1e00eca7015ccf30c897. Live-version.json zweimal gelesen: voller SHA abf7522b49473b41018c580547ef3dd6ba69e290 und deployed_at 2026-11-07T08:00:35.390Z bestätigt. GitHub-API unabhängig: Action 42353600632 completed/success für exakt diesen SHA. |
+| Site-Stand | Veröffentlicht: abf7522, Action 42353600632 success. Veröffentlichungsskript mit Exit 0; öffentlicher Check HTTP 200 und Live-Versionsabgleich erfolgreich. Bestehende URL-Werte, Server-, Zertifikats- und Weiterleitungseinstellungen unverändert. Abschließende Statusnachpflege nur lokal, kein zweiter Veröffentlichungslauf. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | b3467bd; Action 42277592705 success |
+| Site-Version | abf7522; deployed_at 2026-11-07T08:00:35.390Z (aus live version.json) |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
 | Zuletzt aktualisiert durch | Hermes, ausdrücklich bestätigter COS-013 (ändern und einmal veröffentlichen erlaubt) |
 
 ## Lokale Belege
+
+### COS-013 – veröffentlichte Version live nachweisbar
+
+Genau einmal `./veroeffentlichen.sh "COS-013: veröffentlichte Version per version.json live abgleichen"` ausgeführt, Exit 0:
+
+`ERGEBNIS: veröffentlicht – Commit abf7522, Action-Lauf 42353600632: success, http://heger.earth/rezepte/ HTTP 200 am geprüften Ziel, version.json bestätigt abf7522b49473b41018c580547ef3dd6ba69e290`
+
+Anschließend version.json erneut ohne Zugangsdaten gelesen: commit
+`abf7522b49473b41018c580547ef3dd6ba69e290`, deployed_at
+`2026-11-07T08:00:35.390Z`. GitHub-API bestätigt für Action 42353600632
+exakt denselben head_sha und completed/success. Startseitenbytes vor und nach
+Deploy identisch (SHA256 im Prüfstand); zehn Rezepte, keine Daten- oder
+Gestaltungsänderung. Geänderte Veröffentlichungsdateien: `.github/workflows/deploy.yml`,
+`veroeffentlichen.sh`, `deploy-pruefen.mjs`, `test-deploy-pruefen.mjs` sowie Statuspflege.
+Diese abschließende Statusnachpflege bleibt lokal; kein weiterer Commit oder Deploy.
 
 ### COS-012 – Prüfkorrektur nach erneutem ausdrücklichem Auftrag
 
