@@ -44,6 +44,15 @@ jobs:
         working-directory: claude-seite
         run: node build.mjs
 
+      - name: Veröffentlichte Version ins Webverzeichnis schreiben
+        run: |
+          node --input-type=module -e '
+            import { writeFileSync } from "node:fs";
+            const commit = process.env.GITHUB_SHA;
+            if (!/^[0-9a-f]{40}$/.test(commit)) throw new Error("GITHUB_SHA fehlt oder ist ungültig");
+            writeFileSync("claude-seite/dist/version.json", JSON.stringify({ commit, deployed_at: new Date().toISOString() }, null, 2) + "\n");
+          '
+
       - name: lftp installieren
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
@@ -102,3 +111,4 @@ jobs:
         run: |
           sleep 3
           node deploy-pruefen.mjs seite
+          node deploy-pruefen.mjs version "$GITHUB_SHA"

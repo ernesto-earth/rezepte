@@ -130,4 +130,9 @@ if ! check=$("$NODE" ./deploy-pruefen.mjs seite "$SITE_URL" 2>&1); then
 fi
 say "== $SITE_URL → $check"
 
-say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $ERWARTET_HTTP am geprüften Ziel"
+if ! version=$("$NODE" ./deploy-pruefen.mjs version "$sha" "${SITE_URL}version.json" 2>&1); then
+  stop "Live-Versionsabgleich fehlgeschlagen ($version). Commit ${sha:0:7} ist gepusht."
+fi
+say "== Live-Version: $version"
+
+say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $ERWARTET_HTTP am geprüften Ziel, version.json bestätigt $sha"

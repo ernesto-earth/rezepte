@@ -5,18 +5,18 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-012 vollständig abgeschlossen, lokal und im Web bestätigt. Hinweis live, Deployment-Prüfung erfolgreich; Rezeptdaten unverändert. |
-| Letzte Statusaktualisierung | 2026-11-06T21:15:35+01:00 |
-| Zuletzt erledigt | Prüfkorrektur genau einmal über das bestehende Veröffentlichungsskript veröffentlicht: b3467bd, Action 42277592705 success. Offline-Tests, Bearbeiten-Zugang und öffentliche Erreichbarkeit im exakten Workflow erfolgreich. Hinweis danach erneut im Browser bestätigt; Rezeptdaten und Startseitenquelltext bei der Prüfkorrektur unverändert. Verifiziertes Ergebnis als Kontext 24 in COS-012, lokal und im Web gegengelesen. |
-| Nächster Schritt | COS-012 ist erledigt, kein weiterer Veröffentlichungslauf dafür nötig. Weitere Rezeptaufgaben über das heutige COS erfassen, mit eindeutigen Rechten und gegebenenfalls ausdrücklicher Veröffentlichungsfreigabe. Für neue und alte Aufträge gilt die aktuelle Betriebsregel in Chief of Staff/.hermes.md. |
+| Arbeitsstatus | aktiv; COS-013 lokal umgesetzt und geprüft; ausdrücklich beauftragte einmalige Veröffentlichung und Live-Versionsabgleich stehen noch aus. |
+| Letzte Statusaktualisierung | 2026-11-07T08:59:51+01:00 |
+| Zuletzt erledigt | COS-013: Workflow schreibt commit (voller SHA) und deployed_at (ISO UTC) in dist/version.json; Workflow und Veröffentlichungsskript vergleichen die Live-Version mit dem erwarteten Commit. Fehlende, ungültige und abweichende Versionen sind Fehler. Rezeptdaten und Seitengestaltung unverändert. |
+| Nächster Schritt | Genau einmal ./veroeffentlichen.sh für COS-013 ausführen; bei Erfolg Live-Version und Zeitpunkt in dieser Tabelle nachpflegen, bei Fehler ohne Wiederholung melden. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Am 2026-11-06 lokal zehn Rezepte mit eindeutigen IDs aus rezepte.json bestätigt; Original-Rezept-PDFs nur lokal in pdf/. Grenadiermarsch trägt „mit Kürbis, Geselchten und Bratenresten“, Quelle Ernesto; rindsuppe-hausgemacht heißt „Alt Wiener Suppentopf“. Die über die Seite erzeugten Commits f552221 und dac451a änderten Grenadiermarsch, darunter Zutaten, Zubereitung, Tipp, Quelle, Autor und Untertitel; das automatische Protokoll nennt die redaktionellen Felder, die Git-Differenzen zusätzlich das alt-Feld. Import und Protokollierung in 1898378 vorhanden. Kategorie Gemüse statt Kürbis und Suppen bleiben im bestehenden Datenstand. Bei dieser Statuspflege keine Rezeptinhalte geändert; frühere ChatGPT-Site in rezept-sammlung/ bleibt Archiv. |
-| Prüfstand | 17 Offline-Tests bestanden; Workflow-YAML und Shell-Syntax geprüft. Build: zehn Rezepte, 77596 Bytes. Action 42277592705 für den exakten Commit b3467bd06b0652207133979c68954ccc27b1fbdb: Offline-Prüfung, Bearbeiten-Seite inklusive Authentifizierung und öffentliche Erreichbarkeit jeweils success. Öffentlicher Live-Check HTTP 200 nach bestehender Weiterleitung; Hinweis im Browser sichtbar. Rezeptdaten und site.js per SHA256 unverändert. Andere COS-Aufträge und deren Kontexte vor/nach Ergebnisübertragung unverändert. |
+| Prüfstand | COS-013: 32 Offline-Tests bestanden (einschließlich falschem/fehlendem Commit, ungültigem JSON, Zeitfehlern und HTTP-Fehlern); Shell- und Node-Syntax sowie Workflow-YAML geprüft. Build erfolgreich: zehn Rezepte, 77596 Bytes. Vor Veröffentlichung Live-index.html und lokaler Build bytegleich, SHA256 f66cf14daacb961df65f97f1a3390605259488558d9d1e00eca7015ccf30c897. Neuer Live-Versionsabgleich noch ausstehend. |
 | Site-Stand | Veröffentlicht: b3467bd, Action 42277592705 success. Gesamter Deploymentcheck bestanden, Startseitenhinweis im Browser bestätigt. Bestehende URL-Werte, Server-, Zertifikats- und Weiterleitungseinstellungen unverändert. Abschließende Statusnachpflege nur lokal, kein zweiter Veröffentlichungslauf. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
 | Site-Version | b3467bd; Action 42277592705 success |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, im ausdrücklichen Auftrag zur Prüfkorrektur und einem erneuten Veröffentlichungslauf |
+| Zuletzt aktualisiert durch | Hermes, ausdrücklich bestätigter COS-013 (ändern und einmal veröffentlichen erlaubt) |
 
 ## Lokale Belege
 

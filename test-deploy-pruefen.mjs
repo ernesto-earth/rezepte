@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { checkEditing, checkPublic } from './deploy-pruefen.mjs';
+import { checkEditing, checkPublic, checkVersion } from './deploy-pruefen.mjs';
 
 const source = 'http://heger.earth/rezepte/bearbeiten/';
 const destination = 'https://www.heger.earth/rezepte/bearbeiten/';
@@ -63,4 +63,50 @@ test('public page uses existing redirect without authentication', async () => {
 });
 test('public server error is not accepted', async () => {
   const f = fixture([{ status: 503 }]); await assert.rejects(checkPublic({ fetchImpl: f.fetchImpl }));
+});
+
+// Synthetic versions below are offline fixtures, never publication evidence.
+const commit = 'a'.repeat(40);
+const deployed_at = '2026-11-07T08:00:00.000Z';
+const versionUrl = 'https://www.heger.earth/rezepte/version.json';
+test('version follows existing redirect and checks full commit and ISO time without credentials', async () => {
+  const f = fixture([{ status: 301, location: versionUrl }, { status: 200, body: JSON.stringify({ commit, deployed_at }) }]);
+  assert.deepEqual(await checkVersion({ commit, fetchImpl: f.fetchImpl }), { commit, deployed_at, url: versionUrl });
+  for (const call of f.calls) {
+    assert.equal(call.options.headers.authorization, undefined);
+    assert.equal(call.options.headers['cache-control'], 'no-cache');
+    assert.equal(call.options.cache, 'no-store');
+  }
+});
+for (const body of [
+  JSON.stringify({ commit: 'b'.repeat(40), deployed_at }),
+  JSON.stringify({ commit: commit.slice(0, 7), deployed_at }),
+  JSON.stringify({ deployed_at }),
+  JSON.stringify({ commit }),
+  JSON.stringify({ commit, deployed_at: 'not-a-time' }),
+  JSON.stringify({ commit, deployed_at: '2026-02-30T08:00:00.000Z' }),
+  'not-json', 'null'
+]) {
+  test('invalid or stale live version is rejected: ' + body, async () => {
+    const f = fixture([{ status: 200, body }]);
+    await assert.rejects(checkVersion({ commit, fetchImpl: f.fetchImpl }));
+  });
+}
+for (const status of [404, 503]) {
+  test('missing or unavailable version fails: ' + status, async () => {
+    const f = fixture([{ status }]);
+    await assert.rejects(checkVersion({ commit, fetchImpl: f.fetchImpl }));
+  });
+}
+for (const invalid of [undefined, 'a'.repeat(7), 'g'.repeat(40)]) {
+  test('invalid expected SHA rejected before network: ' + invalid, async () => {
+    const f = fixture([]);
+    await assert.rejects(checkVersion({ commit: invalid, fetchImpl: f.fetchImpl }));
+    assert.equal(f.calls.length, 0);
+  });
+}
+test('version rejects redirect outside allowed path', async () => {
+  const f = fixture([{ status: 302, location: 'https://www.heger.earth/cos/version.json' }]);
+  await assert.rejects(checkVersion({ commit, fetchImpl: f.fetchImpl }));
+  assert.equal(f.calls.length, 1);
 });

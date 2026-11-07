@@ -12,15 +12,21 @@ function checkedUrl(value, path) {
   return url;
 }
 
-async function resolveAnonymous(entry, path, fetchImpl) {
+async function resolveAnonymous(entry, path, fetchImpl, keepBody = false) {
   let url = checkedUrl(entry, path);
   const seen = new Set();
   for (let count = 0; count <= 5; count++) {
     if (seen.has(url.href)) throw new Error('Weiterleitungsschleife im Prüfaufruf.');
     seen.add(url.href);
-    const response = await fetchImpl(url.href, { redirect: 'manual', signal: AbortSignal.timeout(20000) });
+    const response = await fetchImpl(url.href, {
+      redirect: 'manual', signal: AbortSignal.timeout(20000),
+      ...(keepBody ? { cache: 'no-store', headers: { 'cache-control': 'no-cache' } } : {})
+    });
+    if (!redirects.has(response.status)) {
+      if (!keepBody) await response.body?.cancel();
+      return { url, status: response.status, redirects: count, ...(keepBody ? { response } : {}) };
+    }
     await response.body?.cancel();
-    if (!redirects.has(response.status)) return { url, status: response.status, redirects: count };
     if (count === 5) throw new Error('Zu viele Weiterleitungen im Prüfaufruf.');
     const location = response.headers.get('location');
     if (!location) throw new Error('Weiterleitung ohne Ziel.');
@@ -58,12 +64,28 @@ export async function checkPublic({ fetchImpl = fetch, entry = 'http://heger.ear
   return { public: target.status, redirects: target.redirects };
 }
 
+export async function checkVersion({ commit, fetchImpl = fetch, entry = 'http://heger.earth/rezepte/version.json' } = {}) {
+  if (typeof commit !== 'string' || !/^[0-9a-f]{40}$/.test(commit)) throw new Error('Erwarteter Commit muss ein voller SHA sein.');
+  const target = await resolveAnonymous(entry, '/rezepte/version.json', fetchImpl, true);
+  if (target.status !== 200) {
+    await target.response.body?.cancel();
+    throw new Error(`version.json: HTTP ${target.status} statt 200.`);
+  }
+  const version = await target.response.json();
+  if (version?.commit !== commit) throw new Error(`Live-Commit ${version?.commit ?? 'fehlt'} entspricht nicht ${commit}.`);
+  if (typeof version.deployed_at !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(version.deployed_at) || !Number.isFinite(Date.parse(version.deployed_at)) || new Date(version.deployed_at).toISOString() !== version.deployed_at) {
+    throw new Error('version.json: deployed_at ist keine gültige ISO-Zeit.');
+  }
+  return { commit: version.commit, deployed_at: version.deployed_at, url: target.url.href };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const mode = process.argv[2];
     const result = mode === 'bearbeiten' ? await checkEditing({ password: process.env.EDIT_PASSWORD })
-      : mode === 'seite' ? await checkPublic(process.argv[3] ? { entry: process.argv[3] } : {}) : null;
-    if (!result) throw new Error('Prüfmodus bearbeiten oder seite erforderlich.');
+      : mode === 'seite' ? await checkPublic(process.argv[3] ? { entry: process.argv[3] } : {})
+      : mode === 'version' ? await checkVersion({ commit: process.argv[3], ...(process.argv[4] ? { entry: process.argv[4] } : {}) }) : null;
+    if (!result) throw new Error('Prüfmodus bearbeiten, seite oder version erforderlich.');
     console.log('PRÜFUNG: ' + JSON.stringify(result));
   } catch (error) {
     console.error('PRÜFUNG: FEHLER – ' + error.message);
