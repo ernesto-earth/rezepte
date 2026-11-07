@@ -5,22 +5,42 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-012-Hinweis live. Deployment-Prüfung korrigiert und lokal getestet; neuer ausdrücklich freigegebener Veröffentlichungslauf ausstehend. |
-| Letzte Statusaktualisierung | 2026-11-06T20:11:05+01:00 |
-| Zuletzt erledigt | Nach ausdrücklichem Auftrag „dann löse das“ die Prüfblöcke von Workflow und Veröffentlichungsskript korrigiert: bestehende Weiterleitungen erst ohne Zugangsdaten prüfen, Login nur als neue Anfrage an ein geprüftes Ziel. 17 Offline-Tests, Workflow-/Shell-Syntax und Build mit zehn Rezepten bestanden. Rezeptdaten und Startseitenhinweis unverändert. |
-| Nächster Schritt | Genau einen neu freigegebenen Veröffentlichungslauf über das bestehende Skript durchführen; danach exakten Deploy, Zugangskontrolle und sichtbaren Hinweis prüfen. Übrige fachliche Abnahmen bleiben getrennt. |
+| Arbeitsstatus | aktiv; COS-012 vollständig abgeschlossen, lokal und im Web bestätigt. Hinweis live, Deployment-Prüfung erfolgreich; Rezeptdaten unverändert. |
+| Letzte Statusaktualisierung | 2026-11-06T21:15:35+01:00 |
+| Zuletzt erledigt | Prüfkorrektur genau einmal über das bestehende Veröffentlichungsskript veröffentlicht: b3467bd, Action 42277592705 success. Offline-Tests, Bearbeiten-Zugang und öffentliche Erreichbarkeit im exakten Workflow erfolgreich. Hinweis danach erneut im Browser bestätigt; Rezeptdaten und Startseitenquelltext bei der Prüfkorrektur unverändert. Verifiziertes Ergebnis als Kontext 24 in COS-012, lokal und im Web gegengelesen. |
+| Nächster Schritt | COS-012 ist erledigt, kein weiterer Veröffentlichungslauf dafür nötig. Weitere Rezeptaufgaben über das heutige COS erfassen, mit eindeutigen Rechten und gegebenenfalls ausdrücklicher Veröffentlichungsfreigabe. Für neue und alte Aufträge gilt die aktuelle Betriebsregel in Chief of Staff/.hermes.md. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | Am 2026-11-06 lokal zehn Rezepte mit eindeutigen IDs aus rezepte.json bestätigt; Original-Rezept-PDFs nur lokal in pdf/. Grenadiermarsch trägt „mit Kürbis, Geselchten und Bratenresten“, Quelle Ernesto; rindsuppe-hausgemacht heißt „Alt Wiener Suppentopf“. Die über die Seite erzeugten Commits f552221 und dac451a änderten Grenadiermarsch, darunter Zutaten, Zubereitung, Tipp, Quelle, Autor und Untertitel; das automatische Protokoll nennt die redaktionellen Felder, die Git-Differenzen zusätzlich das alt-Feld. Import und Protokollierung in 1898378 vorhanden. Kategorie Gemüse statt Kürbis und Suppen bleiben im bestehenden Datenstand. Bei dieser Statuspflege keine Rezeptinhalte geändert; frühere ChatGPT-Site in rezept-sammlung/ bleibt Archiv. |
-| Prüfstand | 17 Weiterleitungs-/Zugangstests bestanden: erlaubtes Ziel, fremde Hosts/Pfade/Ports, Login-Weiterleitung, Rückleitung, Schleife, fehlender Zugriffsschutz, lesbare .htaccess, falsches Passwort und unerwarteter Seiteninhalt. Workflow-YAML mit Ruby geprüft, alle Shell-Blöcke und Veröffentlichungsskript mit bash -n geprüft. Build: zehn Rezepte, 77596 Bytes. Öffentlicher Live-Check: HTTP 200 nach bestehender Weiterleitung. Parent-Browser bestätigte zuvor den sichtbaren Hinweis. Authentifizierter neuer Workflow-Check noch ausstehend. |
-| Site-Stand | Hinweis aus Commit 9aa603b live sichtbar. Erster Gesamtdeploy 42268166465 am Zugangscheck mit HTTP 301 statt erwartetem 401 gescheitert. Prüfkorrektur lokal bestanden, noch nicht veröffentlicht. Keine Server-, Zertifikats-, Weiterleitungs- oder Rezeptdatenänderung. |
+| Prüfstand | 17 Offline-Tests bestanden; Workflow-YAML und Shell-Syntax geprüft. Build: zehn Rezepte, 77596 Bytes. Action 42277592705 für den exakten Commit b3467bd06b0652207133979c68954ccc27b1fbdb: Offline-Prüfung, Bearbeiten-Seite inklusive Authentifizierung und öffentliche Erreichbarkeit jeweils success. Öffentlicher Live-Check HTTP 200 nach bestehender Weiterleitung; Hinweis im Browser sichtbar. Rezeptdaten und site.js per SHA256 unverändert. Andere COS-Aufträge und deren Kontexte vor/nach Ergebnisübertragung unverändert. |
+| Site-Stand | Veröffentlicht: b3467bd, Action 42277592705 success. Gesamter Deploymentcheck bestanden, Startseitenhinweis im Browser bestätigt. Bestehende URL-Werte, Server-, Zertifikats- und Weiterleitungseinstellungen unverändert. Abschließende Statusnachpflege nur lokal, kein zweiter Veröffentlichungslauf. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | 9aa603b; Gesamtdeploy 42268166465 fehlgeschlagen |
+| Site-Version | b3467bd; Action 42277592705 success |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
 | Zuletzt aktualisiert durch | Hermes, im ausdrücklichen Auftrag zur Prüfkorrektur und einem erneuten Veröffentlichungslauf |
 
 ## Lokale Belege
 
 ### COS-012 – Prüfkorrektur nach erneutem ausdrücklichem Auftrag
+
+Veröffentlichung nach erneuter ausdrücklicher Freigabe genau einmal ausgeführt:
+`ERGEBNIS: veröffentlicht – Commit b3467bd, Action-Lauf 42277592705: success, http://heger.earth/rezepte/ HTTP 200 am geprüften Ziel`.
+Remote-Commit und Action anschließend unabhängig über die GitHub-API gegengelesen;
+alle drei Prüfsteps erfolgreich. Hinweis im Browser erneut sichtbar, Daten und
+Startseitenquelltext per Hash unverändert. Verifizierter Ergebnisbericht als
+Kontext 24 im bestehenden COS-012 lokal/Web gegengelesen; keine neue Haupt-ID,
+keine Änderung anderer Aufträge oder Kontexte. Der zusätzliche frühere
+Abschlussversuch am Maschinen-Sync-Endpunkt war mit HTTP 401 abgewiesen worden.
+Nach „bitte fertigmachen“ stattdessen die vorhandene Eigentümerfunktion
+`complete_order` über die lokal authentifizierte MCP-Schnittstelle benutzt;
+zuvor deren fehlerhafte ID-Schemagrenze auf gültige COS-IDs korrigiert und getestet.
+Danach den Abschluss über die vorhandene Web-Schnittstelle abgeglichen.
+Status lokal und im Web frisch gegengelesen:
+`completed_on_mac_studio:COS-012`, mit identischem verifiziertem Ergebnis.
+Sämtliche bisherigen Kontexte, andere Aufträge/Kontexte und Hauptauftragszahl
+unverändert. Kein direkter Datenbankeingriff, keine Schlüssel- oder Rechteänderung,
+keine neue Ausführung oder Veröffentlichung. Abschlussbeleg:
+`/Users/ernesto/.hermes/cache/scratch/cos-012-close-20261106T205121/verified-completion.json`.
+Diese abschließende Statusnachpflege nach dem Commit nur lokal.
 
 Der ursprüngliche Erstlauf veröffentlichte den Hinweis in Commit `9aa603b`.
 `ERGEBNIS: FEHLER – Deploy Action-Lauf 42268166465: failure – https://github.com/ernesto-earth/rezepte/actions/runs/42268166465`.
@@ -37,8 +57,8 @@ Weiterleitungs- und Zugangsdateieinstellungen werden nicht umgestellt.
 prüft den anonymen Schutz und die .htaccess und sendet erst danach eine neue
 authentifizierte Anfrage an das geprüfte Ziel, ohne authentifiziert weiterzuleiten.
 17 Offline-Tests bestanden; öffentlicher Live-Check, Build und Syntaxprüfungen
-bestanden. Neuer Veröffentlichungserfolg wird erst nach dem tatsächlichen Lauf
-eingetragen. Sicherung:
+bestanden. Dieser vorbereitende Stand wurde durch den oben protokollierten
+tatsächlichen Veröffentlichungslauf abgelöst. Sicherung:
 `/Users/ernesto/.hermes/cache/scratch/recipe-deploy-check-20261106T200307`.
 
 Früheres Feld „Site-Version“ vollständig erhalten:
