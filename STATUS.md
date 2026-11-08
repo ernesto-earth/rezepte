@@ -5,20 +5,35 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-017 lokal umgesetzt, ausschließlich Statusdokumentation geändert. |
-| Letzte Statusaktualisierung | 2026-11-07T10:24:37+01:00 |
-| Zuletzt erledigt | COS-017: Statusfelder gekürzt, bisherige Angaben unter Belege erhalten und dauerhafte Pflegeregel in .hermes.md ergänzt. |
+| Arbeitsstatus | aktiv; COS-Statusmetadaten korrigiert, Rezeptdaten und Seite unverändert. |
+| Letzte Statusaktualisierung | 2026-11-08T17:55:01+01:00 |
+| Zuletzt erledigt | Vollständige belegte Site-Version innerhalb der COS-Übertragungsgrenze geführt; Vorwert unter Belege erhalten und Metadatenregel ergänzt. |
 | Nächster Schritt | Künftige Statuspflege nach COS-017; keine Veröffentlichung beauftragt oder freigegeben. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
 | Inhaltsstand | geprüft: Zehn Rezepte laut dokumentiertem Inhaltsnachweis, bei COS-017 keine Rezeptdaten oder Seiteninhalte geändert. |
 | Prüfstand | geprüft: COS-017-Statusformat, Feldreihenfolge, Zeichengrenzen und Belegerhalt lokal geprüft. |
-| Site-Stand | veröffentlicht: Seite gemäß dokumentiertem COS-013-Live-Nachweis, bei COS-017 weder erneut online geprüft noch veröffentlicht. |
+| Site-Stand | veröffentlicht: Seite gemäß dokumentiertem COS-013-Live-Nachweis; diese Statuskorrektur veröffentlicht nichts und ersetzt keine neue Live-Prüfung. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | COS-013-Live-Version vom 2026-11-07T08:00:35.390Z (Commit-Zuordnung unter Belege) |
+| Site-Version | abf7522b49473b41018c580547ef3dd6ba69e290 / 2026-11-07T08:00:35.390Z |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, ausdrücklich bestätigter COS-017 (ändern erlaubt, keine Veröffentlichung) |
+| Zuletzt aktualisiert durch | Hermes, ausdrücklich freigegebene COS-Qualitätskorrektur vom 2026-11-08; keine Veröffentlichung. |
 
 ## Belege
+
+### Statusmetadaten-Korrektur 2026-11-08
+
+**Dauerhafte COS-Formatregel:** Site-Projekt-ID höchstens 120 und Site-Version höchstens 80 UTF-16-Codeeinheiten. Aktuelle Kennung, voller belegter Commit und belegte Deploy-Zeit bleiben in den Tabellenfeldern; ausführliche Erläuterungen gehören verlustfrei unter Belege. Vor Abschluss vollständige Erhaltung durch den tatsächlichen Empfänger prüfen. Diese Regel bleibt auch hier versioniert, weil die lokale `.hermes.md` bewusst nicht in Git geführt wird. Keine neue Veröffentlichung aus einer Statuspflege ableiten.
+
+Nur Statusdokumentation und Metadatenregel geändert, keine Rezeptdaten, PDFs, Seiteninhalte oder automatisch geführten Änderungsprotokolle. Vollständiger belegter Commit und Deploy-Zeit passen jetzt in die vorhandene Grenze von 80 UTF-16-Codeeinheiten. Die tatsächliche Empfängernormalisierung wurde zuvor offline mit einem Statement-Recorder auf vollständige Erhaltung der vorgeschlagenen Metadaten geprüft; keine Produktions-Testanfrage. Die historische Live-Abnahme bleibt derselbe Beleg, nicht eine neue Veröffentlichung.
+
+Vollständige bisherige Feldwerte vor dieser Korrektur:
+
+- Arbeitsstatus: aktiv; COS-017 lokal umgesetzt, ausschließlich Statusdokumentation geändert.
+- Letzte Statusaktualisierung: 2026-11-07T10:24:37+01:00
+- Zuletzt erledigt: COS-017: Statusfelder gekürzt, bisherige Angaben unter Belege erhalten und dauerhafte Pflegeregel in .hermes.md ergänzt.
+- Site-Stand: veröffentlicht: Seite gemäß dokumentiertem COS-013-Live-Nachweis, bei COS-017 weder erneut online geprüft noch veröffentlicht.
+- Site-Version: COS-013-Live-Version vom 2026-11-07T08:00:35.390Z (Commit-Zuordnung unter Belege)
+- Zuletzt aktualisiert durch: Hermes, ausdrücklich bestätigter COS-017 (ändern erlaubt, keine Veröffentlichung)
 
 ### COS-017 – lokale Statuspflege
 
