@@ -5,20 +5,27 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-Statusmetadaten korrigiert, Rezeptdaten und Seite unverändert. |
-| Letzte Statusaktualisierung | 2026-11-08T17:55:01+01:00 |
-| Zuletzt erledigt | Vollständige belegte Site-Version innerhalb der COS-Übertragungsgrenze geführt; Vorwert unter Belege erhalten und Metadatenregel ergänzt. |
+| Arbeitsstatus | aktiv; Seite „Am Tisch“ läuft, Kopfleiste um den Rückweg zum Cockpit ergänzt. |
+| Letzte Statusaktualisierung | 2026-11-17T14:44:50+01:00 |
+| Zuletzt erledigt | Signalzeichen zurück zum Cockpit links in der Kopfleiste ergänzt und veröffentlicht (Commit 671c2d9, Action-Lauf 44082939123). |
 | Nächster Schritt | Künftige Statuspflege nach COS-017; keine Veröffentlichung beauftragt oder freigegeben. |
 | Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
-| Inhaltsstand | geprüft: Zehn Rezepte laut dokumentiertem Inhaltsnachweis, bei COS-017 keine Rezeptdaten oder Seiteninhalte geändert. |
-| Prüfstand | geprüft: COS-017-Statusformat, Feldreihenfolge, Zeichengrenzen und Belegerhalt lokal geprüft. |
-| Site-Stand | veröffentlicht: Seite gemäß dokumentiertem COS-013-Live-Nachweis; diese Statuskorrektur veröffentlicht nichts und ersetzt keine neue Live-Prüfung. |
+| Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
+| Prüfstand | geprüft: Seitenbau am 17.11.2026 lokal erfolgreich durchlaufen; die Deploy-Action 44082939123 ist mit success abgeschlossen. |
+| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 671c2d9, Action-Lauf 44082939123 erfolgreich am 17.11.2026 um 13:26 Wiener Zeit. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | abf7522b49473b41018c580547ef3dd6ba69e290 / 2026-11-07T08:00:35.390Z |
+| Site-Version | 671c2d9 / 2026-11-17T12:26:00Z |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, ausdrücklich freigegebene COS-Qualitätskorrektur vom 2026-11-08; keine Veröffentlichung. |
+| Zuletzt aktualisiert durch | Claude im Auftrag Ernestos vom 2026-11-17; nur Kopfleiste, Stildatei und diese Statusquelle geändert. |
 
 ## Belege
+
+### Rückweg zum Cockpit, 17.11.2026
+
+Die Kopfleiste trägt links ein 30 Pixel breites Signalzeichen, das auf
+http://www.heger.earth/cos/#/uebersicht führt; dieselbe Ergänzung haben Nachgelesen,
+Reverse Aging und die Aktien-WebApp erhalten. Geändert wurden `claude-seite/build.mjs`
+und `claude-seite/styles.css`. Rezeptdaten, PDFs und Protokolle blieben unberührt.
 
 ### Statusmetadaten-Korrektur 2026-11-08
 
