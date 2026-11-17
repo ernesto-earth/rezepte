@@ -6,19 +6,28 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; Seite „Am Tisch“ läuft, Kopfleiste um den Rückweg zum Cockpit ergänzt. |
-| Letzte Statusaktualisierung | 2026-11-17T14:44:50+01:00 |
-| Zuletzt erledigt | Signalzeichen zurück zum Cockpit links in der Kopfleiste ergänzt und veröffentlicht (Commit 671c2d9, Action-Lauf 44082939123). |
+| Letzte Statusaktualisierung | 2026-11-17T15:36:38+01:00 |
+| Zuletzt erledigt | Alte ChatGPT-Site der Rezeptsammlung von Ernesto gelöscht; die frühere Claude-Seite war bereits entfernt. Davor: Signalzeichen zurück zum Cockpit veröffentlicht (Commit 671c2d9, Action-Lauf 44082939123). |
 | Nächster Schritt | Künftige Statuspflege nach COS-017; keine Veröffentlichung beauftragt oder freigegeben. |
-| Offene Entscheidung | keine zur Seite (Repo bleibt bewusst öffentlich, Entscheidung Ernesto 2026-11-05). Alte Claude-Seite und ChatGPT-Site kann Ernesto löschen. |
+| Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
 | Prüfstand | geprüft: Seitenbau am 17.11.2026 lokal erfolgreich durchlaufen; die Deploy-Action 44082939123 ist mit success abgeschlossen. |
 | Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 671c2d9, Action-Lauf 44082939123 erfolgreich am 17.11.2026 um 13:26 Wiener Zeit. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
 | Site-Version | 671c2d9 / 2026-11-17T12:26:00Z |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Claude im Auftrag Ernestos vom 2026-11-17; nur Kopfleiste, Stildatei und diese Statusquelle geändert. |
+| Zuletzt aktualisiert durch | Claude im Auftrag Ernestos vom 2026-11-17; nur diese Statusquelle geändert. |
 
 ## Belege
+
+### Alte Fassungen der Rezeptseite entfernt, 17.11.2026
+
+Ernesto hat die ChatGPT-Site `appgprj_6aca2bc3d290819192c96834537f4ee8` in seinem
+ChatGPT-Konto gelöscht. Die frühere Claude-Seite `04298b04-31eb-4806-9ab5-368ee10d4bc6`
+war bereits nicht mehr vorhanden; in der Artefaktliste steht keine Rezeptseite mehr.
+Maßgeblich ist allein http://heger.earth/rezepte/ aus dem Repo ernesto-earth/rezepte.
+Der lokale Ordner `rezept-sammlung/` bleibt als Archiv der alten Fassung bestehen und
+ist damit deren einzige verbliebene Kopie.
 
 ### Rückweg zum Cockpit, 17.11.2026
 
