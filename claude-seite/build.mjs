@@ -55,6 +55,7 @@ const html = `<!doctype html>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
+  <a class="cos" href="https://www.heger.earth/cos/#/uebersicht" aria-label="Zum Cockpit" title="Zum Cockpit"><i></i><i></i></a>
   <a class="brand" href="#rezepte">AM TISCH <span>REZEPTE</span></a>
   <nav class="topnav" aria-label="Hauptnavigation"><a href="#rezepte" data-nav="rezepte">Alle Rezepte</a><a href="#sammlung" data-nav="sammlung" class="wide">Über die Sammlung</a></nav>
   <span class="meta">${rezepte.length} Rezepte · aus ${quellenText}</span>
