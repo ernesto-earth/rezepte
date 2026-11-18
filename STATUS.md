@@ -6,13 +6,13 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
-| Letzte Statusaktualisierung | 2026-11-18T12:15:00+01:00 |
+| Letzte Statusaktualisierung | 2026-11-18T13:10:00+01:00 |
 | Zuletzt erledigt | 18.11.2026: E-035 umgesetzt – Workflow main → Vorprod, prod → live; Bearbeiten-Seite spult prod mit vor, wenn main gleich prod war; veroeffentlichen.sh mit --freigeben. Live auf Commit 4c4bab4 (Action 44289216940, success). E-036: Repo und Seite bleiben öffentlich. |
 | Nächster Schritt | Keiner beauftragt. Änderungen gehen nach E-035 zuerst auf Vorprod, live nur mit Freigabe. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
 | Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44289216940 am 18.11.2026 success, Live-Version 4c4bab4 bestätigt. |
-| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 671c2d9, Action-Lauf 44082939123 erfolgreich am 17.11.2026 um 13:26 Wiener Zeit. |
+| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 4c4bab4 (Branch prod), Action 44289216940 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
 | Site-Version | 671c2d9 / 2026-11-17T12:26:00Z |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
