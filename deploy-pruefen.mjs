@@ -2,6 +2,8 @@
 import { pathToFileURL } from 'node:url';
 
 const hosts = new Set(['heger.earth', 'www.heger.earth']);
+// E-035: Vorprod liegt unter /vorprod/<seite>/; ohne HEGER_PREFIX wird Prod geprüft.
+const prefix = process.env.HEGER_PREFIX === 'vorprod/' ? 'vorprod/' : '';
 const redirects = new Set([301, 302, 303, 307, 308]);
 
 function checkedUrl(value, path) {
@@ -37,9 +39,9 @@ async function resolveAnonymous(entry, path, fetchImpl, keepBody = false) {
   throw new Error('Prüfziel nicht ermittelt.');
 }
 
-export async function checkEditing({ password, fetchImpl = fetch, entry = 'http://heger.earth/rezepte/bearbeiten/' } = {}) {
+export async function checkEditing({ password, fetchImpl = fetch, entry = 'http://heger.earth/' + prefix + 'rezepte/bearbeiten/' } = {}) {
   // Resolve without credentials first. Never use authenticated redirect following.
-  const target = await resolveAnonymous(entry, '/rezepte/bearbeiten/', fetchImpl);
+  const target = await resolveAnonymous(entry, '/' + prefix + 'rezepte/bearbeiten/', fetchImpl);
   if (target.status !== 401) throw new Error(`Bearbeiten ohne Passwort: HTTP ${target.status} statt 401.`);
   if (target.url.protocol !== 'https:') throw new Error('Kein verifiziertes sicheres Ziel für die Zugangskontrolle.');
   const htaccess = await fetchImpl(new URL('.htaccess', target.url).href, { redirect: 'manual', signal: AbortSignal.timeout(20000) });
@@ -58,15 +60,15 @@ export async function checkEditing({ password, fetchImpl = fetch, entry = 'http:
   return { anonymous: target.status, authenticated: authenticated.status, htaccess: htaccess.status, redirects: target.redirects };
 }
 
-export async function checkPublic({ fetchImpl = fetch, entry = 'http://heger.earth/rezepte/' } = {}) {
-  const target = await resolveAnonymous(entry, '/rezepte/', fetchImpl);
+export async function checkPublic({ fetchImpl = fetch, entry = 'http://heger.earth/' + prefix + 'rezepte/' } = {}) {
+  const target = await resolveAnonymous(entry, '/' + prefix + 'rezepte/', fetchImpl);
   if (target.status !== 200) throw new Error(`Rezeptseite: HTTP ${target.status} statt 200.`);
   return { public: target.status, redirects: target.redirects };
 }
 
-export async function checkVersion({ commit, fetchImpl = fetch, entry = 'http://heger.earth/rezepte/version.json' } = {}) {
+export async function checkVersion({ commit, fetchImpl = fetch, entry = 'http://heger.earth/' + prefix + 'rezepte/version.json' } = {}) {
   if (typeof commit !== 'string' || !/^[0-9a-f]{40}$/.test(commit)) throw new Error('Erwarteter Commit muss ein voller SHA sein.');
-  const target = await resolveAnonymous(entry, '/rezepte/version.json', fetchImpl, true);
+  const target = await resolveAnonymous(entry, '/' + prefix + 'rezepte/version.json', fetchImpl, true);
   if (target.status !== 200) {
     await target.response.body?.cancel();
     throw new Error(`version.json: HTTP ${target.status} statt 200.`);

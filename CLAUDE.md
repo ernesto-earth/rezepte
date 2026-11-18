@@ -63,12 +63,30 @@ doppelte ID). Vorschau: `dist/index.html` vor dem Löschen im Browser öffnen (P
 
 ## Veröffentlichen
 
-Jeder Push auf `main`, der `claude-seite/**` ändert, löst `.github/workflows/deploy.yml` aus (Build → FTP-Upload →
-Live-Prüfung über `version.json`). Nach 1–2 Minuten ist die Änderung auf heger.earth/rezepte.
+Push auf `main` mit Änderungen an `claude-seite/**` oder `bearbeiten/**` löst `.github/workflows/deploy.yml` aus und
+geht auf **Vorprod** (http://heger.earth/vorprod/rezepte/). Live (http://heger.earth/rezepte/) geht es erst mit der
+Freigabe nach `prod`.
 
-- In Claude-Code-Cloud-Sitzungen wird auf dem zugewiesenen Arbeitszweig committet und gepusht; live geht es erst,
-  wenn der Zweig in `main` gemergt ist (Pull Request nur auf Wunsch).
-- `veroeffentlichen.sh` ist für den lokalen Projektordner (Hermes) gedacht und läuft nur auf `main`.
+- `veroeffentlichen.sh` läuft im Projektordner auf `main` (Hermes und von Hand).
 - Nie Zugangsdaten (FTP, `REZEPTE_*`-Secrets) ins Repo schreiben – das Repo ist öffentlich.
-- Über heger.earth/rezepte/bearbeiten/ können parallel Änderungen direkt auf `main` landen: vor dem Arbeiten
-  `git fetch origin main` und bei Bedarf übernehmen.
+- Über heger.earth/rezepte/bearbeiten/ landen Änderungen direkt auf `main`; war `main` gleich `prod`, wird `prod`
+  mit vorgespult und die Bearbeitung ist sofort live (E-035 Punkt 7). Deshalb vor dem Arbeiten immer
+  `git pull --rebase`.
+
+## Git, Vorprod und Prod (E-035, gilt für Claude und Hermes gleich)
+
+Beschluss: `ENTSCHEIDUNGEN.md` im Repo `ernesto-earth/chief-of-staff`, E-035.
+
+- **Einzige Quelle ist dieses Repo.** Was nicht gepusht ist, zählt nicht – auch keine iCloud-Stände.
+- **Nur zwei Branches:** `main` (Arbeitsstand, deployt nach `heger.earth/vorprod/<seite>/`) und `prod` (live,
+  deployt auf die heutige Adresse). **Keine eigenen Branches** – auch nicht für Claude, auch nicht in
+  Cloud-Sitzungen. Kein Force-Push, kein Umschreiben der Historie.
+- **Arbeitsablauf:** vor Beginn Arbeitskopie sauber, dann `git pull --rebase`; kleine, fertige Commits mit
+  bestandenem Build/Test; sofort auf `main` pushen. Push abgelehnt → `git pull --rebase`, Prüfung wiederholen,
+  erneut pushen. Konflikt → abbrechen, nichts erzwingen, Ernesto melden. Nichts Unkommittiertes zurücklassen.
+- **Freigabe nach Prod nur auf ausdrückliche Anweisung von Ernesto** (bzw. im freigegebenen Hermes-Auftrag):
+  genau den auf Vorprod geprüften Commit vorspulen – `./veroeffentlichen.sh --freigeben <commit>` oder
+  `git push origin <commit>:prod`. `prod` nie direkt bearbeiten; Fehler auf `main` korrigieren und neu freigeben.
+- Am Mac Studio teilen sich Claude und Hermes die Arbeitskopie in `a.5. Projekte/`: nicht arbeiten, solange ein
+  Hermes-Lauf das Projekt beansprucht. Vom MacBook aus wird in `a.5. Projekte/` nichts geschrieben.
+- Nie Zugangsdaten, Tokens oder Laufzeitdatenbanken ins Repo.

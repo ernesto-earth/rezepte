@@ -9,7 +9,9 @@ declare(strict_types=1);
  * Der Projektordner am Mac holt die Änderung beim nächsten veroeffentlichen.sh / rezept-neu.mjs (git pull).
  *
  * Konfiguration außerhalb des Webordners: <FTP-Wurzel>/rezepte-data/config.php (schreibt das Deployment):
- *   ['password_hash' => …, 'github_token' => …, 'repo' => 'ernesto-earth/rezepte', 'branch' => 'main']
+ *   ['password_hash' => …, 'github_token' => …, 'repo' => 'ernesto-earth/rezepte', 'branch' => 'main', 'promote_branch' => 'prod']
+ * E-035: Vorprod (<Web>/vorprod/rezepte/bearbeiten/) liest <FTP-Wurzel>/rezepte-data-vorprod/ und hat promote_branch ''.
+ * Auf Prod wird prod mit vorgespult, wenn main vor der Bearbeitung gleich prod war; sonst bleibt sie auf Vorprod.
  * Für lokale Tests: REZEPTE_DATA_DIR und GITHUB_API.
  */
 
@@ -25,7 +27,10 @@ const MAX_IMAGE = 1500000; // Bytes nach dem Verkleinern im Browser
 
 function data_dir(): string {
   $env = getenv('REZEPTE_DATA_DIR');
-  return (is_string($env) && $env !== '') ? rtrim($env, '/') : dirname(__DIR__, 3) . '/rezepte-data';
+  if (is_string($env) && $env !== '') return rtrim($env, '/');
+  // E-035: Vorprod liegt unter <Web>/vorprod/rezepte/bearbeiten/ und hat eigene Zugangsdaten.
+  if (basename(dirname(__DIR__, 2)) === 'vorprod') return dirname(__DIR__, 4) . '/rezepte-data-vorprod';
+  return dirname(__DIR__, 3) . '/rezepte-data';
 }
 function config(): array {
   static $c = null;
@@ -98,6 +103,8 @@ function gh(string $method, string $path, ?array $body = null, bool $raw = false
   return $raw ? $res : json_decode($res, true);
 }
 function branch(): string { return config()['branch'] ?? 'main'; }
+// E-035 Punkt 7: Auf Prod geht eine Bearbeitung sofort live, wenn main vorher gleich prod war.
+function promote_branch(): string { return (string)(config()['promote_branch'] ?? ''); }
 function load_recipes(?string $ref = null): array {
   $d = json_decode((string)gh('GET', '/contents/' . DATA_PATH . '?ref=' . rawurlencode($ref ?? branch()), null, true), true);
   if (!is_array($d)) throw new RuntimeException('rezepte.json ist nicht lesbar.');
@@ -228,6 +235,7 @@ try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_post();
     $head = gh('GET', '/git/ref/heads/' . branch())['object']['sha'];
+    $live_vorher = promote_branch() !== '' && gh('GET', '/git/ref/heads/' . promote_branch())['object']['sha'] === $head;
     $base = gh('GET', '/git/commits/' . $head)['tree']['sha'];
     $all = load_recipes($head);
     $cats = categories($head);
@@ -311,7 +319,16 @@ try {
     $msg = ($neu ? 'Neues Rezept' : 'Rezept bearbeitet') . ': ' . $r['title'] . ($newkey ? ", neue Kategorie {$newcat}" : '') . ' (über heger.earth/rezepte/bearbeiten)';
     $commit = gh('POST', '/git/commits', ['message' => $msg, 'tree' => $t, 'parents' => [$head]])['sha'];
     gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
-    page('Gespeichert', '<p class="ok"><b>Gespeichert.</b> „' . h($r['title']) . '“ ist in etwa 1–2 Minuten auf der Rezeptseite aktualisiert (Commit ' . h(substr($commit, 0, 7)) . ').</p>'
+    $live = false;
+    if ($live_vorher) {
+      try { gh('PATCH', '/git/refs/heads/' . promote_branch(), ['sha' => $commit, 'force' => false]); $live = true; }
+      catch (Throwable $e) { $live = false; }
+    }
+    $wo = promote_branch() === ''
+      ? 'ist in etwa 1–2 Minuten auf der Vorprod-Rezeptseite aktualisiert'
+      : ($live ? 'ist in etwa 1–2 Minuten auf der Rezeptseite aktualisiert'
+               : 'ist gespeichert und zunächst nur auf Vorprod sichtbar, weil dort noch nicht freigegebene Änderungen liegen; live geht es mit der nächsten Freigabe');
+    page('Gespeichert', '<p class="ok"><b>Gespeichert.</b> „' . h($r['title']) . '“ ' . $wo . ' (Commit ' . h(substr($commit, 0, 7)) . ').</p>'
       . '<p><a href="../#rezept/' . h($r['id']) . '">Zum Rezept</a> · <a href="./">Weitere Rezepte bearbeiten</a></p>');
     exit;
   }

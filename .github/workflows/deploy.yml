@@ -1,5 +1,6 @@
 # Baut die Rezept-Seite aus claude-seite/ und lädt sie nach heger.earth/rezepte hoch.
-# Läuft bei jedem Push auf main, der die Seite oder diesen Workflow ändert,
+# E-035: Push auf main → Vorprod heger.earth/vorprod/rezepte/, Push auf prod → heger.earth/rezepte/.
+# Läuft bei jedem Push auf main oder prod, der die Seite oder diesen Workflow ändert,
 # oder manuell über "Actions → Deploy → Run workflow".
 #
 # Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
@@ -16,16 +17,19 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, prod]
     paths: ["claude-seite/**", "bearbeiten/**", ".github/workflows/deploy.yml", "deploy-pruefen.mjs", "test-deploy-pruefen.mjs"]
   workflow_dispatch:
 
 concurrency:
-  group: deploy
+  group: deploy-${{ github.ref_name }}
   cancel-in-progress: false
 
 env:
   SITE: rezepte
+  # E-035: main → Vorprod (/vorprod/<seite>/), prod → live. Freigabe = prod auf geprüften main-Commit vorspulen.
+  PREFIX: ${{ github.ref_name == 'prod' && '' || 'vorprod/' }}
+  HEGER_PREFIX: ${{ github.ref_name == 'prod' && '' || 'vorprod/' }}
 
 jobs:
   deploy:
@@ -56,6 +60,25 @@ jobs:
       - name: lftp installieren
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
+      - name: Vorprod vor Suchmaschinen verbergen (E-035)
+        if: env.PREFIX == 'vorprod/'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_WEBROOT: ${{ vars.FTP_WEBROOT || 'www/' }}
+        run: |
+          set -euo pipefail
+          printf '<IfModule mod_headers.c>\n  Header set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' > "$RUNNER_TEMP/vorprod.htaccess"
+          printf 'User-agent: *\nDisallow: /\n' > "$RUNNER_TEMP/robots.txt"
+          server=$(echo "$FTP_SERVER" | tr -d '[:space:]')
+          lftp -c "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ftp:passive-mode true; \
+            set net:max-retries 3; set net:timeout 30; \
+            open --env-password -u $FTP_USERNAME -p $FTP_PORT $server; \
+            mkdir -p -f ${FTP_WEBROOT}vorprod; put $RUNNER_TEMP/vorprod.htaccess -o ${FTP_WEBROOT}vorprod/.htaccess; \
+            put $RUNNER_TEMP/robots.txt -o ${FTP_WEBROOT}vorprod/robots.txt; bye"
+
       - name: Hochladen (FTPS)
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -69,7 +92,7 @@ jobs:
           lftp -c "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ftp:passive-mode true; \
             set net:max-retries 3; set net:timeout 30; \
             open --env-password -u $FTP_USERNAME -p $FTP_PORT $server; \
-            mirror --reverse --verbose --no-perms --parallel=2 claude-seite/dist/ ${FTP_WEBROOT}${SITE}/; bye"
+            mirror --reverse --verbose --no-perms --parallel=2 claude-seite/dist/ ${FTP_WEBROOT}${PREFIX}${SITE}/; bye"
 
       - name: Bearbeiten-Seite einrichten (E-027)
         env:
@@ -91,17 +114,19 @@ jobs:
                     echo "set net:max-retries 3"; echo "set net:timeout 30"
                     echo "open --env-password -u $FTP_USERNAME -p $FTP_PORT $server"; cat; echo "bye"; } > "$RUNNER_TEMP/c.lftp"
                   lftp -f "$RUNNER_TEMP/c.lftp"; }
-          # Zugangsdatei außerhalb des Webordners: <FTP-Wurzel>/rezepte-data/config.php
-          php -r 'echo "<?php\nreturn " . var_export(["password_hash" => password_hash(getenv("EDIT_PASSWORD"), PASSWORD_DEFAULT), "github_token" => getenv("EDIT_TOKEN"), "repo" => getenv("GITHUB_REPOSITORY"), "branch" => "main"], true) . ";\n";' > "$RUNNER_TEMP/config.php"
-          printf 'mkdir -p -f rezepte-data\nput %s -o rezepte-data/config.php\nchmod 600 rezepte-data/config.php\nchmod 700 rezepte-data\n' "$RUNNER_TEMP/config.php" | ftp
+          # Zugangsdatei außerhalb des Webordners: <FTP-Wurzel>/rezepte-data/config.php (Vorprod: rezepte-data-vorprod/)
+          data=rezepte-data; [ -z "$PREFIX" ] || data=rezepte-data-vorprod
+          php -r 'echo "<?php\nreturn " . var_export(["password_hash" => password_hash(getenv("EDIT_PASSWORD"), PASSWORD_DEFAULT), "github_token" => getenv("EDIT_TOKEN"), "repo" => getenv("GITHUB_REPOSITORY"), "branch" => "main", "promote_branch" => getenv("PREFIX") === "" ? "prod" : ""], true) . ";\n";' > "$RUNNER_TEMP/config.php"
+          printf 'mkdir -p -f %s\nput %s -o %s/config.php\nchmod 600 %s/config.php\nchmod 700 %s\n' "$data" "$RUNNER_TEMP/config.php" "$data" "$data" "$data" | ftp
           rm "$RUNNER_TEMP/config.php"
           # PHP-Version wie bei /cos/ (Control Panel), sonst PHP 8.3
           echo "get -e ${FTP_WEBROOT}cos/.htaccess -o $RUNNER_TEMP/cos.htaccess" | ftp || true
           handler=$(grep -iE '^[[:space:]]*(addhandler|suphp_configpath)[[:space:]]' "$RUNNER_TEMP/cos.htaccess" 2>/dev/null || true)
           echo "$handler" | grep -qi 'x-httpd-php8[1-9]' || handler="AddHandler x-httpd-php83 .php"
           { echo "$handler"; echo; cat bearbeiten/.htaccess; } > "$RUNNER_TEMP/b.htaccess"
+          w="${FTP_WEBROOT}${PREFIX}"
           printf 'mkdir -p -f %srezepte/bearbeiten\nput bearbeiten/index.php -o %srezepte/bearbeiten/index.php\nput %s -o %srezepte/bearbeiten/.htaccess\n' \
-            "$FTP_WEBROOT" "$FTP_WEBROOT" "$RUNNER_TEMP/b.htaccess" "$FTP_WEBROOT" | ftp
+            "$w" "$w" "$RUNNER_TEMP/b.htaccess" "$w" | ftp
           sleep 3
           # Vorhandene Weiterleitungen ohne Zugangsdaten auflösen; Login erst am
           # geprüften Ziel, niemals Zugangsdaten blind einer Weiterleitung folgen lassen.
