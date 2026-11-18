@@ -7,20 +7,27 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
 | Letzte Statusaktualisierung | 2026-11-18T13:48:48+01:00 |
-| Zuletzt erledigt | 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), auch wenn main unfreigegebenen Code hat; main übernimmt sie per Merge. Vorprod nur noch für Code. Wirksam auf Prod nach der nächsten Freigabe. |
-| Nächster Schritt | Neue Bearbeiten-Seite auf Vorprod prüfen und nach prod freigeben (erst dann gilt die neue Regel live). Code-Änderungen gehen weiter zuerst auf Vorprod. |
+| Zuletzt erledigt | 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
+| Nächster Schritt | Keiner beauftragt. Rezeptbearbeitungen über die Seite gehen sofort live; Code-Änderungen zuerst auf Vorprod, live nur mit Freigabe. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
-| Prüfstand | geprüft: Deployment-Tests (37/37) und Seitenbau in den Actions bestanden; Prod-Deploy 44303618518 am 18.11.2026 success, Live-Version 3619851 bestätigt. |
-| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 3619851 (Branch prod), Action 44303618518 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
+| Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow). |
+| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | 3619851 / 2026-11-18T12:24:37.582Z |
+| Site-Version | 378ef54 / 2026-11-18 (Action 44373888793) |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
 | Zuletzt aktualisiert durch | Claude im Auftrag Ernestos vom 2026-11-18; nur diese Statusquelle geändert, keine Veröffentlichung daraus abgeleitet. |
 
 ## Belege
 
 ### Bearbeitungen sofort live, 18.11.2026
+
+Freigabe 378ef54 nach prod am 18.11.2026 auf Anweisung Ernestos (Vorprod-Lauf 44373174828 success, Prod-Lauf 44373888793 success). Vorherige Tabellenwerte:
+- Nächster Schritt: Neue Bearbeiten-Seite auf Vorprod prüfen und nach prod freigeben (erst dann gilt die neue Regel live). Code-Änderungen gehen weiter zuerst auf Vorprod.
+- Zuletzt erledigt: 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), auch wenn main unfreigegebenen Code hat; main übernimmt sie per Merge. Vorprod nur noch für Code. Wirksam auf Prod nach der nächsten Freigabe.
+- Site-Stand: veröffentlicht: http://heger.earth/rezepte/ aus Commit 3619851 (Branch prod), Action 44303618518 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/.
+- Site-Version: 3619851 / 2026-11-18T12:24:37.582Z
+- Prüfstand: geprüft: Deployment-Tests (37/37) und Seitenbau in den Actions bestanden; Prod-Deploy 44303618518 am 18.11.2026 success, Live-Version 3619851 bestätigt.
 
 Ernesto: Rezeptänderungen über die Bearbeiten-Seite sollen direkt auf prod; Vorprod nur bei Code-Änderungen.
 `bearbeiten/index.php` entsprechend umgebaut, lokal gegen eine nachgebildete GitHub-API mit echtem Git-Repo getestet
