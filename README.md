@@ -64,8 +64,9 @@ Neue Kategorien: im Formular unter „Neue Kategorie“ Name und Farbe angeben �
 (Liste `CAT`) eingetragen, dem Rezept zugeordnet und erscheint danach überall (Filter, Formular, `rezept-neu.mjs`).
 Das Foto wird im Browser auf 800 px verkleinert (geht auch am iPhone).
 
-Speichern schreibt direkt ins Repo (`claude-seite/rezepte.json`, `claude-seite/img/`) – ein Commit, der die
-GitHub Action startet; nach etwa 1–2 Minuten ist die Seite aktualisiert. Der Projektordner holt die Änderung
+Speichern schreibt direkt ins Repo (`claude-seite/rezepte.json`, `claude-seite/img/`) und geht **sofort live**
+(Branch `prod`, auch wenn auf `main` noch nicht freigegebener Code liegt – Vorprod ist nur für Code-Änderungen);
+`main` bekommt die Änderung mit. Nach etwa 1–2 Minuten ist die Seite aktualisiert. Der Projektordner holt die Änderung
 automatisch beim nächsten `veroeffentlichen.sh` oder `rezept-neu.mjs` (nur Vorspulen, nie erzwingen).
 Zusätzlich holt Hermes jede volle Stunde alle Bearbeitungen ab und dokumentiert sie (E-028):
 `aenderungen-abholen.mjs` trägt je Bearbeitung Rezept und geänderte Felder in `AENDERUNGEN.md` ein,

@@ -7,8 +7,8 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
 | Letzte Statusaktualisierung | 2026-11-18T13:48:48+01:00 |
-| Zuletzt erledigt | 18.11.2026: E-035 umgesetzt – Workflow main → Vorprod, prod → live; Bearbeiten-Seite spult prod mit vor, wenn main gleich prod war; veroeffentlichen.sh mit --freigeben. E-036: Repo und Seite bleiben öffentlich. Danach Freigabeprüfung angepasst: Bei reinen Doku-/Statuscommits gilt der zuletzt ausgelieferte, inhaltlich gleiche Commit (3619851), auf Vorprod und Prod veröffentlicht. |
-| Nächster Schritt | Keiner beauftragt. Änderungen gehen nach E-035 zuerst auf Vorprod, live nur mit Freigabe. |
+| Zuletzt erledigt | 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), auch wenn main unfreigegebenen Code hat; main übernimmt sie per Merge. Vorprod nur noch für Code. Wirksam auf Prod nach der nächsten Freigabe. |
+| Nächster Schritt | Neue Bearbeiten-Seite auf Vorprod prüfen und nach prod freigeben (erst dann gilt die neue Regel live). Code-Änderungen gehen weiter zuerst auf Vorprod. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
 | Prüfstand | geprüft: Deployment-Tests (37/37) und Seitenbau in den Actions bestanden; Prod-Deploy 44303618518 am 18.11.2026 success, Live-Version 3619851 bestätigt. |
@@ -19,6 +19,15 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Zuletzt aktualisiert durch | Claude im Auftrag Ernestos vom 2026-11-18; nur diese Statusquelle geändert, keine Veröffentlichung daraus abgeleitet. |
 
 ## Belege
+
+### Bearbeitungen sofort live, 18.11.2026
+
+Ernesto: Rezeptänderungen über die Bearbeiten-Seite sollen direkt auf prod; Vorprod nur bei Code-Änderungen.
+`bearbeiten/index.php` entsprechend umgebaut, lokal gegen eine nachgebildete GitHub-API mit echtem Git-Repo getestet
+(main = prod, main mit unfreigegebenem Code, neues Foto + neue Kategorie, Rezept nur auf main, Kategorie nur auf main;
+Build auf beiden Branches bestanden, prod blieb jeweils vorspulbar). Bisherige Tabellenwerte:
+- Zuletzt erledigt: 18.11.2026: E-035 umgesetzt – Workflow main → Vorprod, prod → live; Bearbeiten-Seite spult prod mit vor, wenn main gleich prod war; veroeffentlichen.sh mit --freigeben. E-036: Repo und Seite bleiben öffentlich. Danach Freigabeprüfung angepasst: Bei reinen Doku-/Statuscommits gilt der zuletzt ausgelieferte, inhaltlich gleiche Commit (3619851), auf Vorprod und Prod veröffentlicht.
+- Nächster Schritt: Keiner beauftragt. Änderungen gehen nach E-035 zuerst auf Vorprod, live nur mit Freigabe.
 
 ### Alte Fassungen der Rezeptseite entfernt, 17.11.2026
 

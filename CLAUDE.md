@@ -76,9 +76,12 @@ Freigabe nach `prod`.
 
 - `veroeffentlichen.sh` läuft im Projektordner auf `main` (Hermes und von Hand).
 - Nie Zugangsdaten (FTP, `REZEPTE_*`-Secrets) ins Repo schreiben – das Repo ist öffentlich.
-- Über heger.earth/rezepte/bearbeiten/ landen Änderungen direkt auf `main`; war `main` gleich `prod`, wird `prod`
-  mit vorgespult und die Bearbeitung ist sofort live (E-035 Punkt 7). Deshalb vor dem Arbeiten immer
-  `git pull --rebase`.
+- Über heger.earth/rezepte/bearbeiten/ geänderte Rezepte (nur Daten) gehen **immer sofort live** (Ernesto 2026-11-18,
+  ersetzt E-035 Punkt 7). Vorprod ist nur für Änderungen am Code. War `main` gleich `prod`, wird `prod` vorgespult;
+  liegt auf `main` noch nicht freigegebener Code, kommt die Datenänderung als eigener Commit auf `prod`, und `main`
+  übernimmt ihn per Merge-Commit („Live-Bearbeitung in main übernommen: …“), damit `prod` weiter vorspulbar bleibt.
+  Nur wenn eine gewählte Kategorie live noch fehlt, bleibt die Bearbeitung bis zur Freigabe auf Vorprod.
+  Deshalb vor dem Arbeiten immer `git pull --rebase`.
 
 ## Git, Vorprod und Prod (E-035, gilt für Claude und Hermes gleich)
 

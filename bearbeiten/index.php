@@ -11,7 +11,8 @@ declare(strict_types=1);
  * Konfiguration außerhalb des Webordners: <FTP-Wurzel>/rezepte-data/config.php (schreibt das Deployment):
  *   ['password_hash' => …, 'github_token' => …, 'repo' => 'ernesto-earth/rezepte', 'branch' => 'main', 'promote_branch' => 'prod']
  * E-035: Vorprod (<Web>/vorprod/rezepte/bearbeiten/) liest <FTP-Wurzel>/rezepte-data-vorprod/ und hat promote_branch ''.
- * Auf Prod wird prod mit vorgespult, wenn main vor der Bearbeitung gleich prod war; sonst bleibt sie auf Vorprod.
+ * Ernesto 2026-11-18: Auf Prod geht jede Bearbeitung sofort live. Ist main gleich prod, wird prod vorgespult; liegt auf main
+ * noch nicht freigegebener Code, kommt die Datenänderung als eigener Commit auf prod und main übernimmt ihn per Merge.
  * Für lokale Tests: REZEPTE_DATA_DIR und GITHUB_API.
  */
 
@@ -103,7 +104,8 @@ function gh(string $method, string $path, ?array $body = null, bool $raw = false
   return $raw ? $res : json_decode($res, true);
 }
 function branch(): string { return config()['branch'] ?? 'main'; }
-// E-035 Punkt 7: Auf Prod geht eine Bearbeitung sofort live, wenn main vorher gleich prod war.
+// Ernesto 2026-11-18: Auf Prod geht eine Bearbeitung (reine Rezeptdaten) immer sofort live, auch wenn main noch nicht
+// freigegebenen Code enthält. Vorprod ist nur für Änderungen am Code der Seite.
 function promote_branch(): string { return (string)(config()['promote_branch'] ?? ''); }
 function load_recipes(?string $ref = null): array {
   $d = json_decode((string)gh('GET', '/contents/' . DATA_PATH . '?ref=' . rawurlencode($ref ?? branch()), null, true), true);
@@ -116,6 +118,38 @@ function categories(?string $ref = null): array {
   preg_match_all("/'([^']+)':\s*\['([^']+)'/", $m[1], $mm, PREG_SET_ORDER);
   $out = []; foreach ($mm as $x) $out[$x[1]] = $x[2];
   return $out;
+}
+// Wendet eine Bearbeitung auf den Stand $sha an; liefert die geänderten Dateien als Git-Tree-Einträge.
+// $quelle: Stand, aus dem ein unverändertes Foto mitgenommen wird, wenn es in $sha noch fehlt.
+// null: auf diesem Stand nicht anwendbar (eine gewählte Kategorie gibt es dort nicht).
+function aenderung(string $sha, array $r, ?string $blob, ?array $kat, string $quelle): ?array {
+  $all = load_recipes($sha);
+  $cats = categories($sha);
+  foreach ($r['categories'] as $k) if (!isset($cats[$k]) && $k !== ($kat[0] ?? null)) return null;
+  $idx = null;
+  foreach ($all as $k => $x) if (($x['id'] ?? '') === $r['id']) $idx = $k;
+  $alt_bild = $idx === null ? null : ($all[$idx]['image'] ?? null);
+  $tree = [];
+  if ($blob) {
+    $tree[] = ['path' => 'claude-seite/' . $r['image'], 'mode' => '100644', 'type' => 'blob', 'sha' => $blob];
+    $genutzt = array_filter($all, fn($x) => ($x['image'] ?? '') === $alt_bild && ($x['id'] ?? '') !== $r['id']);
+    if ($alt_bild && $alt_bild !== $r['image'] && !$genutzt) $tree[] = ['path' => 'claude-seite/' . $alt_bild, 'mode' => '100644', 'type' => 'blob', 'sha' => null];
+  } elseif ($alt_bild !== $r['image'] && $sha !== $quelle) {
+    $f = gh('GET', '/contents/claude-seite/' . $r['image'] . '?ref=' . rawurlencode($quelle));
+    $tree[] = ['path' => 'claude-seite/' . $r['image'], 'mode' => '100644', 'type' => 'blob', 'sha' => $f['sha']];
+  }
+  if ($idx === null) $all[] = $r; else $all[$idx] = $r;
+  $tree[] = ['path' => DATA_PATH, 'mode' => '100644', 'type' => 'blob', 'content' => json_like_repo($all)];
+  if ($kat && !isset($cats[$kat[0]])) {
+    $js = (string)gh('GET', '/contents/' . SITE_JS . '?ref=' . rawurlencode($sha), null, true);
+    $tree[] = ['path' => SITE_JS, 'mode' => '100644', 'type' => 'blob', 'content' => add_category($js, $kat[0], $kat[1], $kat[2])];
+  }
+  return $tree;
+}
+function neuer_commit(string $sha, array $tree, string $msg, array $parents): string {
+  $base = gh('GET', '/git/commits/' . $sha)['tree']['sha'];
+  $t = gh('POST', '/git/trees', ['base_tree' => $base, 'tree' => $tree])['sha'];
+  return gh('POST', '/git/commits', ['message' => $msg, 'tree' => $t, 'parents' => $parents])['sha'];
 }
 function json_like_repo(array $data): string { // wie JSON.stringify(…, null, 1) im Projekt
   $j = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -235,8 +269,7 @@ try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_post();
     $head = gh('GET', '/git/ref/heads/' . branch())['object']['sha'];
-    $live_vorher = promote_branch() !== '' && gh('GET', '/git/ref/heads/' . promote_branch())['object']['sha'] === $head;
-    $base = gh('GET', '/git/commits/' . $head)['tree']['sha'];
+    $prod = promote_branch() !== '' ? gh('GET', '/git/ref/heads/' . promote_branch())['object']['sha'] : null;
     $all = load_recipes($head);
     $cats = categories($head);
     $idx = null;
@@ -300,34 +333,44 @@ try {
     $eigene = array_values(array_filter($r['tags'] ?? [], fn($t) => !in_array($t, $cats, true)));
     $r['tags'] = array_values(array_unique(array_merge(array_map(fn($k) => $cats[$k], $sel), $eigene)));
     $r['alt'] = $r['title'] . ($r['subtitle'] ? ' ' . $r['subtitle'] : '');
-    $tree = [];
-    $alt_bild = $r['image'] ?? null;
+    $blob = null;
     if ($bild) {
       $r['image'] = 'img/' . $r['id'] . '-' . date('YmdHis') . '-' . bin2hex(random_bytes(2)) . '.jpg';
       $blob = gh('POST', '/git/blobs', ['content' => base64_encode($bild), 'encoding' => 'base64'])['sha'];
-      $tree[] = ['path' => 'claude-seite/' . $r['image'], 'mode' => '100644', 'type' => 'blob', 'sha' => $blob];
-      $genutzt = array_filter($all, fn($x) => ($x['image'] ?? '') === $alt_bild && $x['id'] !== $r['id']);
-      if ($alt_bild && $alt_bild !== $r['image'] && !$genutzt) $tree[] = ['path' => 'claude-seite/' . $alt_bild, 'mode' => '100644', 'type' => 'blob', 'sha' => null];
     }
-    if ($neu) $all[] = $r; else $all[$idx] = $r;
-    $tree[] = ['path' => DATA_PATH, 'mode' => '100644', 'type' => 'blob', 'content' => json_like_repo($all)];
-    if ($newkey) {
-      $js = (string)gh('GET', '/contents/' . SITE_JS . '?ref=' . rawurlencode($head), null, true);
-      $tree[] = ['path' => SITE_JS, 'mode' => '100644', 'type' => 'blob', 'content' => add_category($js, $newkey, $newcat, $newcolor)];
-    }
-    $t = gh('POST', '/git/trees', ['base_tree' => $base, 'tree' => $tree])['sha'];
+    $kat = $newkey ? [$newkey, $newcat, $newcolor] : null;
     $msg = ($neu ? 'Neues Rezept' : 'Rezept bearbeitet') . ': ' . $r['title'] . ($newkey ? ", neue Kategorie {$newcat}" : '') . ' (über heger.earth/rezepte/bearbeiten)';
-    $commit = gh('POST', '/git/commits', ['message' => $msg, 'tree' => $t, 'parents' => [$head]])['sha'];
-    gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
     $live = false;
-    if ($live_vorher) {
-      try { gh('PATCH', '/git/refs/heads/' . promote_branch(), ['sha' => $commit, 'force' => false]); $live = true; }
-      catch (Throwable $e) { $live = false; }
+    $grund = 'weil dort noch nicht freigegebene Änderungen liegen';
+    if ($prod === $head || $prod === null) {
+      // main = prod (oder Vorprod-Seite): ein Commit auf main, prod wird mit vorgespult
+      $commit = neuer_commit($head, aenderung($head, $r, $blob, $kat, $head), $msg, [$head]);
+      gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
+      if ($prod !== null) {
+        try { gh('PATCH', '/git/refs/heads/' . promote_branch(), ['sha' => $commit, 'force' => false]); $live = true; }
+        catch (Throwable $e) { $live = false; }
+      }
+    } else {
+      // main hat noch nicht freigegebenen Code: Datenänderung direkt auf prod, main übernimmt sie per Merge,
+      // damit prod weiterhin auf main vorgespult werden kann (Ernesto 2026-11-18).
+      $prod_tree = aenderung($prod, $r, $blob, $kat, $head);
+      $main_tree = aenderung($head, $r, $blob, $kat, $head);
+      if ($prod_tree === null) {
+        $commit = neuer_commit($head, $main_tree, $msg, [$head]);
+        gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
+        $grund = 'weil eine gewählte Kategorie live noch nicht freigegeben ist';
+      } else {
+        $live_commit = neuer_commit($prod, $prod_tree, $msg, [$prod]);
+        $commit = neuer_commit($head, $main_tree, 'Live-Bearbeitung in main übernommen: ' . $r['title'], [$head, $live_commit]);
+        gh('PATCH', '/git/refs/heads/' . branch(), ['sha' => $commit, 'force' => false]);
+        try { gh('PATCH', '/git/refs/heads/' . promote_branch(), ['sha' => $live_commit, 'force' => false]); $live = true; $commit = $live_commit; }
+        catch (Throwable $e) { $live = false; }
+      }
     }
-    $wo = promote_branch() === ''
+    $wo = $prod === null
       ? 'ist in etwa 1–2 Minuten auf der Vorprod-Rezeptseite aktualisiert'
       : ($live ? 'ist in etwa 1–2 Minuten auf der Rezeptseite aktualisiert'
-               : 'ist gespeichert und zunächst nur auf Vorprod sichtbar, weil dort noch nicht freigegebene Änderungen liegen; live geht es mit der nächsten Freigabe');
+               : 'ist gespeichert und zunächst nur auf Vorprod sichtbar, ' . $grund . '; live geht es mit der nächsten Freigabe');
     page('Gespeichert', '<p class="ok"><b>Gespeichert.</b> „' . h($r['title']) . '“ ' . $wo . ' (Commit ' . h(substr($commit, 0, 7)) . ').</p>'
       . '<p><a href="../#rezept/' . h($r['id']) . '">Zum Rezept</a> · <a href="./">Weitere Rezepte bearbeiten</a></p>');
     exit;
