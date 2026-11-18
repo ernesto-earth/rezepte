@@ -68,6 +68,8 @@ g() { git ${git_opts[@]+"${git_opts[@]}"} "$@"; }
 
 # E-035: Freigabe – genau den geprüften main-Commit nach prod vorspulen, nie erzwingen.
 if [ "$STUFE" = "prod" ]; then
+  # Unter Hermes nur mit ausdrücklicher Freigabe des Auftrags (COS_RELEASE setzt der Runner).
+  if [ "${COS_PUBLISH:-}" = "1" ] && [ "${COS_RELEASE:-}" != "1" ]; then stop "Freigabe nach prod ist für diesen Auftrag nicht erteilt – nichts freigegeben."; fi
   [ -n "$FREIGABE" ] || stop "Bitte den auf Vorprod geprüften Commit angeben: ./veroeffentlichen.sh --freigeben <commit>"
   g fetch -q origin main prod 2>/dev/null || stop "Repo nicht erreichbar – nichts freigegeben."
   FREIGABE_SHA=$(git rev-parse --verify -q "$FREIGABE^{commit}") || stop "Commit $FREIGABE unbekannt – nichts freigegeben."
@@ -86,6 +88,11 @@ if [ "$STUFE" = "prod" ]; then
 fi
 
 if [ "$nur_pruefen" = 0 ]; then
+  # E-035: Abgleich vor Arbeitsbeginn nur mit sauberer Arbeitskopie.
+  if [ "$nur_abgleich" = 1 ] && [ -n "$(git status --porcelain)" ]; then
+    git status --short | head -10
+    stop "Arbeitskopie nicht sauber – erst klären (committen oder verwerfen), dann abgleichen."
+  fi
   # Neuere Commits vom Repo übernehmen (z. B. Bearbeitungen über die Seite), nur als Vorspulen
   if g fetch -q origin main 2>/dev/null; then
     hinter=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
