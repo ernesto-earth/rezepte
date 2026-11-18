@@ -6,9 +6,9 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
-| Letzte Statusaktualisierung | 2026-11-18T20:03:00+01:00 |
+| Letzte Statusaktualisierung | 2026-11-18T20:04:00+01:00 |
 | Zuletzt erledigt | 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
-| Nächster Schritt | Keiner beauftragt. Rezeptbearbeitungen über die Seite gehen sofort live; Code-Änderungen zuerst auf Vorprod, live nur mit Freigabe. |
+| Nächster Schritt | Kein offener Schritt – alles Beauftragte ist erledigt. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
 | Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow). |
