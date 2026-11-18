@@ -6,15 +6,15 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 |---|---|
 | Projekt | Rezepte |
 | Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
-| Letzte Statusaktualisierung | 2026-11-18T20:04:00+01:00 |
-| Zuletzt erledigt | 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
+| Letzte Statusaktualisierung | 2026-11-18T21:00:37+01:00 |
+| Zuletzt erledigt | 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert (siehe AENDERUNGEN.md). Davor 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
 | Nächster Schritt | Kein offener Schritt – alles Beauftragte ist erledigt. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
 | Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow). |
 | Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | Commit 2a109ea (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte |
+| Site-Version | Commit 552b7c7 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
 | Zuletzt aktualisiert durch | Hermes, stündlicher Abgleich (aenderungen-abholen.mjs) |
 

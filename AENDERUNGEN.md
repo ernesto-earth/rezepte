@@ -3,6 +3,10 @@
 Bearbeitungen über heger.earth/rezepte/bearbeiten, stündlich von `aenderungen-abholen.mjs` übernommen (E-028).
 Neueste oben. Änderungen über Hermes stehen in STATUS.md und in der Git-Historie.
 
+## 2026-11-18 20:49 – Bearbeitung über die Seite (Commit 552b7c7)
+
+- „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert
+
 ## 2026-11-18 19:39 – Bearbeitung über die Seite (Commit 2a109ea)
 
 - „Kürbiseintopf“ (kuerbiseintopf): Foto geändert
