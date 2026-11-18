@@ -96,4 +96,6 @@ Beschluss: `ENTSCHEIDUNGEN.md` im Repo `ernesto-earth/chief-of-staff`, E-035.
   `git push origin <commit>:prod`. `prod` nie direkt bearbeiten; Fehler auf `main` korrigieren und neu freigeben.
 - Am Mac Studio teilen sich Claude und Hermes die Arbeitskopie in `a.5. Projekte/`: nicht arbeiten, solange ein
   Hermes-Lauf das Projekt beansprucht. Vom MacBook aus wird in `a.5. Projekte/` nichts geschrieben.
+- Technisch abgesichert: `.claude/hooks/git-branch-guard.py` (Hook in `.claude/settings.json`) blockiert in jeder
+  Claude-Code-Sitzung neue Branches, Push auf andere Branches als main/prod, Force-Push und das Löschen von main/prod.
 - Nie Zugangsdaten, Tokens oder Laufzeitdatenbanken ins Repo.
