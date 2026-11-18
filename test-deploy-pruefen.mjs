@@ -110,3 +110,19 @@ test('version rejects redirect outside allowed path', async () => {
   await assert.rejects(checkVersion({ commit, fetchImpl: f.fetchImpl }));
   assert.equal(f.calls.length, 1);
 });
+test('E-035: Live-Commit aus der Liste erlaubter Commits wird angenommen', async () => {
+  const alt = 'b'.repeat(40);
+  const f = fixture([{ status: 200, body: JSON.stringify({ commit: alt, deployed_at }) }]);
+  assert.deepEqual(await checkVersion({ commit, erlaubt: [commit, alt], fetchImpl: f.fetchImpl }), { commit: alt, deployed_at, url: 'http://heger.earth/rezepte/version.json' });
+});
+test('E-035: Live-Commit außerhalb der Liste wird abgewiesen', async () => {
+  const f = fixture([{ status: 200, body: JSON.stringify({ commit: 'c'.repeat(40), deployed_at }) }]);
+  await assert.rejects(checkVersion({ commit, erlaubt: [commit, 'b'.repeat(40)], fetchImpl: f.fetchImpl }), /entspricht nicht/);
+});
+for (const erlaubt of [[], ['a'.repeat(7)], 'x']) {
+  test('E-035: ungültige Liste erlaubter Commits ohne Netz abgewiesen: ' + JSON.stringify(erlaubt), async () => {
+    const f = fixture([]);
+    await assert.rejects(checkVersion({ commit, erlaubt, fetchImpl: f.fetchImpl }));
+    assert.equal(f.calls.length, 0);
+  });
+}

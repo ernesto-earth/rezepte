@@ -160,6 +160,14 @@ else
   say "== Prüfe Commit ${sha:0:7} ($(git log -1 --format=%s "$sha"))"
 fi
 
+# E-035: Reine Doku-/Statuscommits lösen keinen Seiten-Deploy aus (Pfadfilter im Deploy-Workflow).
+# Als ausgeliefert gilt dann jeder Commit vom letzten seitenrelevanten Commit bis einschließlich $sha.
+SEITEN_PFADE=(claude-seite/ bearbeiten/ .github/workflows/deploy.yml deploy-pruefen.mjs test-deploy-pruefen.mjs)
+deploy_sha=$(git log -1 --format=%H "$sha" -- "${SEITEN_PFADE[@]}")
+[ -n "$deploy_sha" ] || stop "Kein seitenrelevanter Commit für den Live-Abgleich gefunden."
+erlaubt=$( { echo "$sha"; git rev-list --ancestry-path "$deploy_sha..$sha"; echo "$deploy_sha"; } | awk 'NF && !s[$0]++' | paste -sd, -)
+[ "$deploy_sha" = "$sha" ] || say "== Seit ${deploy_sha:0:7} keine Änderung an der Seite; live darf ${deploy_sha:0:7} oder ein späterer Commit bis ${sha:0:7} sein."
+
 # GitHub Action abwarten, wenn ein Token verfügbar ist
 token="${COS_GIT_TOKEN:-${GITHUB_TOKEN:-}}"
 deploy="nicht geprüft (kein Token)"
@@ -189,9 +197,10 @@ if ! check=$("$NODE" ./deploy-pruefen.mjs seite "$SITE_URL" 2>&1); then
 fi
 say "== $SITE_URL → $check"
 
-if ! version=$("$NODE" ./deploy-pruefen.mjs version "$sha" "${SITE_URL}version.json" 2>&1); then
+if ! version=$("$NODE" ./deploy-pruefen.mjs version "$erlaubt" "${SITE_URL}version.json" 2>&1); then
   stop "Live-Versionsabgleich fehlgeschlagen ($version). Commit ${sha:0:7} ist gepusht."
 fi
 say "== Live-Version: $version"
+live_commit=$(printf '%s' "${version#PRÜFUNG: }" | "$NODE" -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).commit))') || stop "Prüfergebnis nicht lesbar."
 
-say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $ERWARTET_HTTP am geprüften Ziel, version.json bestätigt $sha"
+say "ERGEBNIS: veröffentlicht – Commit ${sha:0:7}, $deploy, $SITE_URL HTTP $ERWARTET_HTTP am geprüften Ziel, version.json bestätigt $live_commit$( [ "$live_commit" = "$sha" ] || echo " (inhaltlich gleich mit ${sha:0:7}, seither nur Dateien außerhalb der Seite geändert)")"

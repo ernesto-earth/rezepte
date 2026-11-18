@@ -66,15 +66,18 @@ export async function checkPublic({ fetchImpl = fetch, entry = 'http://heger.ear
   return { public: target.status, redirects: target.redirects };
 }
 
-export async function checkVersion({ commit, fetchImpl = fetch, entry = 'http://heger.earth/' + prefix + 'rezepte/version.json' } = {}) {
+// erlaubt: weitere Commits, die als ausgeliefert gelten (E-035: seit dem letzten seitenrelevanten Commit
+// nur Dateien außerhalb der Seite geändert). Ohne Angabe gilt nur genau `commit`.
+export async function checkVersion({ commit, erlaubt = [commit], fetchImpl = fetch, entry = 'http://heger.earth/' + prefix + 'rezepte/version.json' } = {}) {
   if (typeof commit !== 'string' || !/^[0-9a-f]{40}$/.test(commit)) throw new Error('Erwarteter Commit muss ein voller SHA sein.');
+  if (!Array.isArray(erlaubt) || !erlaubt.length || !erlaubt.every(c => typeof c === 'string' && /^[0-9a-f]{40}$/.test(c))) throw new Error('Erlaubte Commits müssen volle SHAs sein.');
   const target = await resolveAnonymous(entry, '/' + prefix + 'rezepte/version.json', fetchImpl, true);
   if (target.status !== 200) {
     await target.response.body?.cancel();
     throw new Error(`version.json: HTTP ${target.status} statt 200.`);
   }
   const version = await target.response.json();
-  if (version?.commit !== commit) throw new Error(`Live-Commit ${version?.commit ?? 'fehlt'} entspricht nicht ${commit}.`);
+  if (!erlaubt.includes(version?.commit)) throw new Error(`Live-Commit ${version?.commit ?? 'fehlt'} entspricht nicht ${commit}.`);
   if (typeof version.deployed_at !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(version.deployed_at) || !Number.isFinite(Date.parse(version.deployed_at)) || new Date(version.deployed_at).toISOString() !== version.deployed_at) {
     throw new Error('version.json: deployed_at ist keine gültige ISO-Zeit.');
   }
@@ -86,7 +89,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const mode = process.argv[2];
     const result = mode === 'bearbeiten' ? await checkEditing({ password: process.env.EDIT_PASSWORD })
       : mode === 'seite' ? await checkPublic(process.argv[3] ? { entry: process.argv[3] } : {})
-      : mode === 'version' ? await checkVersion({ commit: process.argv[3], ...(process.argv[4] ? { entry: process.argv[4] } : {}) }) : null;
+      : mode === 'version' ? await checkVersion({ commit: (process.argv[3] || '').split(',')[0], erlaubt: (process.argv[3] || '').split(','), ...(process.argv[4] ? { entry: process.argv[4] } : {}) }) : null;
     if (!result) throw new Error('Prüfmodus bearbeiten, seite oder version erforderlich.');
     console.log('PRÜFUNG: ' + JSON.stringify(result));
   } catch (error) {
