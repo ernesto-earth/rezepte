@@ -28,8 +28,8 @@ concurrency:
 env:
   SITE: rezepte
   # E-035: main → Vorprod (/vorprod/<seite>/), prod → live. Freigabe = prod auf geprüften main-Commit vorspulen.
-  PREFIX: ${{ github.ref_name == 'prod' && '' || 'vorprod/' }}
-  HEGER_PREFIX: ${{ github.ref_name == 'prod' && '' || 'vorprod/' }}
+  PREFIX: ${{ github.ref_name != 'prod' && 'vorprod/' || '' }}
+  HEGER_PREFIX: ${{ github.ref_name != 'prod' && 'vorprod/' || '' }}
 
 jobs:
   deploy:
