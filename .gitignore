@@ -8,7 +8,8 @@ claude-seite/dist/
 # Bleibt nur lokal im Projektordner
 pdf/
 tmp/
-work/
+work/*
+!work/designvorschlag-2026-11-04/
 rezept-sammlung/
 .hermes.md
 kontext-readly-artikel.md

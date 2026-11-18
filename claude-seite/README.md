@@ -3,7 +3,7 @@
 **Seite:** http://heger.earth/rezepte/ (veröffentlicht über GitHub `ernesto-earth/rezepte`, siehe `../README.md`)
 
 Bis 2026-11-05 lag die Seite als private Claude-Seite (claude.ai/artifact/1Wp1qiE4qZxpfx9jioABuo); diese wird
-nicht mehr gepflegt. Davor gab es die ChatGPT-Site in `../rezept-sammlung/` (Archiv).
+nicht mehr gepflegt. Davor gab es die ChatGPT-Site in `../rezept-sammlung/` (Archiv, seit 2026-11-18 in `COS-Sicherung/altlasten-2026-11-18/`).
 
 | Datei | Inhalt |
 |---|---|

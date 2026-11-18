@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Am Tisch – Alle Rezepte</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4F0}
+a{color:#1E1A17}a:hover{color:#C2410C}
+.nav a{color:#E9E4DE;text-decoration:none;font-size:14px;font-weight:500;padding:19px 1px 16px;border-bottom:3px solid transparent}
+.nav a:hover{color:#FFFFFF}
+.chip{font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:0 16px;min-height:40px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:1px solid #DDD6CD}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.card{background:#FFFFFF;border-radius:14px;overflow:hidden;text-decoration:none;color:#1E1A17;display:flex;flex-direction:column}
+.card:hover{color:#1E1A17;box-shadow:0 8px 24px rgba(30,26,23,.12)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+</style>
+</helmet>
+<div style="min-height: 1060px; background: #F6F4F0; font-family: Inter, system-ui, sans-serif; color: #1E1A17">
+<header style="background: #1E1A17">
+<div class="nav" style="max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a href="Main.dc.html" style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; color: #FFFFFF; border: 0; padding: 14px 0; margin-right: 8px">AM TISCH <span style="color: #F08A5D">REZEPTE</span></a>
+<nav aria-label="Hauptnavigation" style="display: flex; gap: 26px; flex: 1">
+<a href="Main.dc.html" aria-current="page" style="color: #FFFFFF; border-bottom-color: #F08A5D">Alle Rezepte</a>
+<a href="#">Merkliste</a>
+<a href="#">Über die Sammlung</a>
+</nav>
+<span style="font-size: 13px; color: #B9B0A6">9 Rezepte · aus GUSTO und Men&#39;s Health</span>
+</div>
+</header>
+<main style="max-width: 1280px; margin: 0 auto; padding: 26px 32px 40px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-bottom: 22px">
+<h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 40px; font-weight: 700; line-height: 1">Was kochen wir heute?</h1>
+<label style="flex: 1; min-width: 260px; display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #DDD6CD; border-radius: 999px; padding: 0 18px; min-height: 46px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B625A" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+<span style="position: absolute; left: -9999px">Suche</span>
+<input type="search" placeholder="Rezept oder Zutat, z. B. Kürbis, Mohn …" style="border: 0; outline: none; font: inherit; font-size: 15px; flex: 1; background: transparent; color: #1E1A17">
+</label>
+</div>
+<div role="group" aria-label="Kategorien" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+<button class="chip" type="button" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}" style="{{c.style}}"><span class="dot" style="{{c.dot}}"></span>{{c.label}} <span style="opacity: .7; font-weight: 500">{{c.n}}</span></button>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{cards}}" as="r" hint-placeholder-count="8">
+<a class="card" href="Rezept.dc.html">
+<img src="{{r.img}}" alt="{{r.title}} {{r.sub}}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block">
+<span style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1">
+<span class="lbl" style="{{r.catStyle}}">{{r.catLabel}}</span>
+<b style="font-size: 18px; line-height: 1.25">{{r.title}}</b>
+<span style="font-size: 14px; color: #6B625A">{{r.sub}}</span>
+<span style="margin-top: auto; padding-top: 10px; display: flex; gap: 14px; font-size: 13px; color: #4F4740; border-top: 1px solid #EEE9E2">
+<span>{{r.por}}</span><span>{{r.time}}</span>
+</span>
+</span>
+</a>
+</sc-for>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { f: 'alle' }; }
+renderVals() {
+const CARDS = [{"id": "grenadiermarsch", "title": "Grenadiermarsch", "sub": "mit Kürbis und Dürre", "img": "/_blob/4ff3ee67a60fd11fc271e13aff57962c", "cat": ["kürbis", "fleisch"], "por": "4 Portionen", "time": "30 Min."}, {"id": "kalbsleber", "title": "Kalbsleber", "sub": "mit Kapern & knusprigen Rösti", "img": "/_blob/a06d5cd67bc0e69f69eae8db148c7cce", "cat": ["fleisch"], "por": "4 Portionen", "time": "1 Std."}, {"id": "tartiflette", "title": "Kürbis-Tartiflette", "sub": "goldbraun aus dem Ofen", "img": "/_blob/8bb7cf88b8f3591258a94df0214e9e77", "cat": ["kürbis", "vegetarisch"], "por": "6 Portionen", "time": "1½ Std."}, {"id": "kuerbiseintopf", "title": "Kürbiseintopf", "sub": "mit Bohnen und Bratwürsten", "img": "/_blob/1377f86c7b18c8cf6919a5e62ad7c6dd", "cat": ["kürbis", "fleisch"], "por": "4 Portionen", "time": "1 Std."}, {"id": "brathaehnchen", "title": "Brathähnchen", "sub": "mit Rosmarinkartoffeln", "img": "/_blob/7e8226039c43c09383ea869eb0a721af", "cat": ["fleisch"], "por": "4–6 Personen", "time": "1 Std. + Marinieren"}, {"id": "roesti-lachs", "title": "Rösti", "sub": "mit Salat und Lachs", "img": "/_blob/ba17d37942dd5345945aa59c16492097", "cat": ["fisch"], "por": "1 Portion", "time": "Zeit nicht angegeben"}, {"id": "mohnbuchteln", "title": "Mohnbuchteln", "sub": "mit Powidlfülle und Vanillesauce", "img": "/_blob/6be078bca96e3744a05ee748d5418a64", "cat": ["süßspeisen"], "por": "12 Stück", "time": "1½ Std. + Gehzeit"}, {"id": "powidl-tarte", "title": "Tarte", "sub": "mit Powidl und Mohnstreusel", "img": "/_blob/3f405b3631de3508fcd34e05f3f14e09", "cat": ["süßspeisen"], "por": "8 Stück", "time": "1 Std. + Kühlen"}, {"id": "mohn-palatschinken", "title": "Mohn-Palatschinken-Auflauf", "sub": "mit Vanilleguss", "img": "/_blob/cfd84b31eafbb7850f986a0342829dd7", "cat": ["süßspeisen"], "por": "4–6 Portionen", "time": "1½ Std."}];
+const CAT = { 'kürbis': ['Kürbis', '#C2410C'], 'fleisch': ['Fleisch', '#9F1239'], 'vegetarisch': ['Vegetarisch', '#3F6212'], 'fisch': ['Fisch', '#1D4E89'], 'süßspeisen': ['Süßspeisen', '#6D28D9'] };
+const f = this.state.f;
+const list = ['alle', 'kürbis', 'fleisch', 'vegetarisch', 'fisch', 'süßspeisen'];
+const chips = list.map(k => {
+  const on = f === k;
+  const n = k === 'alle' ? CARDS.length : CARDS.filter(c => c.cat.includes(k)).length;
+  return { label: k === 'alle' ? 'Alle' : CAT[k][0], n, pressed: on ? 'true' : 'false', pick: () => this.setState({ f: k }),
+    style: on ? 'background: #1E1A17; color: #FFFFFF; border-color: #1E1A17' : 'background: #FFFFFF; color: #1E1A17',
+    dot: k === 'alle' ? 'display: none' : 'background: ' + CAT[k][1] };
+});
+const cards = CARDS.filter(c => f === 'alle' || c.cat.includes(f)).map(c => ({ ...c,
+  catLabel: c.cat.map(k => CAT[k][0]).join(' · '), catStyle: 'color: ' + CAT[c.cat[c.cat.length > 1 && c.cat[0] === 'kürbis' ? 0 : 0]][1] }));
+return { chips, cards };
+}
+}
+</script>
+</body>
+</html>

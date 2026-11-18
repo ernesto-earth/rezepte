@@ -14,7 +14,9 @@ Zeitschriften und Eingangsmaterial bleiben draußen. Die Bearbeiten-Seite behäl
 - **Fotos:** `claude-seite/img/<id>.jpg` (verkleinert auf max. 800 px, JPEG).
 - Kategorien sind in `claude-seite/site.js` in `const CAT = { 'schlüssel': ['Anzeigename', '#Farbe'], … }`
   definiert (derzeit: gemüse, fleisch, vegetarisch, fisch, süßspeisen, suppen). Neue Kategorie → dort ergänzen.
-- Nur lokal beim Besitzer, **nicht im Repo**: `pdf/`, `eingang/`, `tmp/`, `work/`, `rezept-sammlung/`, `.hermes.md`.
+- Nur lokal beim Besitzer, **nicht im Repo**: `pdf/`, `eingang/`, `tmp/`, `work/` (außer `work/designvorschlag-2026-11-04/`),
+  `kontext-readly-artikel.md`, `.hermes.md`. Die alte `rezept-sammlung/` liegt seit 2026-11-18 in
+  `iCloud Drive/COS-Sicherung/altlasten-2026-11-18/`.
 
 Schnell nachschlagen:
 

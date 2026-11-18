@@ -17,7 +17,7 @@ und veröffentlicht die Seite automatisch. Es gibt keine Abhängigkeit zu Claude
 | `.github/workflows/deploy.yml` | baut und lädt bei jedem Push nach heger.earth/rezepte hoch | ja |
 | `README.md`, `STATUS.md` | diese Anleitung, aktueller Stand | ja |
 | `pdf/` | Original-Rezept-PDFs aus den Zeitschriften | nein (nur lokal) |
-| `rezept-sammlung/` | frühere ChatGPT-Site, nur noch Archiv | nein |
+| `rezept-sammlung/` | frühere ChatGPT-Site; seit 2026-11-18 nicht mehr im Projektordner, sondern in `iCloud Drive/COS-Sicherung/altlasten-2026-11-18/Rezepte/` | nein |
 | `tmp/`, `work/` | Arbeitsdateien, Designentwürfe | nein |
 
 Der Ordnername `claude-seite` ist historisch; er wird von Chief of Staff referenziert und bleibt vorerst so.

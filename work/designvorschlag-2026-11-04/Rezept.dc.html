@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Am Tisch – Grenadiermarsch</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4F0}
+a{color:#1E1A17}a:hover{color:#C2410C}
+.nav a{color:#E9E4DE;text-decoration:none;font-size:14px;font-weight:500;padding:19px 1px 16px;border-bottom:3px solid transparent}
+.nav a:hover{color:#FFFFFF}
+.chip{font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:0 16px;min-height:40px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:1px solid #DDD6CD}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.card{background:#FFFFFF;border-radius:14px;overflow:hidden;text-decoration:none;color:#1E1A17;display:flex;flex-direction:column}
+.card:hover{color:#1E1A17;box-shadow:0 8px 24px rgba(30,26,23,.12)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+</style>
+</helmet>
+<div style="min-height: 1060px; background: #F6F4F0; font-family: Inter, system-ui, sans-serif; color: #1E1A17">
+<header style="background: #1E1A17">
+<div class="nav" style="max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a href="Main.dc.html" style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; color: #FFFFFF; border: 0; padding: 14px 0; margin-right: 8px">AM TISCH <span style="color: #F08A5D">REZEPTE</span></a>
+<nav aria-label="Hauptnavigation" style="display: flex; gap: 26px; flex: 1">
+<a href="Main.dc.html" >Alle Rezepte</a>
+<a href="#">Merkliste</a>
+<a href="#">Über die Sammlung</a>
+</nav>
+<span style="font-size: 13px; color: #B9B0A6">9 Rezepte · aus GUSTO und Men&#39;s Health</span>
+</div>
+</header>
+<main style="max-width: 1280px; margin: 0 auto; padding: 22px 32px 40px">
+<a href="Main.dc.html" style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; text-decoration: none; min-height: 36px">← Alle Rezepte</a>
+<div style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; margin-top: 10px; align-items: start">
+<section style="display: flex; flex-direction: column; gap: 16px">
+<img src="/_blob/4ff3ee67a60fd11fc271e13aff57962c" alt="Grenadiermarsch mit Kürbis, Fleckerl und Dürre in einer ovalen Schale" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; display: block">
+<div style="background: #FFFFFF; border-radius: 14px; padding: 18px 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em">Zutaten</h2>
+<div style="display: inline-flex; align-items: center; gap: 6px; background: #F6F4F0; border-radius: 999px; padding: 4px">
+<button type="button" aria-label="Eine Portion weniger" onClick="{{minus}}" style="width: 36px; height: 36px; border-radius: 50%; border: 0; background: #FFFFFF; font-size: 20px; cursor: pointer">−</button>
+<span style="min-width: 92px; text-align: center; font-weight: 600; font-size: 14px">{{p}} Portionen</span>
+<button type="button" aria-label="Eine Portion mehr" onClick="{{plus}}" style="width: 36px; height: 36px; border-radius: 50%; border: 0; background: #FFFFFF; font-size: 20px; cursor: pointer">+</button>
+</div>
+</div>
+<ul style="list-style: none; margin: 12px 0 0; padding: 0">
+<sc-for list="{{ing}}" as="i" hint-placeholder-count="7">
+<li style="border-top: 1px solid #EEE9E2">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; font-size: 15px">
+<input type="checkbox" style="width: 20px; height: 20px; accent-color: #C2410C">
+<span><b style="display: inline-block; min-width: 64px">{{i.amt}}</b>{{i.name}}</span>
+</label>
+</li>
+</sc-for>
+</ul>
+<p style="margin: 10px 0 0; font-size: 12px; color: #6B625A">Mengen umgerechnet aus 4 Portionen; abgehakte Zutaten bleiben beim Kochen sichtbar.</p>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 18px">
+<div>
+<span class="lbl" style="color: #C2410C">Kürbis · Fleisch · schnell</span>
+<h1 style="margin: 6px 0 0; font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 700; line-height: 1">Grenadiermarsch</h1>
+<p style="margin: 4px 0 0; font-size: 20px; color: #4F4740">mit Kürbis und Dürre</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<span style="background: #FFFFFF; border-radius: 10px; padding: 10px 14px; font-size: 14px"><small style="display: block; color: #6B625A">Zeit</small><b>30 Minuten</b></span>
+<span style="background: #FFFFFF; border-radius: 10px; padding: 10px 14px; font-size: 14px"><small style="display: block; color: #6B625A">Quelle</small><b>GUSTO 24.9.2026, S. 20</b></span>
+<span style="background: #FFFFFF; border-radius: 10px; padding: 10px 14px; font-size: 14px"><small style="display: block; color: #6B625A">Rezept</small><b>Kerstin Grossbauer</b></span>
+<a href="MobilKochen.dc.html" style="margin-left: auto; align-self: center; background: #C2410C; color: #FFFFFF; text-decoration: none; border-radius: 999px; padding: 0 22px; min-height: 48px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700">Kochmodus starten →</a>
+</div>
+<div style="background: #FFFFFF; border-radius: 14px; padding: 8px 24px 12px">
+<h2 style="margin: 12px 0 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em">Zubereitung</h2>
+<ol style="list-style: none; margin: 0; padding: 0">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+<li style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #EEE9E2">
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; line-height: 1; color: #C2410C; min-width: 28px">{{s.n}}</span>
+<span style="font-size: 16px; line-height: 1.6">{{s.t}}</span>
+</li>
+</sc-for>
+</ol>
+</div>
+<div style="background: #FBE7DC; border-radius: 14px; padding: 14px 20px; font-size: 15px"><b style="color: #9A3412">Tipp</b> · Pikanter wird’s mit Sucuk statt Dürre – sie bringt eine feine Schärfe mit.</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+constructor(p) { super(p); this.state = { p: 4 }; }
+renderVals() {
+const ING = [[400, "g", "Kürbis, gewürfelt (z. B. Hokkaido, geschält)"], [300, "g", "Teigwaren (z. B. Fleckerl)"], [1, "", "große Zwiebel"], [250, "g", "Dürre"], [1, "EL", "Paprikapulver, edelsüß"], [10, "g", "Schnittlauch"], [0, "", "Öl, Salz und Pfeffer"]];
+const STEPS = ["Zwei Töpfe mit Salzwasser aufkochen. Im einen den Kürbis, im anderen die Teigwaren jeweils bissfest garen, dann beides abseihen.", "Zwiebel schälen und fein schneiden. Die Dürre enthäuten und in mundgerechte Stücke schneiden.", "Öl in einem großen Topf erhitzen, die Zwiebel anbraten, Dürre dazugeben und mitbraten, bis Röststellen entstehen. Topf vom Herd ziehen und das Paprikapulver einrühren. Kürbis und Teigwaren untermischen, mit Salz und Pfeffer abschmecken.", "Schnittlauch fein schneiden und den Grenadiermarsch vor dem Servieren damit bestreuen."];
+const p = this.state.p;
+const fmt = v => { const r = Math.round(v * 10) / 10; return String(r).replace('.', ','); };
+const ing = ING.map(([a, u, name]) => ({ name, amt: a ? fmt(a * p / 4) + (u ? ' ' + u : '') : '' }));
+return { p, ing, steps: STEPS.map((t, i) => ({ n: i + 1, t })),
+  minus: () => this.setState({ p: Math.max(1, p - 1) }), plus: () => this.setState({ p: Math.min(12, p + 1) }) };
+}
+}
+</script>
+</body>
+</html>
