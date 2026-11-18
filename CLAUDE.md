@@ -3,6 +3,11 @@
 Ernestos Rezeptsammlung, veröffentlicht auf **http://heger.earth/rezepte/** (kein gültiges SSL → http).
 Antworten und Commit-Nachrichten auf Deutsch. Ausführliche Anleitung: `README.md`, Stand: `STATUS.md`.
 
+**Öffentlich, ohne Passwort – endgültig (E-036, Ernesto 2026-11-18):** Das Repo `ernesto-earth/rezepte` bleibt public,
+die Rezeptseite (Prod und Vorprod) ist ohne Passwort lesbar. Nicht auf privat stellen, keinen Passwortschutz und keine
+solche Rückfrage vorschlagen. Deshalb kommt nur Veröffentlichbares ins Repo (siehe unten); Original-PDFs aus
+Zeitschriften und Eingangsmaterial bleiben draußen. Die Bearbeiten-Seite behält ihr eigenes Passwort (E-027).
+
 ## Wo die Rezepte liegen
 
 - **Einzige Datenquelle:** `claude-seite/rezepte.json` – ein Array, ein Objekt pro Rezept.

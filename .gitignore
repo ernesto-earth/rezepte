@@ -1,4 +1,4 @@
-# Nur Quellen, Workflow und Doku kommen ins Repo (das Repo ist öffentlich).
+# Nur Quellen, Workflow und Doku kommen ins Repo – das Repo bleibt öffentlich (E-036, endgültig). Original-PDFs nie einchecken.
 .DS_Store
 *.webloc
 
