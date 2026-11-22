@@ -5,20 +5,41 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
-| Letzte Statusaktualisierung | 2026-11-18T21:00:37+01:00 |
-| Zuletzt erledigt | 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert (siehe AENDERUNGEN.md). Davor 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
-| Nächster Schritt | Kein offener Schritt – alles Beauftragte ist erledigt. |
+| Arbeitsstatus | aktiv; COS-022: getrennter Build-/Artefakt-/Publisher-Workflow lokal vorbereitet, nicht veröffentlicht. |
+| Letzte Statusaktualisierung | 2026-11-22T15:21:34+01:00 |
+| Zuletzt erledigt | COS-022: Workflow lokal getrennt und mit Artefakt-Fixtures geprüft; zwei isolierte Builds desselben eingefrorenen Quellstands liefern identische Dateihashes. |
+| Nächster Schritt | COS-022-Zweitprüfung und tatsächlichen CI-/Vorprod-Nachweis abschließen. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
-| Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow). |
-| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
+| Prüfstand | offen: lokale Workflow-Fixtures und isolierte Wiederholungsbuilds bestanden, unabhängige COS-022-Schlussprüfung und tatsächlicher CI-Lauf stehen aus. |
+| Site-Stand | veröffentlicht: letzter dokumentierter Prod-Nachweis 378ef54, COS-022-Kandidat bisher ausschließlich lokal. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | Commit 552b7c7 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte |
+| Site-Version | 378ef54 (letzter dokumentierter Prod-Nachweis vom 18.11.2026) |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, stündlicher Abgleich (aenderungen-abholen.mjs) |
+| Zuletzt aktualisiert durch | Hermes, COS-022; lokale Vorbereitung ohne Veröffentlichung oder Stundenjob. |
 
 ## Belege
+
+### COS-022 – lokale Workflowvorbereitung, 22.11.2026
+
+- Nur `.github/workflows/deploy.yml` und diese Statuspflege geändert; aktiver
+  `veroeffentlichen.sh` bleibt bytegleich zu HEAD. Keine Rezeptdaten, Fotos oder
+  automatisch geführten Änderungsprotokolle bearbeitet, nichts veröffentlicht.
+- Fünf-Workflow-Harness im COS: 118 Artefakt-/Grenzfälle und 49 Shellblöcke bestanden;
+  Rezept-Verifiersuite 37/37. Kein tatsächlicher Docker-/Hostinglauf daraus ableiten.
+- Zwei tatsächliche Sandbox-Builds aus derselben privaten Git-Snapshotkopie
+  `c0e6bfafea8d929ca1de83875de1d68ac4aab113`: je 11 öffentliche Dateien für beide
+  Zielpräfixe, vollständige Pfad-/Hashinventare identisch; Kopie nicht gepusht.
+  Git-Quellparent `254da9cbf915ed931db5d206e3c6ef99b8865385`.
+- Unabhängige Schlussprüfung sowie übergreifender Aktien-Artefaktblocker halten das
+  COS-022-Gesamtpaket zurück; kein Commit/Push, keine Betriebsaktivierung.
+- Vorheriger Arbeitsstatus: aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live.
+- Vorherige Statusaktualisierung: 2026-11-18T21:00:37+01:00; durch Hermes, stündlicher Abgleich (aenderungen-abholen.mjs).
+- Vorheriges „Zuletzt erledigt“: 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert (siehe AENDERUNGEN.md). Davor 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea).
+- Vorheriger nächster Schritt: Kein offener Schritt – alles Beauftragte ist erledigt.
+- Vorheriger Prüfstand: geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow).
+- Vorheriger Site-Stand: veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/.
+- Vorherige Site-Version: Commit 552b7c7 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte. Dies war eine Main-/Bearbeitungsangabe, kein frischer Live-Nachweis.
 
 ### Bearbeitungen sofort live, 18.11.2026
 
