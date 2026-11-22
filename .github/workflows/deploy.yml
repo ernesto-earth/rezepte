@@ -62,6 +62,7 @@ jobs:
           mkdir -p "$work" "$out"
           test -z "$(find "$work" -mindepth 1 -print -quit)"
           git archive HEAD | docker run --rm -i --network none --security-opt no-new-privileges --cap-drop ALL --pids-limit 256 \
+            --user "$(id -u):$(id -g)" -e HOME=/tmp \
             -e BUILD_PREFIX="$HEGER_PREFIX" -v "$work:/work:rw" -v "$out:/out:rw" "$image" sh -euc '
               tar -xf - -C /work
               HEGER_PREFIX="" node --test /work/test-deploy-pruefen.mjs
