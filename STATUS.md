@@ -5,93 +5,20 @@ Alleinige aktuelle Statusquelle dieses registrierten Projekts. Historische Abnah
 | Feld | Wert |
 |---|---|
 | Projekt | Rezepte |
-| Arbeitsstatus | aktiv; COS-022: CI-Rechtekorrektur technisch zweitgeprüft, genau ein neuer Vorprod-Versuch vorbereitet. |
-| Letzte Statusaktualisierung | 2026-11-22T20:02:26+01:00 |
-| Zuletzt erledigt | Echtes CI-Protokoll diagnostiziert: Entpacken scheitert an Bindmount-Schreibrechten; Runner-UID/GID und HOME lokal korrigiert, künstliche Shell- und Artefaktprüfungen bestanden. |
-| Nächster Schritt | Genau einen neuen Vorprod-Versuch mit frischem Grant ausführen und tatsächliche Auslieferung rücklesen. |
+| Arbeitsstatus | aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live. |
+| Letzte Statusaktualisierung | 2026-11-18T21:00:37+01:00 |
+| Zuletzt erledigt | 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert (siehe AENDERUNGEN.md). Davor 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea). |
+| Nächster Schritt | Kein offener Schritt – alles Beauftragte ist erledigt. |
 | Offene Entscheidung | keine |
 | Inhaltsstand | geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten. |
-| Prüfstand | offen: CI-Rechtekorrektur unabhängig technisch geprüft, 25 künstliche Shellfälle und 118 V2-Fälle seriell bestanden, neuer tatsächlicher CI-/Vorprod-Nachweis steht aus. |
-| Site-Stand | Fehler: COS-022-Vorprod-Deploy im CI-Build abgebrochen, Vorprod weiter auf 7ef0264 und Prod auf 552b7c7. |
+| Prüfstand | geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow). |
+| Site-Stand | veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/. |
 | Site-Projekt-ID | GitHub ernesto-earth/rezepte |
-| Site-Version | 552b7c7a01acf5fb38cf921dc28c6ebd4ced3627 / 2026-11-18T19:49:41.449Z |
+| Site-Version | Commit 552b7c7 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte |
 | Site-URL | http://heger.earth/rezepte/ (Link auch als .webloc im Ordner) |
-| Zuletzt aktualisiert durch | Hermes, COS-022; Fehlerstand nach erstem main-Push, Statusnachpflege nur lokal. |
+| Zuletzt aktualisiert durch | Hermes, stündlicher Abgleich (aenderungen-abholen.mjs) |
 
 ## Belege
-
-### COS-022 – CI-Korrektur nach neuer ausdrücklicher Freigabe, 22.11.2026
-
-- Ernesto hat private GitHub-Logdiagnose, gezielte CI-Korrektur und genau einen neuen
-  Vorprod-Versuch mit „ja“ freigegeben; alte Start-/Fehlversuchsmarker bleiben erhalten.
-- Echtes Detailprotokoll des ersten Runs: Container-Image geladen, danach bereits
-  Entpacken nach `/work` mit „Permission denied“ fehlgeschlagen; keine Tests erreicht.
-  Korrektur ausschließlich Runner-UID/GID und schreibbares HOME, keine Lockerung
-  der Netzwerk-/Capabilitygrenzen und kein veränderter Originalwrapper.
-- 25/25 neue künstliche Shellfälle über fünf Workflows, 122 Artefaktfälle und 49
-  Shellblöcke bestanden; Rezept-Verifiersuite 37/37. Keine Docker-/Linux-Abnahme.
-  Unabhängiger enger Recheck läuft, noch kein neuer Commit/Push oder Wrapperlauf.
-- Anschließend `deleg_a0b22914` ohne blockierenden Befund abgeschlossen, genaue
-  Workflowbytes technisch angenommen; 25/25 plus 5/5 COS-only unabhängig bestätigt.
-  Workflow-Pin `f67c2dfb142e4a453ff9dafb8014b333b3983da5b8fcf0978974066253fd5274`.
-  V2-Gesamtnachlauf seriell 118/118; vorheriger Parallelversuch hatte einen
-  Timeout-Fixture-Startzählfehler, nicht als bestanden gewertet und Test unverändert.
-- Bisherige Felder vor neuer Freigabe: Arbeitsstatus „aktiv; COS-022 auf main gepusht, echter CI-Build fehlgeschlagen; kein neues Vorprod-Prüfpaket.“; Statuszeit `2026-11-22T19:46:51+01:00`; Zuletzt erledigt „COS-022: technische Zweitprüfung abgeschlossen, isolierter Build bestanden und unveränderter Originalwrapper einmal ausgeführt; 02975c4 auf main gepusht, CI-Deploy nicht erreicht.“; Nächster Schritt „Fehler im echten isolierten CI-Build diagnostizieren und beheben.“; Offene Entscheidung „Freigabe für CI-Korrektur und einen neuen Vorprod-Versuch nach dem fehlgeschlagenen Erstlauf.“; Prüfstand „Fehler: lokale isolierte Builds und technische Zweitprüfung bestanden, echter CI-Build für 02975c4 mit Exit 2 fehlgeschlagen.“.
-
-### COS-022 – erster echter Vorprod-Versuch fehlgeschlagen, 22.11.2026
-
-- Unverändertes `veroeffentlichen.sh` einmal über den technisch geprüften, gepinnten
-  Kontrollprozess ausgeführt; isolierter Build: zehn Rezepte, elf öffentliche Dateien.
-  GitHub bestätigt `main` und Action-Quellrevision
-  `02975c4808503e1b068228afdd68469107700da5`.
-- Verbatim Ergebnis des Originalwrappers:
-  `ERGEBNIS: FEHLER – Deploy Action-Lauf 45055003218: failure – https://github.com/ernesto-earth/rezepte/actions/runs/45055003218`.
-  Log: `~/.hermes/cache/scratch/cos022-final-router-mtv54k1a/delivery-rezepte.log`.
-- Frische GitHub-Abfrage: Job `137308152429` scheitert in „Isolierte Tests und Build
-  ohne Netzwerk“, Annotation „Process completed with exit code 2.“; Einfrieren und
-  Artefaktupload übersprungen, Deploy-Job `137308225610` vollständig übersprungen.
-  Die genaue Ursache ist ohne berechtigten Zugriff auf das Detailprotokoll ungeklärt.
-- Frisch gelesene öffentliche Versionsdateien: Vorprod
-  `7ef0264eb5ed0ea1ba269cbd57645b5c1daec900`, Prod
-  `552b7c7a01acf5fb38cf921dc28c6ebd4ced3627`; letzteres stimmt mit GitHub `prod`
-  überein, Deploy-Zeit `2026-11-18T19:49:41.449Z`. Kein neues COS-022-Prüfpaket.
-- Kein Wiederholen, Umgehen, Prod oder V2-Cutover; sämtliche einmaligen Auslieferungs-
-  grants wieder deaktiviert und ursprüngliche Marker/Ergebnisbelege erhalten.
-  Diese Statusnachpflege ist uncommittet; kein zusätzlicher Veröffentlichungsversuch.
-- Vollständige frühere Tabellenwerte der lokalen Vorbereitung, jetzt historisch:
-  - Arbeitsstatus: aktiv; COS-022: getrennter Build-/Artefakt-/Publisher-Workflow lokal vorbereitet, nicht veröffentlicht.
-  - Letzte Statusaktualisierung: 2026-11-22T15:21:34+01:00
-  - Zuletzt erledigt: COS-022: Workflow lokal getrennt und mit Artefakt-Fixtures geprüft; zwei isolierte Builds desselben eingefrorenen Quellstands liefern identische Dateihashes.
-  - Nächster Schritt: COS-022-Zweitprüfung und tatsächlichen CI-/Vorprod-Nachweis abschließen.
-  - Offene Entscheidung: keine
-  - Inhaltsstand: geprüft: Zehn Rezepte unverändert; am 17.11.2026 wurden ausschließlich Kopfleiste und Stildatei geändert, keine Rezeptdaten.
-  - Prüfstand: offen: lokale Workflow-Fixtures und isolierte Wiederholungsbuilds bestanden, unabhängige COS-022-Schlussprüfung und tatsächlicher CI-Lauf stehen aus.
-  - Site-Stand: veröffentlicht: letzter dokumentierter Prod-Nachweis 378ef54, COS-022-Kandidat bisher ausschließlich lokal.
-  - Site-Projekt-ID: GitHub ernesto-earth/rezepte
-  - Site-Version: 378ef54 (letzter dokumentierter Prod-Nachweis vom 18.11.2026)
-  - Site-URL: http://heger.earth/rezepte/ (Link auch als .webloc im Ordner)
-  - Zuletzt aktualisiert durch: Hermes, COS-022; lokale Vorbereitung ohne Veröffentlichung oder Stundenjob.
-
-### COS-022 – lokale Workflowvorbereitung, 22.11.2026
-
-- Nur `.github/workflows/deploy.yml` und diese Statuspflege geändert; aktiver
-  `veroeffentlichen.sh` bleibt bytegleich zu HEAD. Keine Rezeptdaten, Fotos oder
-  automatisch geführten Änderungsprotokolle bearbeitet, nichts veröffentlicht.
-- Fünf-Workflow-Harness im COS: 118 Artefakt-/Grenzfälle und 49 Shellblöcke bestanden;
-  Rezept-Verifiersuite 37/37. Kein tatsächlicher Docker-/Hostinglauf daraus ableiten.
-- Zwei tatsächliche Sandbox-Builds aus derselben privaten Git-Snapshotkopie
-  `c0e6bfafea8d929ca1de83875de1d68ac4aab113`: je 11 öffentliche Dateien für beide
-  Zielpräfixe, vollständige Pfad-/Hashinventare identisch; Kopie nicht gepusht.
-  Git-Quellparent `254da9cbf915ed931db5d206e3c6ef99b8865385`.
-- Unabhängige Schlussprüfung sowie übergreifender Aktien-Artefaktblocker halten das
-  COS-022-Gesamtpaket zurück; kein Commit/Push, keine Betriebsaktivierung.
-- Vorheriger Arbeitsstatus: aktiv; seit E-035 Vorprod (heger.earth/vorprod/rezepte/) und Prod (heger.earth/rezepte/), beide live.
-- Vorherige Statusaktualisierung: 2026-11-18T21:00:37+01:00; durch Hermes, stündlicher Abgleich (aenderungen-abholen.mjs).
-- Vorheriges „Zuletzt erledigt“: 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Zutaten/Mengen geändert (siehe AENDERUNGEN.md). Davor 2026-11-18: Über die Bearbeiten-Seite: „Kürbiseintopf“ (kuerbiseintopf): Foto geändert (siehe AENDERUNGEN.md). Davor 18.11.2026: Bearbeiten-Seite – Rezeptänderungen gehen immer sofort live (prod), Vorprod nur noch für Code; freigegeben als 378ef54 (enthält auch die Bearbeitung Kürbiseintopf 2a109ea).
-- Vorheriger nächster Schritt: Kein offener Schritt – alles Beauftragte ist erledigt.
-- Vorheriger Prüfstand: geprüft: Deployment-Tests und Seitenbau in den Actions bestanden; Prod-Deploy 44373888793 am 18.11.2026 success (Versionsprüfung im Workflow).
-- Vorheriger Site-Stand: veröffentlicht: http://heger.earth/rezepte/ aus Commit 378ef54 (Branch prod), Action 44373888793 erfolgreich am 18.11.2026; Vorprod http://heger.earth/vorprod/rezepte/.
-- Vorherige Site-Version: Commit 552b7c7 (Bearbeitung über die Seite) und Nachfolger in ernesto-earth/rezepte (main); 10 Rezepte. Dies war eine Main-/Bearbeitungsangabe, kein frischer Live-Nachweis.
 
 ### Bearbeitungen sofort live, 18.11.2026
 
